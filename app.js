@@ -37,11 +37,6 @@ connection.connect((err) => {
     console.error('Error de conexión a MySQL:', err);
   } else {
     console.log('Conexión exitosa a MySQL');
-    
-    // connection.query('SELECT * FROM tu_tabla', (error, results) => {
-    //   if (error) throw error;
-    //   console.log('Resultados de la consulta:', results);
-    // });
   }
 });
 
@@ -61,7 +56,4 @@ process.on('SIGINT', () => {
     process.exit();
   });
 });
-
-// Resto de tu aplicación Node.js
-// ...
 
