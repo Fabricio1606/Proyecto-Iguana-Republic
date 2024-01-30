@@ -1,37 +1,116 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
+  <head>
+  
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Iguana Republic</title>
+  
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+        CSS
+        ============================================= -->
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="views/img/fav.png">
+    <meta name="author" content="codepixer">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta charset="UTF-8">
+    <title>Iguana Republic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<head>
-  <!-- ... (código del encabezado omitido por brevedad) ... -->
-</head>
+  </head>
+  
+  <body style="background-image: url('/views/img/menu-bg.jpg'); background-size: cover; background-position: center;">
 
-<body>
-
-  <!-- ... (código del cuerpo omitido por brevedad) ... -->
-
-  <!-- Start login Area -->
-  <section class="login-area section-gap" id="login">
-    <div class="container">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 col-md-6">
-          <div class="login-form">
-            <h4>Inicio de Sesión</h4>
-            <form action="/login" method="post">
-              <input type="text" name="username" placeholder="Usuario" required>
-              <input type="password" name="password" placeholder="Contraseña" required>
-              <button type="submit" class="primary-btn">Iniciar Sesión</button>
-            </form>
+    <header id="header" class="header-scrolled">
+      <div class="header-top">
+        <div class="container">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-lg-2 col-md-4 col-4 header-top-left no-padding">
+              <div id="logo">
+                <a href="index.ejs"><img src="img/logo.png" alt="" title="" width="250" height="100" /></a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-8 col-8 header-top-right no-padding">
+              <ul>
+                <li>Mon-Fri: 8am to 2pm</li>
+                <li>Sat-Sun: 11am to 4pm</li>
+                <li><a href="tel:(012) 6985 236 7512">(012) 6985 236 7512</a></li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div class="container">
+          <nav id="nav-menu-container">
+            <ul class="nav-menu"st>
+              <li class="menu-active"><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#coffee">Coffee</a></li>
+              <li><a href="#review">Review</a></li>
+              <li><a href="#blog">Blog</a></li>
+              <li class="menu-has-children"><a href="">Pages</a>
+                <ul>
+                  <li><a href="generic.html">Generic</a></li>
+                  <li><a href="elements.html">Elements</a></li>
+                </ul>
+                <li style="text-align: right;"><a href="login.ejs">Login</a></li>
+              </li>
+            </ul>
+          </nav><!-- #nav-menu-container -->
+        </div>
       </div>
+    </header><!-- #header -->
+    
+  
+
+    <div class="container">
+      <div class="row justify-content-center align-items-center vh-100">
+          <div class="col-md-6">
+              <div class="login-form bg-white p-4 rounded" style="margin-top: 100px;">
+                    <h4 class="text-center mb-4">Iniciar Sesión</h4>
+                    <form action="/login" method="post">
+                        <div class="form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese su usuario..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <hr>
+                        <p class="text-center mb-2">¿No tienes una cuenta? <a href="/registro">Registrarse</a></p>
+                        <p class="text-center"><a href="/restablecer-contrasena">¿Olvidaste tu contraseña?</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-  <!-- End login Area -->
 
-  <!-- ... (código del pie de página omitido por brevedad) ... -->
-
+    <!-- Bootstrap JS and dependencies (popper.js and jquery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
