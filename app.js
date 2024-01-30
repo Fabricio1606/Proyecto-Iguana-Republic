@@ -20,6 +20,7 @@ app.use(express.static(__dirname, { // host the whole directory
 // Configurar rutas
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
+app.get("/login.ejs", mainController.getLogin.bind(mainController));
 
 // Iniciar el servidor
 app.listen(port, () => {
