@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const MainController = require('./controllers/mainController');
+var path = require("path");
 
 const app = express();
 const port = 3000;
@@ -9,6 +10,12 @@ const port = 3000;
 // Configurar middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+
+app.use(express.static(path.resolve('./public')));
+
+app.use(express.static(__dirname, { // host the whole directory
+  extensions: ["html", "htm", "gif", "png"],
+}))
 
 // Configurar rutas
 const mainController = new MainController();
