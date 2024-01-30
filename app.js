@@ -21,7 +21,7 @@ app.listen(port, () => {
 
 // app.js
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // Paso 3: Configurar los detalles de la conexión a MySQL
 const connection = mysql.createConnection({
