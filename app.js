@@ -30,7 +30,7 @@ app.use(express.static(path.resolve('./public')));
 
 // Configuración de rutas
 const mainController = new MainController();
-app.get('/', mainController.getIndex.bind(mainController));
+app.get('/index', mainController.getIndex.bind(mainController));
 
 app.get('/login', authController.getLogin.bind(authController));
 app.get('/register', authController.getRegister.bind(authController));

@@ -7,6 +7,9 @@ module.exports = (authController) => {
   router.get('/login', authController.getLogin.bind(authController));
   router.get('/register', authController.getRegister.bind(authController));
 
+  router.post('/postlogin', authController.postLogin.bind(authController));
+  router.post('/postregister', authController.postRegister.bind(authController));
+
   // Rutas POST para procesar el formulario de inicio de sesión y registro
   // router.post('/', authController.p.bind(authController));
   // router.post('/', authController.register.bind(authController));

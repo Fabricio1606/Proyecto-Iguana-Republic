@@ -8,7 +8,7 @@ class AuthController {
     }
     getRegister(req, res) {
         const { nombre, correo, nacionalidad, usuario, password } = req.body;
-        res.render('/views/register.ejs');
+        res.render('register');
 
         // Verificar si el usuario ya existe
         connection.query('SELECT * FROM Client WHERE userClient = ?', [usuario], (error, results) => {
@@ -18,7 +18,7 @@ class AuthController {
 
             if (results.length > 0) {
                 // El nombre de usuario ya está en uso
-                return res.render('/views/register.ejs', { message: 'El nombre de usuario ya está en uso.' });
+                return res.render('register', { message: 'El nombre de usuario ya está en uso.' });
             }
 
             // Hash de la contraseña antes de almacenarla
@@ -36,7 +36,7 @@ class AuthController {
                             return res.status(500).send('Error en el servidor.');
                         }
 
-                        return res.render('/views/register.ejs', { message: 'Registro exitoso. Ahora puedes iniciar sesión.' });
+                        return res.render('register', { message: 'Registro exitoso. Ahora puedes iniciar sesión.' });
                     }
                 );
             });
@@ -45,7 +45,7 @@ class AuthController {
 
     getLogin(req, res) {
         const { username, password } = req.body;
-        res.render('/views/login.ejs');
+        res.render('login');
         // Obtener el cliente de la base de datos
         connection.query('SELECT * FROM Client WHERE userClient = ?', [username], (error, results) => {
             if (error) {
@@ -67,12 +67,12 @@ class AuthController {
                         return res.redirect('/');
                     } else {
                         // Contraseña incorrecta
-                        return res.render('/views/login.ejs', { message: 'Contraseña incorrecta.' });
+                        return res.render('login', { message: 'Contraseña incorrecta.' });
                     }
                 });
             } else {
                 // Cliente no encontrado
-                return res.render('/views/login.ejs', { message: 'Cliente no encontrado.' });
+                return res.render('login', { message: 'Cliente no encontrado.' });
             }
         });
     };
