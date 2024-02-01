@@ -2,11 +2,10 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const MainController = require('./controllers/mainController');
-const AuthController = require('./controllers/authController');
+const authController = require('./controllers/authController');
 const authRoutes = require('./Routes/authRoutes');
 const connection = require('./models/db');
 const path = require('path');
-const authController = require('./controllers/authController');
 
 const app = express();
 const port = 3000;
@@ -33,6 +32,8 @@ app.use(express.static(path.resolve('./public')));
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
 
+app.get('/login', authController.getLogin.bind(authController));
+app.get('/register', authController.getRegister.bind(authController));
 // Utiliza el controlador de autenticación para manejar las rutas de autenticación
 app.use('/auth', authRoutes(authController));
 
