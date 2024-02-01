@@ -1,0 +1,2 @@
+ex.bind(mainController);
+
