@@ -2,7 +2,7 @@
   "name": "proyecto-iguana-republic",
   "version": "1.0.0",
   "description": "Thanks for downloading this theme!",
-  "main": "Index.ejs",
+  "main": "index.ejs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
