@@ -1,68 +1,48 @@
-// app.js
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const MainController = require('./controllers/mainController');
-var path = require("path");
+const AuthController = require('./controllers/authController');
+const authRoutes = require('./Routes/authRoutes');
+const connection = require('./models/db');
+const path = require('path');
+const authController = require('./controllers/authController');
 
 const app = express();
 const port = 3000;
 
-// Configurar middleware
+connection.connect((err) => {
+
+});
+
+
+// Configuración de Express
+app.use(session({
+  secret: 'miSecreto',
+  resave: true,
+  saveUninitialized: true,
+}));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
+// Configuración de middleware y rutas adicionales
 app.use(express.static(path.resolve('./public')));
 
-app.use(express.static(__dirname, { // host the whole directory
-  extensions: ["html", "htm", "gif", "png"],
-}))
-
-// Configurar rutas
+// Configuración de rutas
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
-app.get("/login.ejs", mainController.getLogin.bind(mainController));
-app.get("/register.ejs", mainController.getRegister.bind(mainController));
+
+// Utiliza el controlador de autenticación para manejar las rutas de autenticación
+app.use('/auth', authRoutes(authController));
+
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Algo salió mal!');
+});
 
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`La aplicación está corriendo en http://localhost:${port}`);
 });
-
-// app.js
-
-const mysql = require('mysql2');
-
-// Paso 3: Configurar los detalles de la conexión a MySQL
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1234',
-  database: 'iguanarepublicdb',
-});
-
-// Paso 4: Conectar a la base de datos MySQL
-connection.connect((err) => {
-  if (err) {
-    console.error('Error de conexión a MySQL:', err);
-  } else {
-    console.log('Conexión exitosa a MySQL');
-  }
-});
-
-// Paso 5: Manejar eventos de conexión y errores
-connection.on('error', (err) => {
-  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-    console.error('Se perdió la conexión a MySQL.');
-  } else {
-    throw err;
-  }
-});
-
-// Paso 6: Cerrar la conexión cuando la aplicación se cierra
-process.on('SIGINT', () => {
-  connection.end(() => {
-    console.log('Conexión MySQL cerrada debido a la terminación de la aplicación.');
-    process.exit();
-  });
-});
-
