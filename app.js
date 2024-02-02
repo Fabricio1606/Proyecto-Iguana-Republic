@@ -30,9 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Configuración de rutas
 const mainController = new MainController();
 app.get('/index', mainController.getIndex.bind(mainController));
+app.get('/login', mainController.getLogin.bind(mainController));
+app.get('/register', mainController.getRegister.bind(mainController));
 
-app.get('/login', authController.getLogin.bind(authController));
-app.get('/register', authController.getRegister.bind(authController));
+app.post('/login', authController.postLogin.bind(authController));
+app.post('/register', authController.postRegister.bind(authController));
 // Utiliza el controlador de autenticación para manejar las rutas de autenticación
 app.use('/auth', authRoutes(authController));
 

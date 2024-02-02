@@ -7,7 +7,7 @@ class AuthController {
 
     }
 
-    getLogin(req, res) {
+    postLogin(req, res) {
         const { username, password } = req.body;
 
         // Obtener el cliente de la base de datos
@@ -28,7 +28,7 @@ class AuthController {
                     if (result) {
                         // Iniciar sesión y redirigir al cliente
                         req.session.client = client;
-                        return res.redirect('/');
+                        return res.redirect('index');
                     } else {
                         // Contraseña incorrecta
                         return res.render('login', { message: 'Contraseña incorrecta.' });
@@ -41,7 +41,7 @@ class AuthController {
         });
     }
 
-    getRegister(req, res) {
+    postRegister(req, res) {
         const { nombre, correo, nacionalidad, usuario, password } = req.body;
 
         // Verificar si el usuario ya existe
