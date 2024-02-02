@@ -61,9 +61,10 @@ class AuthController {
         }
     }
 
+    // authController.js
     async postRegister(req, res) {
         try {
-            const { nombre, correo, nacionalidad, usuario, password, phone, address } = req.body;
+            const { nombre, correo, nacionalidad, usuario, password } = req.body;
 
             // Verificar si el usuario ya existe
             const existingUser = await this.model.getClientByUsername(usuario);
@@ -77,7 +78,7 @@ class AuthController {
             const hash = await bcrypt.hash(password, 10);
 
             // Insertar el cliente en la base de datos
-            await this.model.insertClient(nombre, correo, nacionalidad, phone, address, usuario, hash);
+            await this.model.insertClient(nombre, correo, nacionalidad, usuario, hash);
 
             // Registro exitoso, redirigir al cliente a la página de inicio de sesión
             return res.redirect('/login');
@@ -86,6 +87,7 @@ class AuthController {
             res.status(500).send('Error en el servidor.');
         }
     }
+
 }
 
 module.exports = AuthController;
