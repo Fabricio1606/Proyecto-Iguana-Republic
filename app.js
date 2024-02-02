@@ -2,8 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const MainController = require('./controllers/mainController');
-const authController = require('./controllers/authController');
-const authRoutes = require('./Routes/authRoutes');
+const AuthController = require('./controllers/authController');
 const connection = require('./models/db');
 const path = require('path');
 const app = express();
@@ -16,9 +15,9 @@ connection.connect((err) => {
 
 // Configuración de Express
 app.use(session({
-secret: 'miSecreto',
-resave: true,
-saveUninitialized: true,
+  secret: 'miSecreto',
+  resave: true,
+  saveUninitialized: true,
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,13 +29,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Configuración de rutas
 const mainController = new MainController();
 app.get('/index', mainController.getIndex.bind(mainController));
-app.get('/login', mainController.getLogin.bind(mainController));
-app.get('/register', mainController.getRegister.bind(mainController));
 
-app.post('/login', authController.postLogin.bind(authController));
-app.post('/register', authController.postRegister.bind(authController));
-// Utiliza el controlador de autenticación para manejar las rutas de autenticación
-app.use('/auth', authRoutes(authController));
+const authController = new AuthController();
+// /login
+app.get('/login', authController.getLogin.bind(authController));
+app.post('/login', authController.getRegister.bind(authController));
+// register
+app.post('/register', authController.getRegister.bind(authController));
+app.get('/register', authController.getRegister.bind(authController));
 
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
