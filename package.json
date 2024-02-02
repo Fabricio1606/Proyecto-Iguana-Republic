@@ -2,10 +2,10 @@
   "name": "proyecto-iguana-republic",
   "version": "1.0.0",
   "description": "Thanks for downloading this theme!",
-  "main": "index.ejs",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "app.js"
   },
   "author": "",
   "license": "ISC",
