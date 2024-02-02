@@ -10,10 +10,8 @@ class AuthController {
 
     async getLogin(req, res) {
         try {
-            // Obtener datos del modelo
-            const data = await this.model.getData();
-            // Renderizar la vista con los datos
-            res.render('login', { data });
+            // No se necesita obtener datos del modelo en este método
+            res.render('login');
         } catch (error) {
             console.error(error);
             res.status(500).send('Error en el servidor.');
@@ -22,10 +20,8 @@ class AuthController {
 
     async getRegister(req, res) {
         try {
-            // Obtener datos del modelo
-            const data = await this.model.getData();
-            // Renderizar la vista con los datos
-            res.render('register', { data });
+            // No se necesita obtener datos del modelo en este método
+            res.render('register');
         } catch (error) {
             console.error(error);
             res.status(500).send('Error en el servidor.');
@@ -61,7 +57,6 @@ class AuthController {
         }
     }
 
-    // authController.js
     async postRegister(req, res) {
         try {
             const { nombre, correo, nacionalidad, usuario, password } = req.body;
@@ -87,7 +82,6 @@ class AuthController {
             res.status(500).send('Error en el servidor.');
         }
     }
-
 }
 
 module.exports = AuthController;

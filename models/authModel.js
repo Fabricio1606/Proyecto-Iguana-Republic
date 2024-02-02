@@ -1,26 +1,21 @@
+// AuthModel.js
 const connection = require('./db');
-const bcrypt = require('bcrypt');
 
 class AuthModel {
     constructor() {
-        // Inicializa datos si es necesario
-        this.data = "";
+      // No es necesario inicializar datos
     }
-
+  
     async getClientByUsername(username) {
         return new Promise((resolve, reject) => {
-            connection.query(
-                'SELECT * FROM Client WHERE userClient = ?',
-                [username],
-                (error, results) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        // Devuelve el primer resultado (debería haber solo uno) o null si no se encuentra
-                        resolve(results.length > 0 ? results[0] : null);
-                    }
+            connection.query('SELECT * FROM Client WHERE userClient = ?', [username], (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    // Devuelve el cliente encontrado (o null si no se encuentra)
+                    resolve(results.length > 0 ? results[0] : null);
                 }
-            );
+            });
         });
     }
 

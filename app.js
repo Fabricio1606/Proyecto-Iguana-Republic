@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuración de rutas
 const mainController = new MainController();
+app.get('/', mainController.getIndex.bind(mainController));
 app.get('/index', mainController.getIndex.bind(mainController));
 
 const authController = new AuthController();
