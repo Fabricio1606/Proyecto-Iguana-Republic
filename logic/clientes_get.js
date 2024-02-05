@@ -1,4 +1,4 @@
-const clientsUrl = 'http://localhost:5000/clients';  
+const clientsUrl = 'http://localhost:3000/clients';  
 
 function get(url) {
     return fetch(url)
