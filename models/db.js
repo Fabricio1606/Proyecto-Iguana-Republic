@@ -7,7 +7,6 @@ const connection = mysql.createConnection({
     password: '1234',
     database: 'iguanarepublicdb',
 });
-module.exports = connection; 
 
 connection.connect((err) => {
     if (err) {
@@ -33,4 +32,7 @@ process.on('SIGINT', () => {
         process.exit();
     });
 });
+
+module.exports = connection; 
+
 
