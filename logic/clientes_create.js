@@ -1,8 +1,9 @@
-function create(url, data) {
+function create(url, data, authCredentials = null) {
     const requestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': authCredentials ? `Bearer ${authCredentials.token}` : '',
         },
         body: JSON.stringify(data),
     };
@@ -28,36 +29,33 @@ function create(url, data) {
 
 async function agregarPersona() {
     const nombre = document.getElementById('nombre').value;
-    const apellido1 = document.getElementById('apellido1').value;
-    const apellido2 = document.getElementById('apellido2').value;
-    const cedula = document.getElementById('cedula').value;
-    const fecha = document.getElementById('fechaNacimiento').value;
-    const genero = document.getElementById('genero').value;
-    const estado = document.getElementById('estado').value;
-    
-    
-    if (!nombre || !apellido1 || !apellido2 || !cedula || !fecha || !genero || !estado) {
+    const correo = document.getElementById('correo').value;
+    const nacionalidad = document.getElementById('nacionalidad').value;
+    const usuario = document.getElementById('usuario').value;
+    const password = document.getElementById('password').value;
+
+    if (!nombre || !correo || !nacionalidad || !usuario || !password) {
         alert('Por favor, complete todos los campos.');
         return;
     }
 
-    let partes = fecha.split('-');
-    let fecha_nacimiento = `${partes[2]}-${partes[1]}-${partes[0]}`;
-    
-    const persona = { nombre, apellido1, apellido2, cedula, fecha_nacimiento, genero, estado };
+    const user = {
+        nombre,
+        correo,
+        nacionalidad,
+        usuario,
+        password,
+    };
 
     try {
-        await create(personas_url, persona);
-        alert('Agregado con éxito');
-        limpiarFormulario();
-        await actualizarLista();
-        llenarSelect();
-        console.log(persona.fecha);
+        // Utiliza la función create para hacer la solicitud de registro
+        await create('/register', user);
+        alert('Registro exitoso');
+        limpiarFormulario();  // Asegúrate de definir esta función si no está ya definida
     } catch (error) {
-        console.error('Error al agregar persona:', error);
-        alert('Error al agregar persona. Consulta la consola para más detalles.');
+        console.error('Error al registrar usuario:', error);
+        alert('Error al registrar usuario. Consulta la consola para más detalles.');
     }
-    
 }
 
 
