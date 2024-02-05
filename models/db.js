@@ -6,6 +6,7 @@ const connection = mysql.createConnection({
     user: 'root',
     password: '1234',
     database: 'iguanarepublicdb',
+    port:'3306'
 });
 
 connection.connect((err) => {

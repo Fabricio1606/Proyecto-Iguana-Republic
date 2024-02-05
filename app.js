@@ -5,12 +5,16 @@ const cors = require('cors');
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const port = 8050;
-
-
+const path = require('path'); // Agrega esta línea para importar el módulo path
+const port = 3000;
 
 connection.connect((err) => {
-
+  // Manejo de errores de conexión
+  if (err) {
+    console.error('Error de conexión a MySQL:', err);
+  } else {
+    console.log('Conexión exitosa a MySQL');
+  }
 });
 
 app.use(express.json());
@@ -39,23 +43,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// Configuración de archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuración de rutas
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
-app.get('/index', mainController.getIndex.bind(mainController));
 
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
 }));
 
-
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`La aplicación está corriendo en http://localhost:${port}`);
 });
-
 
 // Ruta de inicio
 app.get('/', (req, res) => {
@@ -70,9 +73,4 @@ app.use('/clients', client);
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Algo salió mal!');
-});
-
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`La aplicación está corriendo en http://localhost:${port}`);
 });
