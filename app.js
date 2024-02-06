@@ -6,6 +6,7 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser')
 const port = 3000;
 const authController = require('./controllers/authController');
 const Client = require('./models/client');
@@ -15,6 +16,14 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }));
+
+// middleware to make 'user' available to all templates
+app.use(function(req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+});
+
+app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -46,7 +55,7 @@ app.get('/login', authController.showLogin);
 app.get('/register', authController.showRegister);
 app.post('/login', authController.login);
 app.post('/register', authController.register);
-app.post('/logout', authController.logout);
+app.get('/logout', authController.logout);
 
 app.get('/', (req, res) => {
     res.render('index');

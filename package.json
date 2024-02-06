@@ -12,7 +12,7 @@
 
     "test": "echo \"Error: no test specified\" && exit 1",
 
-    "start": "app.js"
+    "start": "nodemon app.js"
 
   },
 
@@ -22,9 +22,11 @@
 
   "dependencies": {
 
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
 
     "body-parser": "^1.20.2",
+
+    "cookie-parser": "^1.4.6",
 
     "cors": "^2.8.5",
 

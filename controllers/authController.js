@@ -1,6 +1,6 @@
 // authController.js
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Client = require('../models/client');
 
 const authController = {};
@@ -24,7 +24,8 @@ authController.login = async (req, res) => {
         }
 
         req.session.client = client; // Almacena al cliente en la sesión
-        res.redirect('/dashboard'); // Redirige a la página de dashboard u otra ruta
+        res.locals.user = req.session.client;
+        res.redirect('/'); // Redirige a la página de dashboard u otra ruta
     } catch (error) {
         console.error(error);
         res.status(500).send('Error interno del servidor');
@@ -48,7 +49,8 @@ authController.register = async (req, res) => {
         });
 
         req.session.client = newClient;
-        res.redirect('/dashboard');
+        res.locals.user = req.session.client;
+        res.redirect('/');
     } catch (error) {
         console.error(error);
         res.status(500).send('Error interno del servidor');
@@ -64,6 +66,7 @@ authController.logout = (req, res) => {
             console.error(err);
             res.status(500).send('Error al cerrar sesión');
         } else {
+            res.locals.user = null;
             res.redirect('/');
         }
     });

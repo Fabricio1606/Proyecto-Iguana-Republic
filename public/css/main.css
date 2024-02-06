@@ -1717,7 +1717,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .confirm-radio input:checked + label {
-  background: url(../img/elements/success-radio.png) no-repeat center center/cover;
+  background: url(../../IMAGES/Index/elements/success-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -1877,7 +1877,7 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #header {
   padding: 14px 0;
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
@@ -2287,7 +2287,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   background-size: cover;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 1920px) {
   .banner-area .fullscreen {
     height: 920px !important;
   }
