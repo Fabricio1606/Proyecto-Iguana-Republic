@@ -1,7 +1,7 @@
 // models/client.js
 
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/sequelize'); // Ajusta la ruta según tu estructura de archivos
+const sequelize = require('../config/sequelize');
 
 const Client = sequelize.define('Client', {
     idClient: {
@@ -23,12 +23,12 @@ const Client = sequelize.define('Client', {
         allowNull: false,
     },
     phoneClient: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.STRING,
+        defaultValue: 'N/A',
     },
     addressClient: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: 'N/A',
     },
     userClient: {
         type: DataTypes.STRING,
@@ -41,8 +41,9 @@ const Client = sequelize.define('Client', {
     },
     adminUser: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
     },
+}, {
+    tableName: 'Client', // Establece el nombre de la tabla según la definición proporcionada
 });
 
 module.exports = Client;

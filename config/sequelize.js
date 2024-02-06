@@ -13,4 +13,7 @@ const sequelize = new Sequelize('iguanarepublicdb', 'root', '1234', {
   },
 });
 
+
+
+
 module.exports = sequelize;

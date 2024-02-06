@@ -32,19 +32,30 @@ authController.login = async (req, res) => {
 };
 
 authController.register = async (req, res) => {
-    const { userClient, passClient } = req.body;
+    const { nameClient, mailClient, nationClient, phoneClient, addressClient, userClient, passClient } = req.body;
 
     try {
         const hashedPassword = bcrypt.hashSync(passClient, 10);
-        const newClient = await Client.create({ userClient, passClient_hash: hashedPassword });
+        const newClient = await Client.create({
+            nameClient,
+            mailClient,
+            nationClient,
+            phoneClient,
+            addressClient,
+            userClient,
+            passClient_hash: hashedPassword,
+            adminUser: false // Asegúrate de proporcionar un valor para adminUser
+        });
 
-        req.session.client = newClient; // Almacena al cliente en la sesión
-        res.redirect('/dashboard'); // Redirige a la página de dashboard u otra ruta
+        req.session.client = newClient;
+        res.redirect('/dashboard');
     } catch (error) {
         console.error(error);
         res.status(500).send('Error interno del servidor');
     }
 };
+
+
 
 
 authController.logout = (req, res) => {
