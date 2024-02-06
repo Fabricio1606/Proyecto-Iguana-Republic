@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 
 // Paso 3: Configurar los detalles de la conexión a MySQL
-const connection = mysql.createConnection({
+const pool = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '1234',
@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     port:'3306'
 });
 
-connection.connect((err) => {
+pool.connect((err) => {
     if (err) {
         console.error('Error de conexión a MySQL:', err);
     } else {
@@ -18,7 +18,7 @@ connection.connect((err) => {
 });
 
 // Paso 5: Manejar eventos de conexión y errores
-connection.on('error', (err) => {
+pool.on('error', (err) => {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
         console.error('Se perdió la conexión a MySQL.');
     } else {
@@ -28,12 +28,12 @@ connection.on('error', (err) => {
 
 // Paso 6: Cerrar la conexión cuando la aplicación se cierra
 process.on('SIGINT', () => {
-    connection.end(() => {
+    pool.end(() => {
         console.log('Conexión MySQL cerrada debido a la terminación de la aplicación.');
         process.exit();
     });
 });
 
-module.exports = connection; 
+module.exports = pool; 
 
 

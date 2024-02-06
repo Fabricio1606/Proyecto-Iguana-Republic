@@ -1,13 +1,18 @@
-const pool = require("../models/db");
-const consulta = require('../queries/clientQuery');
-
-const get = (req, res) => {
-    pool.query(consulta.get, (error, result) => {
-        if (error) throw error;
-        res.status(200).json(result);
-    });
-}
-
+// Replace the existing content with the todo controller
 module.exports = {
-    get
-}
+    all: function (req, res) {
+        res.send('All todos');
+    },
+    viewOne: function (req, res) {
+        console.log('Viewing ' + req.params.id);
+    },
+    create: function (req, res) {
+        console.log('Todo created');
+    },
+    destroy: function (req, res) {
+        console.log('Todo deleted');
+    },
+    edit: function (req, res) {
+        console.log('Todo ' + req.params.id + ' updated');
+    }
+};
