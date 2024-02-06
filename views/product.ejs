@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="/img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="codepixer">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Iguana Republic</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+	<!--
+			CSS
+			============================================= -->
+	<link rel="stylesheet" href="/css/linearicons.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/product.css">
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <%- include('header', {}); %>
+    <main class="container-product">
+        <!-- Left Column / Headphones Image -->
+        <div class="left-column">
+            <img data-image="red" class="active" src="/img/<%= product.imgProd %>" alt="">
+        </div>
+        
+        
+        <!-- Right Column -->
+        <div class="right-column">
+        
+            <!-- Product Description -->
+            <div class="product-description">
+                <h1><%= product.nameProd %></h1>
+                <p><%= product.descProd %></p>
+            </div>
+        
+            <!-- Product Pricing -->
+            <div class="product-price">
+				<span><%= product.priceProd %>$</span>
+				<a href="#" class="cart-btn">Add to cart</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

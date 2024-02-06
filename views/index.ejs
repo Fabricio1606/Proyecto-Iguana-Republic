@@ -33,50 +33,7 @@
 </head>
 
 <body id="welcome">
-        <header id="header" class="header-scrolled">
-            <div class="header-top">
-                <div class="container">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-lg-2 col-md-4 col-4 header-top-left no-padding">
-                            <div id="logo">
-								<a href="/"><img src="img/logo.png" alt="" title="" width="250" height="100" /></a>
-							</div>
-                        </div>
-                        <div class="col-lg-6 col-md-8 col-8 header-top-right no-padding">
-                            <ul>
-								<li>Horario:</li>
-                                <li>Lun-Vie: 8am a 7pm</li>
-                                <li>Sab-Dom: 10am a 3pm</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <nav id="nav-menu-container">
-                        <ul class="nav-menu"st>
-                            <li class="menu-active"><a href="#home">Inicio</a></li>
-                            <li><a href="#about">Sobre Nosotros</a></li>
-                            <li><a href="#coffee">Menu</a></li>
-                            <li><a href="#blog">Noticas</a></li>
-							<% if (user) { %>
-								<div class="inicioSesion">
-									<% if (admin) { %>
-										<li style="text-align: right;" ><a href="/">Administrador <%= user %></a></li>
-									<% } else { %>
-										<li style="text-align: right;" ><a href="/">Hola, <%= user %></a></li>
-									<% } %>
-									<li style="text-align: right;" ><a href="/logout">Logout</a></li>
-								</div>
-							<% } else { %>
-								<div class="inicioSesion" style="vertical-align: middle;">
-									<li style="text-align: right;" ><a href="/login"><i class='bx bx-door-open' style="font-size: 18px; vertical-align: middle;"></i>Iniciar Sesión</a></li>
-								</div>
-							<% } %>
-                        </ul>
-                    </nav><!-- #nav-menu-container -->
-                </div>
-            </div>
-        </header><!-- #header -->
+    <%- include('header', {}); %>
 
         <!-- start banner Area -->
 	<section class="banner-area" id="home">
@@ -122,6 +79,8 @@
 
     <!-- Start menu Area -->
 	<section class="menu-area section-gap" id="coffee">
+		
+
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="menu-content pb-60 col-lg-10">
@@ -132,123 +91,23 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Cappuccino</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
+				<% product.map((value, key) => { %>
+					<div class="col-lg-4">
+						<a href="/products/<%- value.idProd %>">
+							<div class="single-menu">
+								<div class="title-div justify-content-between d-flex">
+									<h4><%- value.nameProd %></h4>
+									<p class="price float-right">
+										<%- value.priceProd %>$
+									</p>
+								</div>
+								<p>
+									<%- value.descProd %>
+								</p>
+							</div>
+						</a>
 					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Americano</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Espresso</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Macchiato</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Mocha</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Coffee Latte</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Piccolo Latte</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Ristretto</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-menu">
-						<div class="title-div justify-content-between d-flex">
-							<h4>Affogato</h4>
-							<p class="price float-right">
-								$49
-							</p>
-						</div>
-						<p>
-							Usage of the Internet is becoming more common due to rapid advance.
-						</p>
-					</div>
-				</div>
+				<% }) %>
 			</div>
 		</div>
 	</section>

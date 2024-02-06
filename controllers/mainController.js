@@ -1,21 +1,25 @@
 // mainController.js
 const MainModel = require('../models/mainModel');
+const Products = require('../models/product');
 
 class MainController {
   constructor() {
     this.model = new MainModel();
   }
 
-  getIndex(req, res) {
+  async getIndex(req, res) {
     // Obtener datos del modelo
     const data = this.model.getData();
     res.locals.user = req.session.client;
     const user = res.locals.user;
+
+    const productos = await Products.findAll();
+
     if(user) {
       // Renderizar la vista con los datos
-      res.render('index', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data });
+      res.render('index', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data, product: productos });
     } else {
-      res.render("index", { data })
+      res.render("index", { data, product: productos  })
     }
   }
   getLogin(req, res) {

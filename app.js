@@ -10,6 +10,9 @@ const cookieParser = require('cookie-parser')
 const port = 3000;
 const authController = require('./controllers/authController');
 const Client = require('./models/client');
+const Product = require('./models/product');
+const Category = require('./models/category');
+const productController = require("./controllers/productController")
 
 app.use(session({
     secret: 'miSecreto',
@@ -63,6 +66,9 @@ app.get('/', (req, res) => {
 
 const clientRoute = require('./routes/clientRoute');
 app.use('/clients', clientRoute);
+
+const productRoute = require('./routes/productRoute');
+app.use('/products', productRoute);
 
 sequelize.sync()
     .then(() => {

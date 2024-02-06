@@ -43,7 +43,6 @@ const Client = sequelize.define('Client', {
         type: DataTypes.BOOLEAN,
     },
 }, {
-    underscored: false, // Evita la conversión camelCase a snake_case
     tableName: 'Client', // Establece el nombre de la tabla según la definición proporcionada
 });
 
