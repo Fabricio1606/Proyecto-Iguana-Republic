@@ -1,5 +1,4 @@
 // authController.js
-
 const bcrypt = require('bcrypt');
 const Client = require('../models/client');
 
