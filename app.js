@@ -21,9 +21,9 @@ app.use(session({
 }));
 
 // middleware to make 'user' available to all templates
-app.use(function(req, res, next) {
-  res.locals.user = req.session.user;
-  next();
+app.use(function (req, res, next) {
+    res.locals.user = req.session.user;
+    next();
 });
 
 app.use(cookieParser());
@@ -33,6 +33,7 @@ app.set('view engine', 'ejs');
 
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
+app.get('/aboutUs', mainController.getaboutUs.bind(mainController));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");

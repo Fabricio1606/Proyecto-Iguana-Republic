@@ -36,6 +36,13 @@ class MainController {
     // Renderizar la vista con los datos
     res.render('register', {  });
   }
+  getaboutUs(req, res) {
+    // Obtener datos del modelo
+    const data = this.model.getData();
+
+    // Renderizar la vista con los datos
+    res.render('aboutUs', {  });
+  }
 
 }
 
