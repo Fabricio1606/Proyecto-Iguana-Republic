@@ -2400,6 +2400,17 @@ body.mobile-nav-active #mobile-nav-toggle {
   height: 350px;
   border-radius: 10px;
 }
+.container-right {
+  background-size: 555px 350px;
+  height: 350px;
+  border-radius: 10px;
+}
+
+.container-right img {
+
+  object-fit: cover; /* Ajusta la imagen para que cubra el tamaño especificado sin deformaciones */
+  border-radius: 10px; /* Asegura que las imágenes también tengan esquinas redondeadas */
+
 
 .video-right .overlay-bg {
   border-radius: 10px;
