@@ -1,5 +1,3 @@
-// app.js
-
 const express = require('express');
 const MainController = require('./controllers/mainController');
 const sequelize = require('./config/sequelize');
@@ -62,7 +60,7 @@ app.post('/register', authController.register);
 app.get('/logout', authController.logout);
 app.get('/resetpass', authController.showResetPasswordForm);
 app.post('/resetpass', authController.resetPassword);
-// Agregar la ruta para mostrar el formulario de restablecimiento de contraseña
+app.use('/resetpass', resetpassRoute);
 
 
 

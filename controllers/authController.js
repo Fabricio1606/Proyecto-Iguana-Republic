@@ -2,7 +2,8 @@
 const bcrypt = require('bcrypt');
 const Client = require('../models/client');
 const TokenModel = require('../models/tokenModel');
-const sendResetEmail = require('../logic/emailService');
+const EmailService = require('../logic/emailService');
+
 
 const authController = {};
 
@@ -61,6 +62,7 @@ authController.register = async (req, res) => {
     }
 };
 
+const emailService = new EmailService();
 authController.resetPassword = async (req, res) => {
     const { email } = req.body;
 
