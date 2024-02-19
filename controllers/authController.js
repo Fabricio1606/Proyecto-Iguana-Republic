@@ -1,6 +1,8 @@
 // authController.js
 const bcrypt = require('bcrypt');
 const Client = require('../models/client');
+const TokenModel = require('../models/tokenModel');
+const sendResetEmail = require('../logic/emailService');
 
 const authController = {};
 
@@ -10,6 +12,11 @@ authController.showLogin = (req, res) => {
 
 authController.showRegister = (req, res) => {
     res.render('register'); // Renderiza la vista de registro
+};
+
+// Método para mostrar el formulario de restablecimiento de contraseña
+authController.showResetPasswordForm = (req, res) => {
+    res.render('reset-password'); // Renderiza la vista reset-password.ejs
 };
 
 authController.login = async (req, res) => {
@@ -54,8 +61,33 @@ authController.register = async (req, res) => {
     }
 };
 
+authController.resetPassword = async (req, res) => {
+    const { email } = req.body;
 
+    try {
+        const client = await Client.findOne({ where: { mailClient: email } });
 
+        if (!client) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        // Generar un token único
+        const tokenModel = new TokenModel();
+        const resetToken = tokenModel.generateToken();
+
+        // Almacenar el token en el modelo del cliente
+        client.resetToken = resetToken;
+        await client.save();
+
+        // Enviar el token por correo electrónico al usuario utilizando la clase EmailService
+        await emailService.sendPasswordResetEmail(client.mailClient, resetToken);
+
+        res.send('Correo electrónico de restablecimiento de contraseña enviado con éxito');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error interno del servidor');
+    }
+};
 
 authController.logout = (req, res) => {
     req.session.destroy((err) => {
