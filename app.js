@@ -66,6 +66,9 @@ app.use('/resetpass', resetpassRoute);
 
 // Las demás rutas y configuraciones permanecen sin cambios
 
+const adminRoute = require('./routes/adminRoute');
+app.use('/dashboard', adminRoute);
+
 sequelize.sync()
     .then(() => {
         console.log('Base de datos sincronizada');
