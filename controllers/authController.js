@@ -4,7 +4,6 @@ const Client = require('../models/client');
 const TokenModel = require('../models/tokenModel');
 const EmailService = require('../logic/emailService');
 
-
 const authController = {};
 
 authController.showLogin = (req, res) => {
@@ -62,28 +61,34 @@ authController.register = async (req, res) => {
     }
 };
 
-const emailService = new EmailService();
+
 authController.resetPassword = async (req, res) => {
-    const { email } = req.body;
+    const { emailResetPass } = req.body; // Corregir aquí
 
     try {
-        const client = await Client.findOne({ where: { mailClient: email } });
-
-        if (!client) {
-            return res.status(404).send('Usuario no encontrado');
-        }
-
         // Generar un token único
         const tokenModel = new TokenModel();
         const resetToken = tokenModel.generateToken();
+
+        // Buscar al usuario en la base de datos
+        const client = await Client.findOne({ where: { mailClient: emailResetPass } }); // Corregir aquí
+
+        if (!client) {
+            // Si el usuario no existe, enviar un mensaje de error
+            return res.status(404).send('Usuario no encontrado');
+        }
 
         // Almacenar el token en el modelo del cliente
         client.resetToken = resetToken;
         await client.save();
 
-        // Enviar el token por correo electrónico al usuario utilizando la clase EmailService
-        await emailService.sendPasswordResetEmail(client.mailClient, resetToken);
+        // Crear una instancia de EmailService y pasar el correo electrónico del remitente
+        const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com'); // Ajusta el correo electrónico del remitente
 
+        // Enviar el token por correo electrónico al usuario utilizando el servicio de correo electrónico
+        await emailService.sendPasswordResetEmail(emailResetPass, resetToken); // Corregir aquí
+
+        // Enviar una respuesta de éxito
         res.send('Correo electrónico de restablecimiento de contraseña enviado con éxito');
     } catch (error) {
         console.error(error);
