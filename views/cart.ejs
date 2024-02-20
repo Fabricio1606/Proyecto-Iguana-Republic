@@ -2,7 +2,6 @@
 <html lang="zxx" class="no-js">
 
 <head>
-
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
@@ -17,11 +16,8 @@
     <meta charset="UTF-8">
     <!-- Site Title -->
     <title>Iguana Republic</title>
-
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-    <!--
-			CSS
-			============================================= -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/linearicons.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -46,54 +42,62 @@
                         </div>
                         <div class="single-menu-list">
                             <div class="title-wrap d-flex justify-content-between">
-                                <h4>Cart Items</h4>
-                                <h4>Price</h4>
+                                <h4 style="color: brown;">Cart Items</h4>
+                                <hr class="vertical-line">
+                                <h4 style="color: brown;">Price</h4>
+
+
                             </div>
-                            <div class="content-wrap">
+                            <div style="margin-top: 30px" class="content-wrap">
                                 <ul class="price-list">
-                                    <!-- Iterate through cart items and display here -->
-                                    <!-- Example:
-								<li class="d-flex justify-content-between">
-									<p>Product 1</p>
-									<p>$19.99</p>
-								</li>
-								-->
+                                    <li class="d-flex justify-content-between">
+                                    <li class="d-flex justify-content-between">
+                                        <p>Product 1</p>
+                                        <hr>
+                                        <p>$19.99</p>
+                                    </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div  style="align-items: flex-end;" class="cart-btn mt-60">
-                            <a href="#" class="btn btn-success template-btn">Proceed to Checkout</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- End menu-list Area -->
 
+        </section>
+
+        <section>
+            <div style="position: relative;">
+                <div style="align-items: flex-end; position: absolute; right: 20%;" class="cart-btn mt-60">
+                    <a href="#" class="btn btn-success template-btn">Proceed to Checkout</a>
+                </div>
+            </div>
+        </section>
         <!-- Start footer Area -->
         <footer class="footer-area section-gap">
-            <div class="container">
+            <div style="margin-top: 100px" class="container">
                 <div class="row">
                     <div class="col-lg-5 col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h4>About Us</h4>
+                            <a href="/aboutUs#contact">
+                                <h4 style="color: brown;">About Us</h4>
+                            </a>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.
+                                For more information, please go here!
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-5  col-md-6 col-sm-6">
                         <div class="single-footer-widget">
-                            <h4>Contact Us</h4>
-                            <p>
-                                123, Main Street, Your City
-                                <br>info@example.com
-                                <br>+1234567890
-                            </p>
+                            <a href="/aboutUs#contact">
+                                <h4 style="color: brown;">Contact Us</h4>
+                            </a>
+
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
         <!-- End footer Area -->
+</body>
+
+</html>

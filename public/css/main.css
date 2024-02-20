@@ -2379,6 +2379,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 12px;
   font-weight: 300;
 }
+.vertical-line {
+  position: absolute;
+  border-left: 1px solid brown;
+  height: 80%; /* Ajustamos la altura para que cubra toda la altura del contenedor */
+  margin: 30px 80%; /* Ajustamos el margen para separar la línea de los elementos de texto */
+}
 
 .video-left h1 {
   padding-bottom: 20px;
