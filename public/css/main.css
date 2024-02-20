@@ -50,12 +50,6 @@
 }
 
 body {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  overflow: hidden;
-  background-image: url('/public/img/background.png');
   color: #777777;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
