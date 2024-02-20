@@ -7,36 +7,30 @@
                         <a href="/"><img src="/img/logo.png" alt="" title="" width="250" height="100" /></a>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-8 col-8 header-top-right no-padding">
-                    <ul>
-                        <li>Horario:</li>
-                        <li>Lun-Vie: 8am a 7pm</li>
-                        <li>Sab-Dom: 10am a 3pm</li>
-                    </ul>
-                </div>
             </div>
         </div>
         <div class="container">
             <nav id="nav-menu-container">
-                <ul class="nav-menu"st>
-                    <li class="menu-active"><a href="/">Inicio</a></li>
-                    <li><a href="/aboutUs">Sobre Nosotros</a></li>
-                    <li><a href="#coffee">Menu</a></li>
-                    <li><a href="#blog">Noticas</a></li>
+                <ul class="nav-menu" st>
+                    <li class="menu-active"><a href="/">Home</a></li>
+                    <li><a href="/aboutUs">About Us</a></li>
+                    <li><a href="#coffee">Products</a></li>
+                    <li><a href="#blog">News</a></li>
                     <% if (user) { %>
                         <div class="inicioSesion">
                             <% if (admin) { %>
-                                <li style="text-align: right;" ><a href="/">Administrador <%= user %></a></li>
-                            <% } else { %>
-                                <li style="text-align: right;" ><a href="/">Hola, <%= user %></a></li>
+                                <li style="text-align: right;"><a href="/">Administrador <%= user %></a></li>
+                                <% } else { %>
+                                    <li style="text-align: right;"><a href="/">Hola, <%= user %></a></li>
+                                    <% } %>
+                                        <li style="text-align: right;"><a href="/logout">Logout</a></li>
+                        </div>
+                        <% } else { %>
+                            <div class="inicioSesion" style="vertical-align: middle;">
+                                <li style="text-align: right;"><a href="/login"><i class='bx bx-door-open'
+                                            style="font-size: 18px; vertical-align: middle;"></i>Log In</a></li>
+                            </div>
                             <% } %>
-                            <li style="text-align: right;" ><a href="/logout">Logout</a></li>
-                        </div>
-                    <% } else { %>
-                        <div class="inicioSesion" style="vertical-align: middle;">
-                            <li style="text-align: right;" ><a href="/login"><i class='bx bx-door-open' style="font-size: 18px; vertical-align: middle;"></i>Iniciar Sesión</a></li>
-                        </div>
-                    <% } %>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>

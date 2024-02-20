@@ -45,7 +45,8 @@
 						Start your day with <br>
 						coffee!
 					</h1>
-					<a href="#" class="primary-btn text-uppercase">Buy Now</a>
+					<a href="" class="primary-btn text-uppercase">Buy Now</a>
+
 				</div>
 			</div>
 		</div>
@@ -79,8 +80,6 @@
 
     <!-- Start menu Area -->
 	<section class="menu-area section-gap" id="coffee">
-		
-
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="menu-content pb-60 col-lg-10">
@@ -91,26 +90,39 @@
 				</div>
 			</div>
 			<div class="row">
-				<% product.map((value, key) => { %>
-					<div class="col-lg-4">
-						<a href="/products/<%- value.idProd %>">
-							<div class="single-menu">
-								<div class="title-div justify-content-between d-flex">
-									<h4><%- value.nameProd %></h4>
-									<p class="price float-right">
-										<%- value.priceProd %>$
-									</p>
-								</div>
-								<p>
-									<%- value.descProd %>
-								</p>
-							</div>
-						</a>
-					</div>
-				<% }) %>
+				<div class="col-lg-12">
+					<table class="table">
+						<tbody>
+							<% for (var i = 0; i < product.length; i+=4) { %>
+								<tr>
+									<% for (var j = i; j < i+4; j++) { %>
+										<% if (j < product.length) { %>
+											<td>
+												<a href="/products/<%- product[j].idProd %>" style="color: brown; text-decoration: none;">
+													<div class="single-menu">
+														<div class="title-div justify-content-between d-flex">
+															<h4><%- product[j].nameProd %></h4>
+															<p class="price float-right">
+																<%- product[j].priceProd %>$
+															</p>
+														</div>
+														<p>
+															<%- product[j].descProd %>
+														</p>
+													</div>
+												</a>
+											</td>
+										<% } %>
+									<% } %>
+								</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</section>
+	
 	<!-- End menu Area -->
 
 	<!-- Start gallery Area -->
