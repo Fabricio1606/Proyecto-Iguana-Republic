@@ -47,6 +47,10 @@ class MainController {
     // Renderizar la vista del carrito sin pasar datos
     res.render('cart');
 }
+getProfile(req, res) {
+  // Renderizar la vista del carrito sin pasar datos
+  res.render('profile');
+}
 
 
 }
