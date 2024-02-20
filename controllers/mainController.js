@@ -43,6 +43,11 @@ class MainController {
     // Renderizar la vista con los datos
     res.render('aboutUs', {  });
   }
+  getCart(req, res) {
+    // Renderizar la vista del carrito sin pasar datos
+    res.render('cart');
+}
+
 
 }
 
