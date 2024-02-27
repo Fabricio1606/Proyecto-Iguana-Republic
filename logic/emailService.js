@@ -8,7 +8,7 @@ class EmailService {
             service: 'gmail',
             auth: {
                 user: 'reset.pass.iguanarepublic@gmail.com', // Cambiar por tu dirección de correo electrónico
-                pass: 'PASSRECOVERY2201**' // Cambiar por tu contraseña de correo electrónico
+                pass: 'qbme gebj lgqa imch' // Cambiar por tu contraseña de correo electrónico
             }
         });
         
@@ -23,7 +23,7 @@ class EmailService {
             from: this.senderEmail, // Utilizar el correo electrónico del remitente
             to: recipientEmail,
             subject: 'Restablecimiento de contraseña',
-            text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://tuapp.com/reset/${token}`
+            text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://localhost:3000/resetpass${token}`
         };
 
         // Enviar el correo electrónico
