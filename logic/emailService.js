@@ -22,16 +22,16 @@ class EmailService {
         const mailOptions = {
             from: this.senderEmail, // Utilizar el correo electrónico del remitente
             to: recipientEmail,
-            subject: 'Restablecimiento de contraseña',
-            text: `Para restablecer tu contraseña, haz clic en el siguiente enlace: http://localhost:3000/resetpass${token}`
+            subject: 'Password Reestablishment',
+            text: `Here your temporal password,${token}`
         };
 
         // Enviar el correo electrónico
         try {
             await this.transporter.sendMail(mailOptions);
-            console.log('Correo electrónico de restablecimiento de contraseña enviado.');
+            console.log('Email Sent');
         } catch (error) {
-            console.error('Error al enviar el correo electrónico:', error);
+            console.error('Error to send the email', error);
             throw error; // Reenviar el error para que pueda ser manejado en el controlador
         }
     }

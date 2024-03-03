@@ -6,21 +6,31 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const port = 3000;
 const authController = require('./controllers/authController');
 const resetpassRoute = require('./routes/resetpassRoute');
+const flash = require('connect-flash');
 
-
-
+// Configuración de express-session
 app.use(session({
     secret: 'miSecreto',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
 }));
 
+// Configuración de connect-flash
+app.use(flash());
+
+// Middleware para hacer que los mensajes flash estén disponibles en todas las vistas
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+});
+
 // Middleware para hacer 'user' disponible para todas las plantillas
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.locals.user = req.session.user;
     next();
 });
@@ -32,8 +42,8 @@ app.set('view engine', 'ejs');
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
 app.get('/aboutUs', mainController.getaboutUs.bind(mainController));
-app.get('/cart',  mainController.getCart.bind(mainController));
-app.get('/profile',mainController.getProfile.bind(mainController));
+app.get('/cart', mainController.getCart.bind(mainController));
+app.get('/profile', mainController.getProfile.bind(mainController));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -62,16 +72,16 @@ app.post('/register', authController.register);
 app.get('/logout', authController.logout);
 app.get('/resetpass', authController.showResetPasswordForm);
 app.post('/resetpass', authController.resetPassword);
+app.get('/errorLogin', authController.showerrorLogin);
 app.use('/resetpass', resetpassRoute);
-
-
 
 // Las demás rutas y configuraciones permanecen sin cambios
 
 const adminRoute = require('./routes/adminRoute');
 app.use('/dashboard', adminRoute);
 
-sequelize.sync()
+sequelize
+    .sync()
     .then(() => {
         console.log('Base de datos sincronizada');
         app.listen(port, () => {

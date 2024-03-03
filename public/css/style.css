@@ -17,7 +17,7 @@ body{
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #945c09, hsl(36, 100%, 88%), #ffff);
+	background: linear-gradient(to bottom, #48280f , hsl(36, 100%, 88%), #ffff);
 }
 
 #chk{
@@ -72,7 +72,7 @@ button:hover{
 }
 .login{
 	height: 460px;
-	background: linear-gradient(to bottom, #945c09, hsl(36, 100%, 88%), #ffff);
+	background: linear-gradient(to bottom, #48280f , hsl(36, 100%, 88%), #ffff);
 	border-radius: 60% / 10%;
 	transform: translateY(-180px);
 	transition: .8s ease-in-out;
@@ -91,3 +91,13 @@ button:hover{
 #chk:checked ~ .signup label{
 	transform: scale(.6);
 }
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #48280f; /* Color semi-transparente */
+	opacity: 0.5; /* Nivel de transparencia */
+  }

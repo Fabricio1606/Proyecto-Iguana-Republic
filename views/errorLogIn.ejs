@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Log In</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('img/bg033.jpeg');
+      background-size: cover;
+      font-family: 'Jost', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Establece el tamaño de la ventana visible */
+    }
+
+    .container {
+      margin: 25px; /* Espacio entre los contenedores */
+    }
+
+    .error-container {
+      background-color: #af7620a9; /* Color de fondo del cuadro blanco */
+      border: 30px ridge #f5e7c1; /* Borde del cuadro */
+      border-radius: 30px; /* Bordes redondeados */
+      padding: 20px; /* Espacio interno */
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1); /* Sombra */
+      text-align: center;
+    }
+
+    .error-message {
+      color: #ffffff; /* Color del texto rojo */
+      font-weight: bold; /* Texto en negrita */
+      margin-bottom: 20px; /* Espacio inferior */
+    }
+
+    #logo {
+      margin-bottom: 20px; /* Espacio inferior para separar el logo del mensaje de error */
+    }
+
+    #logo img {
+      width: 200px; /* Ajusta el tamaño del logo según sea necesario */
+      height: auto;
+    }
+
+    .button-container {
+      margin-top: 20px; /* Espacio superior para separar los botones del mensaje de error */
+    }
+
+    .button {
+      background-color: #4CAF50; /* Color de fondo del botón */
+      border: none; /* Borde del botón */
+      color: white; /* Color del texto del botón */
+      padding: 15px 32px; /* Espacio interno del botón */
+      text-align: center; /* Alineación del texto del botón */
+      text-decoration: none; /* Quita el subrayado del texto */
+      display: inline-block; /* Muestra como un elemento de bloque */
+      font-size: 14px; /* Tamaño de fuente del botón */
+      margin-right: 10px; /* Espacio entre botones */
+      border-radius: 5px; /* Bordes redondeados del botón */
+    }
+
+    .button:last-child {
+      margin-right: 0; /* Quita el margen derecho del último botón */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="error-container">
+      <div id="logo">
+        <a href="/">
+          <img src="img/logo.png" alt="Logo">
+        </a>
+      </div>
+      <div class="error-message">
+        <p>¡Error! Las credenciales son incorrectas.</p>
+      </div>
+      <div class="button-container">
+        <a href="/login" class="button">Try Again</a>
+        <a href="/" class="button">Exit</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

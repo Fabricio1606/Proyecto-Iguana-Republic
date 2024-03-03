@@ -19,6 +19,10 @@ authController.showResetPasswordForm = (req, res) => {
     res.render('reset-password'); // Renderiza la vista reset-password.ejs
 };
 
+authController.showerrorLogin = (req, res) => {
+    res.render('errorLogin'); // Renderiza la vista errorLogin.ejs
+};
+
 authController.login = async (req, res) => {
     const { userClient, passClient } = req.body;
 
@@ -26,7 +30,7 @@ authController.login = async (req, res) => {
         const client = await Client.findOne({ where: { userClient } });
 
         if (!client || !bcrypt.compareSync(passClient, client.passClient_hash)) {
-            return res.status(401).send('Credenciales incorrectas');
+            return res.render('errorLogin'); // Redirige a la vista de errorLogin.ejs
         }
 
         req.session.client = client; // Almacena al cliente en la sesión
@@ -34,7 +38,7 @@ authController.login = async (req, res) => {
         res.redirect('/'); // Redirige a la página de dashboard u otra ruta
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error interno del servidor');
+        res.status(500).send('Internal Error');
     }
 };
 
@@ -59,13 +63,13 @@ authController.register = async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error interno del servidor');
+        res.status(500).send('Internal Error');
     }
 };
 
 
 authController.resetPassword = async (req, res) => {
-    const { emailResetPass } = req.body; // Corregir aquí
+    const { emailResetPass } = req.body;
 
     try {
         // Generar un token único
@@ -73,11 +77,12 @@ authController.resetPassword = async (req, res) => {
         const resetToken = tokenModel.generateToken();
 
         // Buscar al usuario en la base de datos
-        const client = await Client.findOne({ where: { mailClient: emailResetPass } }); // Corregir aquí
+        const client = await Client.findOne({ where: { mailClient: emailResetPass } });
 
         if (!client) {
             // Si el usuario no existe, enviar un mensaje de error
-            return res.status(404).send('Usuario no encontrado');
+            req.flash('error_msg', 'Usuario no encontrado'); // Aquí se envía el mensaje flash de error
+            return res.redirect('/resetpass'); // Redirecciona al formulario de restablecimiento de contraseña
         }
 
         // Almacenar el token en el modelo del cliente
@@ -88,15 +93,23 @@ authController.resetPassword = async (req, res) => {
         const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com'); // Ajusta el correo electrónico del remitente
 
         // Enviar el token por correo electrónico al usuario utilizando el servicio de correo electrónico
-        await emailService.sendPasswordResetEmail(emailResetPass, resetToken); // Corregir aquí
+        await emailService.sendPasswordResetEmail(emailResetPass, resetToken);
 
-        // Enviar una respuesta de éxito
-        res.send('Correo electrónico de restablecimiento de contraseña enviado con éxito');
+        // Mostrar un mensaje flash de éxito
+        req.flash('success_msg', 'Your temporary password has been sent.'); // Aquí se envía el mensaje flash de éxito
+
+        // Redirigir al usuario después de un breve tiempo
+        setTimeout(() => {
+            res.redirect('/login');
+        }, 10000); // Redirigir después de 10 segundos
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error interno del servidor');
+        req.flash('error_msg', 'Error interno del servidor'); // Aquí se envía el mensaje flash de error
+        res.redirect('/resetpass'); // Redirecciona al formulario de restablecimiento de contraseña
     }
 };
+
+
 
 authController.logout = (req, res) => {
     req.session.destroy((err) => {
