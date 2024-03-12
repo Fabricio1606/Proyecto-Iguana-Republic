@@ -99,5 +99,5 @@ button:hover{
 	width: 100%;
 	height: 100%;
 	background-color: #48280fa6; /* Color semi-transparente */
-	opacity: 0.5; /* Nivel de transparencia */
+	opacity: 1; /* Nivel de transparencia */
   }
