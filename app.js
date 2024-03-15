@@ -9,8 +9,20 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const port = 3000;
 const authController = require('./controllers/authController');
+const productController = require('./controllers/productController');
 const resetpassRoute = require('./routes/resetpassRoute');
 const flash = require('connect-flash');
+
+//Creamos las tablas de la base de datos
+const cart = require("./models/cart")
+const supplier = require("./models/supplier")
+const cartDetail = require("./models/cartDetail")
+const orders = require("./models/orders")
+const orderDetails = require("./models/orderDetails")
+const deliveryZone = require("./models/deliveryZone")
+const delivery = require("./models/delivery")
+const invoice = require("./models/invoice")
+const invoiceDetail = require("./models/invoiceDetail")
 
 // Configuración de express-session
 app.use(session({
@@ -79,6 +91,9 @@ app.use('/resetpass', resetpassRoute);
 
 const adminRoute = require('./routes/adminRoute');
 app.use('/dashboard', adminRoute);
+const productRoute = require("./routes/productRoute");
+const Cart = require('./models/cart');
+app.use('/products', productRoute);
 
 sequelize
     .sync()

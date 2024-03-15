@@ -10,10 +10,17 @@ productController.showProduct = async (req, res) => {
     
     if(user) {
         // Renderizar la vista con los datos
-        res.render('product', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, product : product });
+        res.render('product_detail', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, product : product });
       } else {
-        res.render("product", { product : product })
+        res.render("product_detail", { product : product })
     }
+};
+
+productController.getAllProducts = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+
+  res.render("products", { user: user });
 };
 
 module.exports = productController;

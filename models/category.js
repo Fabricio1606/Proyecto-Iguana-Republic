@@ -1,7 +1,7 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-const Category = sequelize.define('Category', {
+const Category = sequelize.define("Category", {
   idCate: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
@@ -10,26 +10,25 @@ const Category = sequelize.define('Category', {
   },
   nomCate: {
     type: DataTypes.STRING(50),
-    allowNull: false
-  },
-  descCate: {
-    type: DataTypes.TEXT,
-    allowNull: true
+    allowNull: false,
+
+    get() {
+      const name = this.getDataValue("nomCate");
+      return name ? name : null;
+    },
+
+    set(value) {
+        this.setDataValue("nomCate", value);
+    },
+
+    validate: {
+        notEmpty: true,
+        len: [1, 50]
+    }
   }
 }, {
   sequelize,
-  tableName: 'category',
-  timestamps: false,
-  indexes: [
-    {
-      name: "PRIMARY",
-      unique: true,
-      using: "BTREE",
-      fields: [
-        { name: "idCate" },
-      ]
-    },
-  ]
+  modelName: "category"
 });
 
 module.exports = Category;
