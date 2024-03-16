@@ -1,3 +1,4 @@
+// emailService.js
 const nodemailer = require('nodemailer');
 const TempPassModel = require('../models/tempPassModel'); // Importa el modelo TempPassModel
 
@@ -14,7 +15,6 @@ class EmailService {
         
         // Almacenar el correo electrónico del remitente
         this.senderEmail = senderEmail;
-        this.tempPassModel = new TempPassModel(); // Instancia del modelo TempPassModel
     }
 
     // Método para enviar un correo electrónico de restablecimiento de contraseña
@@ -32,7 +32,7 @@ class EmailService {
             await this.transporter.sendMail(mailOptions);
             console.log('Email Sent');
             // Guardar la contraseña temporal en la base de datos usando el modelo TempPassModel
-            await this.tempPassModel.saveTempPassword(user_id, temp_password);
+            await TempPassModel.saveTempPassword(user_id, temp_password);
         } catch (error) {
             console.error('Error to send the email', error);
             throw error; // Reenviar el error para que pueda ser manejado en el controlador
