@@ -23,6 +23,8 @@ const deliveryZone = require("./models/deliveryZone")
 const delivery = require("./models/delivery")
 const invoice = require("./models/invoice")
 const invoiceDetail = require("./models/invoiceDetail")
+const TempPassModel = require("./models/tempPassModel");
+
 
 // Configuración de express-session
 app.use(session({
