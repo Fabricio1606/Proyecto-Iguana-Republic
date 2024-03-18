@@ -23,7 +23,7 @@ class EmailService {
         const mailOptions = {
             from: this.senderEmail, // Utilizar el correo electrónico del remitente
             to: recipientEmail,
-            subject: 'Password Reestablishment',
+            subject: 'Password Restablishment',
             text: `Here your temporal password, ${temp_password}`
         };
 
