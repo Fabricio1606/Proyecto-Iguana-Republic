@@ -31,7 +31,6 @@ class EmailService {
         try {
             await this.transporter.sendMail(mailOptions);
             console.log('Email Sent');
-            console.log(typeof this.tempPassModel); // Agregar console.log para verificar el tipo de this.tempPassModel
             // Guardar la contraseña temporal en la base de datos usando el modelo TempPassModel
             await this.tempPassModel.saveTempPassword(user_id, temp_password);
         } catch (error) {
