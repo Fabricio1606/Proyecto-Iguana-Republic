@@ -5,5 +5,6 @@ const router = Router();
 router.get('/', controller.showDashboard);
 router.get('/products', controller.showProducts);
 router.get('/clients', controller.showClients);
+router.get('/orders', controller.showClients);
 
 module.exports = router;

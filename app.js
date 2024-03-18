@@ -95,7 +95,7 @@ const adminRoute = require('./routes/adminRoute');
 app.use('/dashboard', adminRoute);
 const productRoute = require("./routes/productRoute");
 const Cart = require('./models/cart');
-app.use('/products', productRoute);
+app.use('/products', productRoute); 
 
 sequelize
     .sync()

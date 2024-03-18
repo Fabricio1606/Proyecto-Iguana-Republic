@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Iguana Republic</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/elements/buttons.css">
+</head>
+<body>
+    <!-- Sidebar remains unchanged -->
+
+    <section id="content">
+        <!-- Navigation remains unchanged -->
+
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Order Details</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li>
+                            <a class="active" href="#">Order Details</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Details for Order #<%= order_id %></h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Detail ID</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Line</th>
+                                <th>Product ID</th>
+                                <!-- Include more headers if necessary -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orderDetails.forEach(function(detail) { %>
+                                <tr>
+                                    <td><%= detail.id_order_detail %></td>
+                                    <td><%= detail.quantity %></td>
+                                    <td>$<%= detail.unit_price.toFixed(2) %></td>
+                                    <td>$<%= detail.total_line.toFixed(2) %></td>
+                                    <td><%= detail.product_id_prod %></td>
+                                    <!-- Include more data cells if necessary -->
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </section>
+</body>
+</html>

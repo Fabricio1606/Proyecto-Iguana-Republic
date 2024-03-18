@@ -1,6 +1,7 @@
 const Products = require('../models/product');
 const Clients = require('../models/client');
 const Category = require('../models/category');
+const Orders = require('../models/orders');
 
 const adminController = {};
 
