@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/sequelize'); // Importa la instancia de Sequelize
+const sequelize = require('../config/sequelize');
+const Client = require('../models/client'); // Importa el modelo Client
 
 const TempPassModel = sequelize.define('TempPass', {
     id: {
@@ -8,7 +9,7 @@ const TempPassModel = sequelize.define('TempPass', {
         primaryKey: true
     },
     user_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER, // Usa el mismo tipo de dato que el campo de identificación en el modelo Client
         allowNull: false
     },
     temp_password: {
@@ -27,13 +28,14 @@ const TempPassModel = sequelize.define('TempPass', {
     }
 }, {
     tableName: 'TempPasswords', // Nombre de la tabla en la base de datos
-    timestamps: true // Agrega campos createdAt y updatedAt automáticamente
+    timestamps: true, // Agrega campos createdAt y updatedAt automáticamente
+    sequelize
 });
 
 // Método para guardar un registro de contraseña temporal en la base de datos
 TempPassModel.saveTempPassword = async function (user_id, temp_password) {
     try {
-        const tempPassRecord = await this.create({
+        const tempPassRecord = await TempPassModel.create({
             user_id: user_id,
             temp_password: temp_password
         });
@@ -46,8 +48,8 @@ TempPassModel.saveTempPassword = async function (user_id, temp_password) {
 // Método para actualizar el campo passClientHash de un cliente en la base de datos
 TempPassModel.updateClientPasswordHash = async function (user_id, new_password_hash) {
     try {
-        await Client.update({ passClientHash: new_password_hash }, {
-            where: { id: user_id }
+        await Client.update({ passClient_hash: new_password_hash }, {
+            where: { id: user_id } // Utiliza el campo de identificación correcto del modelo Client
         });
     } catch (error) {
         throw new Error('Error al actualizar el hash de contraseña del cliente en la base de datos');

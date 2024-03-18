@@ -1,8 +1,9 @@
-// authController.js
 const bcrypt = require('bcryptjs');
 const Client = require('../models/client');
 const TokenModel = require('../models/tokenModel');
 const EmailService = require('../logic/emailService');
+const TempPassModel = require('../models/tempPassModel');
+const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com', TempPassModel);
 
 const authController = {};
 
@@ -67,7 +68,6 @@ authController.register = async (req, res) => {
     }
 };
 
-
 authController.resetPassword = async (req, res) => {
     const { emailResetPass } = req.body;
 
@@ -81,22 +81,19 @@ authController.resetPassword = async (req, res) => {
 
         if (!client) {
             // Si el usuario no existe, enviar un mensaje de error
-            req.flash('error_msg', 'Usuario no encontrado'); // Aquí se envía el mensaje flash de error
-            return res.redirect('/resetpass'); // Redirecciona al formulario de restablecimiento de contraseña
+            req.flash('error_msg', 'Usuario no encontrado');
+            return res.redirect('/resetpass');
         }
 
         // Almacenar el token en el modelo del cliente
         client.resetToken = resetToken;
         await client.save();
 
-        // Crear una instancia de EmailService y pasar el correo electrónico del remitente
-        const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com'); // Ajusta el correo electrónico del remitente
-
         // Enviar el token por correo electrónico al usuario utilizando el servicio de correo electrónico
-        await emailService.sendPasswordResetEmail(emailResetPass, resetToken);
+        await emailService.sendPasswordResetEmail(emailResetPass, client.idClient, resetToken);
 
         // Mostrar un mensaje flash de éxito
-        req.flash('success_msg', 'Your temporary password has been sent.'); // Aquí se envía el mensaje flash de éxito
+        req.flash('success_msg', 'Your temporary password has been sent.');
 
         // Redirigir al usuario después de un breve tiempo
         setTimeout(() => {
@@ -104,12 +101,10 @@ authController.resetPassword = async (req, res) => {
         }, 10000); // Redirigir después de 10 segundos
     } catch (error) {
         console.error(error);
-        req.flash('error_msg', 'Error interno del servidor'); // Aquí se envía el mensaje flash de error
-        res.redirect('/resetpass'); // Redirecciona al formulario de restablecimiento de contraseña
+        req.flash('error_msg', 'Error interno del servidor');
+        res.redirect('/resetpass');
     }
 };
-
-
 
 authController.logout = (req, res) => {
     req.session.destroy((err) => {
