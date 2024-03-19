@@ -15,9 +15,9 @@ class MainController {
     res.locals.user = req.session.client;
     const user = res.locals.user;
     console.log(res.locals.user.idClient);
-    const cart = await Cart.findOne({
+    /*const cart = await Cart.findOne({
       where: { ClientIdClient: res.locals.user.idClient },
-    });
+    });*/
 
     const productos = await Products.findAll();
 
