@@ -58,7 +58,7 @@ app.get('/', mainController.getIndex.bind(mainController));
 app.get('/aboutUs', mainController.getaboutUs.bind(mainController));
 app.get('/cart', mainController.getCart.bind(mainController));
 app.get('/profile', mainController.getProfile.bind(mainController));
-app.get('/fincas', mainController.getProfile.bind(mainController));
+app.get('/fincas', mainController.getFincas.bind(mainController));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
