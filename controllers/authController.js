@@ -56,7 +56,7 @@ authController.register = async (req, res) => {
             addressClient,
             userClient,
             passClient_hash: hashedPassword,
-            adminUser: false // Asegúrate de proporcionar un valor para adminUser
+            adminUser: false,
         });
 
         req.session.client = newClient;

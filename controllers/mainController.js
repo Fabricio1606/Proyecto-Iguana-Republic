@@ -37,11 +37,17 @@ class MainController {
     res.render('register', {  });
   }
   getaboutUs(req, res) {
-    // Obtener datos del modelo
+    res.locals.user = req.session.client;
+    const user = res.locals.user;
     const data = this.model.getData();
+    
+    if(user) {
+      // Renderizar la vista con los datos
+      res.render('aboutUs', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data});
+    } else {
+      res.render("aboutUs", { data})
+    }
 
-    // Renderizar la vista con los datos
-    res.render('aboutUs', {  });
   }
   getCart(req, res) {
     // Renderizar la vista del carrito sin pasar datos

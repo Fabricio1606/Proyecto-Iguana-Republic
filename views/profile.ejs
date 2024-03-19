@@ -41,37 +41,105 @@
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            background-image: url('img/finca.jpg');
+            background-size: cover;
+            font-family: 'Jost', sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            /* Agregamos position:relative para que los elementos posicionados absolutamente se basen en este */
+            color: #fff;
+            /* Color de texto blanco */
         }
 
-
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #5a3f18a6;
+            /* Color semi-transparente */
+            opacity: 1;
+            /* Nivel de transparencia */
+            z-index: -1;
+            /* Z-index menor que el formulario para colocarlo detrás */
+        }
 
         h1 {
             font-weight: bold;
-            color: rgb(126, 88, 32);
+            color: #fff;
+            /* Color de texto blanco */
             text-align: center;
         }
 
         .form-group {
             margin-bottom: 20px;
+            text-align: center;
+            /* Centrado horizontal */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 20%;
+            /* Tamaño del 20% del ancho de la pantalla */
+            height: 30px;
+            padding: 5px;
+            font-size: 14px;
+            /* Tamaño de fuente más pequeño */
+            text-align: center;
+            /* Centrado */
+            border-radius: 25px;
+            /* Bordes redondeados */
+            margin: 0 auto;
+            /* Centrado horizontal */
+            display: block;
+            /* Para que ocupen el ancho completo */
         }
 
         .btn {
-            width: 100%;
+            width: 15%;
+            /* Tamaño del 15% del ancho de la pantalla */
+            height: 25px;
+            /* Altura reducida */
             margin-bottom: 10px;
+            font-size: 12px;
+            /* Tamaño de fuente más pequeño */
+            border-radius: 25px;
+            /* Bordes redondeados */
+            margin: 0 auto;
+            /* Centrado horizontal */
+            display: block;
+            /* Para que ocupen el ancho completo */
+            background-color: #3a2506;
+            /* Color café */
+            color: #fff;
+            /* Texto blanco */
+            border: none;
+            /* Quitamos el borde */
+            transition: background-color 0.3s, color 0.3s;
+            /* Transición de color */
+        }
+
+        .btn:hover {
+            background-color: #fff;
+            /* Cambio de color al pasar el ratón */
+            color: #492d03;
+            /* Texto café */
         }
     </style>
 </head>
 
 <body>
-
     <header id="header" class="header-scrolled">
         <div class="header-top">
             <div class="container">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-lg-2 col-md-4 col-4 header-top-left no-padding">
                         <div id="logo">
-                            <a href="/"><img src="/img/logo.png" alt="" title="" width="250" height="100" /></a>
+                            <a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250"
+                                    height="100" /></a>
                         </div>
                     </div>
                 </div>
@@ -82,81 +150,77 @@
                         <li class="menu-active"><a href="/">Home</a></li>
                         <li><a href="/aboutUs">About Us</a></li>
                         <li><a href="/#coffee">Products</a></li>
-                        <li><a href="/#blog">News</a></li>
+                        <li><a href="/fincas">Farms</a></li>
                         <% if (user) { %>
                             <div class="inicioSesion">
                                 <% if (admin) { %>
-                                    <li style="text-align: right;"><a href="/">Administrador <%= user %></a></li>
+                                    <li style="text-align: right;"><a href="/dashboard">Administrador <%= user %></a>
+                                    </li>
                                     <% } else { %>
-                                        <li style="text-align: right;"><a href="/">Hola, <%= user %></a></li>
+                                        <li style="text-align: right;"><a href="/profile">Hola, <%= user %></a></li>
                                         <% } %>
                                             <li style="text-align: right;"><a href="/logout">Logout</a></li>
                                             <li style="text-align: right;"><a href="/cart"><img
                                                         src="/img/elements/cart.png" alt="Cart" title="Cart"
                                                         style="width: 20px; height: 20px; margin-left: 5px;"></a></li>
-                                            <li style="text-align: right;"><a href="/profile"><img
-                                                        src="/public/img/elements/profile.png" alt="Profile"
-                                                        title="Profile"
-                                                        style="width: 30px; height: 30px; margin-left: 5px;"></a></li>
-                            </div>
-                            <% } else { %>
-                                <div class="inicioSesion" style="vertical-align: middle;">
-                                    <li style="text-align: right;"><a href="/login"><i class='bx bx-door-open'
-                                                style="font-size: 18px; vertical-align: middle;"></i>Log In</a></li>
-                                </div>
-                                <% } %>
+                                            <% } else { %>
+                                                <div class="inicioSesion" style="vertical-align: middle;">
+                                                    <li style="text-align: right;"><a href="/login"><i
+                                                                class='bx bx-door-open'
+                                                                style="font-size: 18px; vertical-align: middle;"></i>Log
+                                                            In</a></li>
+                                                </div>
+                                                <% } %>
                     </ul>
                 </nav><!-- #nav-menu-container -->
             </div>
         </div>
     </header><!-- #header -->
-
     <section class="menu-list-area section-gap">
         <div style="margin-top: 50px" class="container">
             <h1>Profile</h1>
             <div>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="fullName"
-                            placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                            placeholder="Enter your email address">
-                    </div>
-                    <div class="form-group">
-                        <label for="nationality">Nationality</label>
-                        <input type="text" class="form-control" id="nationality" name="nationality"
-                            placeholder="Enter your nationality">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                            placeholder="Enter your phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address"
-                            placeholder="Enter your address">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            placeholder="Enter your username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Enter your password">
-                    </div>
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                </form>
+                <div class="overlay"></div> <!-- Overlay aquí -->
+                <br action="#" method="POST">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName"
+                        placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                        placeholder="Enter your email address">
+                </div>
+                <div class="form-group">
+                    <label for="nationality">Nationality</label>
+                    <input type="text" class="form-control" id="nationality" name="nationality"
+                        placeholder="Enter your nationality">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                        placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address"
+                        placeholder="Enter your address">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Enter your password">
+                </div>
+                <button type="button" class="btn btn-success">Edit</button>
+                <button type="button" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </section>
 </body>
-
 </html>
