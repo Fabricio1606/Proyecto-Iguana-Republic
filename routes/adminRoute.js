@@ -10,6 +10,7 @@ router.get('/products/newproduct', controller.showFormProduct);
 
 // CRUD CLIENTS
 router.get('/clients', controller.showClients);
+router.get('/orders', controller.showClients);
 
 // CRUD ORDERS
 router.get('/orders', controller.showOrders);
