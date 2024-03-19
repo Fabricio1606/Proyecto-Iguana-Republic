@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Category</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/elements/buttons.css">
+    <link rel="stylesheet" href="/css/elements/input.css">
+</head>
+<body onload="checkCookie()">
+    <section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Iguana Republic</span>
+		</a>
+		<ul class="side-menu top">
+			<li >
+				<a href="/dashboard">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/dashboard/products">
+					<i class='bx bxs-shopping-bag' ></i>
+					<span class="text">Products</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/clients">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Clients</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/orders">
+					<i class='bx bx-food-menu'></i>
+					<span class="text">Orders</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/logout" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+    <section id="content">
+        <nav>
+            <i class='bx bx-menu' ></i>
+            <a href="#" class="nav-link">Products</a>
+
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" name="" id="">
+                    <button type="submit" class="search"><i class='bx bx-search' ></i></button>
+                </div>
+            </form>
+
+            <input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+        </nav>
+
+        <main>
+            <div class="head-title">
+				<div class="left">
+					<h1>Modify category</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a class="active" href="/dashboard/products">Categories</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a href="#">Modify category</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            <div class="form" id="form">
+
+                <form action="/dashboard/category/modify" method="post">
+
+                    <div class="leftside">
+                        <div class="inputBox">
+                            <input type="text" name="idCate" id="idCate" value="<%- category.idCate %>" hidden>
+                            <input type="text" name="nomCate" id="nomCate" value="<%- category.nomCate %>" required>
+                            <span>Name</span>
+                        </div>
+
+                        <button class="submit"><span>Modify category</span><i></i></button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </section>
+	<script src="/js/dashboard.js"></script>
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="/js/form/category.js"></script>
+</body>
+</html>

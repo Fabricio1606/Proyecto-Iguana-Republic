@@ -23,7 +23,6 @@ const Client = sequelize.define("Client", {
         },
 
         validate: {
-            isAlpha: true,
             notEmpty: true
         }
     },
@@ -142,7 +141,13 @@ const Client = sequelize.define("Client", {
         },
 
         set(value) {
-            this.setDataValue("adminUser", value);
+            if(value == "Administrador") {
+                this.setDataValue("adminUser", true);
+            } else if(value == "Usuario") {
+                this.setDataValue("adminUser", false);
+            } else {
+                this.setDataValue("adminUser", value);
+            }
         },
 
         validate: {

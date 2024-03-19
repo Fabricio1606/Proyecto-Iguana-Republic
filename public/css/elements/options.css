@@ -36,7 +36,7 @@
     position: absolute;
     width: 30px;
     height: 30px;
-    background: #fff;
+    background: #eee;
     border-radius: 70px;
     z-index: 1;
     transition: transform 0.5s, width 0.5s, height 0.5s;
@@ -85,12 +85,16 @@
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
+    transform: translateY(-30px);
     transition: 0.25s;
+    transition-delay: calc(0s + var(--i));
 }
 
 .menuToggle.active ~ .menu ul li {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0px);
+    transition-delay: calc(0.75s + var(--i));
 }
 
 .menu ul li a {

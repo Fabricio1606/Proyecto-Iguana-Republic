@@ -41,7 +41,7 @@ const Product = sequelize.define("Products", {
     },
 
     set(value) {
-      this.setDataValue("imageProd", value);
+      this.setDataValue("imgProd", value);
     },
 
     validate: {
@@ -81,7 +81,7 @@ const Product = sequelize.define("Products", {
     },
 
     set(value) {
-      this.setDataValue("priceProd", value);
+      this.setDataValue("stockProd", value);
     },
 
     validate: {

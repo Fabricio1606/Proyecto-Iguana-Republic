@@ -86,48 +86,46 @@
 
             <div class="form" id="form">
 
-                <form action="/createproduct" method="post">
+                <form action="/dashboard/products/newproduct" method="post" enctype="multipart/form-data">
 
                     <div class="leftside">
                         <div class="inputBox">
-                            <input type="text" required>
+                            <input type="text" name="nameProd" id="nameProd" required>
                             <span>Name</span>
                         </div>
                         <div class="inputBox">
-                            <input type="number" required>
+                            <input type="number" name="priceProd" id="priceProd" required>
                             <span>Price</span>
                         </div>
                         <div class="inputBox">
-                            <input type="number" required>
+                            <input type="number" name="stockProd" id="stockProd" required>
                             <span>Stock</span>
                         </div>
                         <div class="inputBox">
-                            <textarea maxlength="130" type="text" required></textarea>
+                            <textarea maxlength="130" name="shortDescProd" id="shortProd" type="text" required></textarea>
                             <span>Short description</span>
                         </div>
         
                         <div class="inputBox">
-                            <textarea class="description" maxlength="130" type="text" required></textarea>
+                            <textarea class="description" name="descProd" id="descProd" maxlength="130" type="text" required></textarea>
                             <span>Description</span>
                         </div>
 
-                        <a href="#" class="submit"><span>Create new product</span><i></i></a>
+                        <button class="submit"><span>Create new product</span><i></i></button>
                     </div>
     
                     <div class="rigthside">
                         <div class="inputBox" id="menu">
-                            <input type="text" class="menu" readonly placeholder="Select category">
+                            <input type="text" class="menu" name="cateProd" id="cateProd" readonly placeholder="Select category">
                             <div class="option">
-                                <div onmouseover="show('Bolsas de cafe')">Bolsas de cafe</div>
-                                <div onmouseover="show('Cafe negro')">Cafe negro</div>
-                                <div onmouseover="show('Frape')">Frape</div>
-                                <div onmouseover="show('Freakshape')">Freakshape</div>
-                                <div onmouseover="show('Cafe con leche')">Cafe con leche</div>
+                                <% for (var i = 0; i < categories.length; i++) { %>
+                                    <div onmouseover="show('<%- categories[i].nomCate %>')"><%- categories[i].nomCate %></div>
+                                <% } %>
                             </div>
                         </div>
 
                         <label for="input-file" id="drop-area">
-                            <input type="file" accept="image/*" id="input-file" hidden>
+                            <input type="file" accept="image/*" name="image" id="input-file" hidden>
                             <div id="img-view">
                                 <img src="/img/icon.png">
                                 <p>Drag and drop or click here<br>to upload image</p>
@@ -141,6 +139,7 @@
     </section>
 	<script src="/js/dashboard.js"></script>
 	<script src="/js/dropdown.js"></script>
-    
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="/js/form/product.js"></script>
 </body>
 </html>
