@@ -58,12 +58,18 @@ const form = document.getElementById('form');
 switchMode.addEventListener('change', function () {
 	if(this.checked) {
 		document.body.classList.add('dark');
-		form.classList.add("dark")
 		setCookie("mode", "dark", 31);
+
+		if(form != null) {
+			form.classList.add("dark")
+		}
 	} else {
 		document.body.classList.remove('dark');
-		form.classList.remove("dark")
 		setCookie("mode", "day", 31);
+
+		if(form != null) {
+			form.classList.remove("dark")
+		}
 	}
 })
 
@@ -126,4 +132,29 @@ menuToggle.forEach(function(i) {
 	i.addEventListener("click", function() {
 		i.classList.toggle("active");
 	})
+})
+
+// MODAL SCRIPT
+const overlay = document.querySelector(".overlay");
+const section = document.getElementById("modal");
+const showBtn = document.querySelectorAll(".show-modal");
+const closeBtn = document.querySelector(".close-btn");
+
+function showModal(id) {
+	const deleteRecord = document.getElementById("delete-modal");
+	deleteRecord.href = id;
+}
+
+showBtn.forEach(function(i) {
+	i.addEventListener("click", function() {
+		section.classList.add("active")
+	})
+})
+
+closeBtn.addEventListener("click", () => {
+	section.classList.remove("active")
+})
+
+overlay.addEventListener("click", () => {
+	section.classList.remove("active")
 })

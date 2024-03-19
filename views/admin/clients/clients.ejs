@@ -8,8 +8,24 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/elements/buttons.css">
+    <link rel="stylesheet" href="/css/elements/options.css">
+    <link rel="stylesheet" href="/css/elements/modal.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
 <body onload="checkCookie()">
+	<section id="modal">
+		<span class="overlay"></span>
+		<div class="modal-box">
+		<ion-icon name="alert-circle-outline"></ion-icon>
+		<h2>CAUTION</h2>
+		<h3>Are you sure about delete this record?</h3>
+
+		<div class="buttons">
+			<button class="close-btn">CANCEL</button>
+			<a href="#" id="delete-modal"><button class="delete-btn">DELETE</button></a>
+		</div>
+	</div>
+	</section>
     <section id="sidebar">
 		<a href="#" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -69,31 +85,16 @@
 
         <main>
             <div class="head-title">
-				<div class="left">
-					<h1>Clients</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="/dashboard/clients/newclient">Clients</a>
-						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
-					</ul>
-				</div>
 			</div>
 
             <div class="table-data">
 				<div class="order">
 					<div class="head">
 						<h3>Clients</h3>
-						
-
                         <div class="head-title" style="margin-top: 20px;">
-                            <a href="#" class="btn-download">
-                                <i class='bx bxs-cloud-download' ></i>
-                                <span class="text">New Client</span>
-                            </a>
+							<div class="head-title" style="margin-top: 20px;">
+								<a href="/dashboard/clients/newclient" class="submit"><span>Create new client</span><i></i></a>
+							</div>
                         </div>
 					</div>
 					<table>
@@ -119,10 +120,16 @@
 									<% } else { %>
 										<td>Usuario</td>
 									<% } %>
-									<td>
-										<a href="/dashboard/clients/info/<%- clients[i].idClient %>" class="button-normal">View more</a>
-										<a href="/dashboard/clients/modify/<%- clients[i].idClient %>" class="button-normal">Modify</a>
-										<a href="/dashboard/clients/delete/<%- clients[i].idClient %>" class="button-danger">Delete</a>
+									
+									<td class="navigation">
+										<div class="menuToggle"></div>
+										<div class="menu">
+											<ul>
+												<li style="--i:0.1s"><a href="/dashboard/clients/info/<%- clients[i].idClient %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
+												<li style="--i:0.2s"><a href="/dashboard/clients/modify/<%- clients[i].idClient %>"><ion-icon name="create-outline"></ion-icon></a></li>
+												<li style="--i:0.3s"><a onclick="showModal('clients/delete/<%- clients[i].idClient %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
+											</ul>
+										</div>
 									</td>
 								</tr>
 							<% } %>
@@ -133,4 +140,7 @@
         </main>
     </section>
 	<script src="/js/dashboard.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>

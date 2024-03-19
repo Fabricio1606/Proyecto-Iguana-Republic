@@ -22,6 +22,20 @@
     gap: 30px;
 }
 
+.form .rightside {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#userClient {
+    margin-bottom: 30px;
+}
+
+#passClient_hash {
+    margin-bottom: 30px;
+}
+
 .form.dark #drop-area {
     margin-top: 30px;
     width: 700px;

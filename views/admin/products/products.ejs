@@ -9,8 +9,23 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/elements/buttons.css">
     <link rel="stylesheet" href="/css/elements/options.css">
+    <link rel="stylesheet" href="/css/elements/modal.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
 <body onload="checkCookie()">
+	<section id="modal">
+		<span class="overlay"></span>
+		<div class="modal-box">
+		<ion-icon name="alert-circle-outline"></ion-icon>
+		<h2>CAUTION</h2>
+		<h3>Are you sure about delete this record?</h3>
+
+		<div class="buttons">
+			<button class="close-btn">CANCEL</button>
+			<a href="#" id="delete-modal"><button class="delete-btn">DELETE</button></a>
+		</div>
+	</div>
+
     <section id="sidebar">
 		<a href="#" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -72,15 +87,6 @@
             <div class="head-title">
 				<div class="left">
 					<h1>Products</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="#">Products</a>
-						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
-					</ul>
 				</div>
 			</div>
 
@@ -89,10 +95,7 @@
 					<div class="head">
 						<h3>Categories</h3>
                         <div class="head-title">
-                            <a href="/dashboard/category/newcategory" class="btn-download">
-                                <i class='bx bxs-cloud-download' ></i>
-                                <span class="text">New Category</span>
-                            </a>
+							<a href="/dashboard/category/newcategory" class="submit"><span>Create new category</span><i></i></a>
                         </div>
 					</div>
 					<table>
@@ -112,13 +115,11 @@
 										<div class="menuToggle"></div>
 										<div class="menu">
 											<ul>
-												<li style="--i:0.1s"><a href="#"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
-												<li style="--i:0.2s"><a href="#"><ion-icon name="create-outline"></ion-icon></a></li>
-												<li style="--i:0.3s"><a href="#"><ion-icon name="trash-outline"></ion-icon></a></li>
+												<li style="--i:0.1s"><a href="/dashboard/category/info/<%- categories[i].idCate %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
+												<li style="--i:0.2s"><a href="/dashboard/category/modify/<%- categories[i].idCate %>"><ion-icon name="create-outline"></ion-icon></a></li>
+												<li style="--i:0.3s"><a onclick="showModal('category/delete/<%- categories[i].idCate %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
 											</ul>
 										</div>
-										<!-- <a href="/dashboard/category/modify/<%- categories[i].idProd %>" class="button-normal">Modificar</a>
-										<a href="/dashboard/category/delete/<%- categories[i].idProd %>" class="button-danger">Eliminar</a> -->
 									</td>
 								</tr>
 							<% } %>
@@ -132,10 +133,7 @@
 					<div class="head">
 						<h3>Products</h3>
                         <div class="head-title" style="margin-top: 20px;">
-                            <a href="/dashboard/products/newproduct" class="btn-download">
-                                <i class='bx bxs-cloud-download' ></i>
-                                <span class="text">New Product</span>
-                            </a>
+							<a href="/dashboard/products/newproduct" class="submit"><span>Create new product</span><i></i></a>
                         </div>
 					</div>
 					<table>
@@ -157,9 +155,15 @@
 									<td><%- products[i].priceProd %></td>
 									<td><%- products[i].stockProd %></td>
 									<td><%- products[i].Category.nomCate %></td>
-									<td>
-										<a href="/dashboard/products/modify/<%- products[i].idProd %>" class="button-normal">Modificar</a>
-										<a href="/dashboard/products/delete/<%- products[i].idProd %>" class="button-danger">Eliminar</a>
+									<td class="navigation">
+										<div class="menuToggle"></div>
+										<div class="menu">
+											<ul>
+												<li style="--i:0.1s"><a href="/dashboard/products/info/<%- products[i].idProd %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
+												<li style="--i:0.2s"><a href="/dashboard/products/modify/<%- products[i].idProd %>"><ion-icon name="create-outline"></ion-icon></a></li>
+												<li style="--i:0.3s"><a onclick="showModal('products/delete/<%- products[i].idProd %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
+											</ul>
+										</div>
 									</td>
 								</tr>
 							<% } %>
@@ -169,7 +173,9 @@
             </div>
         </main>
     </section>
+
 	<script src="/js/dashboard.js"></script>
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
