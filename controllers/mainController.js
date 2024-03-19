@@ -52,6 +52,10 @@ getProfile(req, res) {
   res.render('profile');
 }
 
+getProfile(req, res) {
+  // Renderizar la vista del carrito sin pasar datos
+  res.render('fincas');
+}
 
 }
 
