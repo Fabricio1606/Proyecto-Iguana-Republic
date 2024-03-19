@@ -1,157 +1,160 @@
-const { DataTypes, Sequelize } = require('sequelize');
-const sequelize = require('../config/sequelize');
+const { DataTypes, Sequelize } = require("sequelize");
+const sequelize = require("../config/sequelize");
 
-const Client = sequelize.define("Client", {
+const Client = sequelize.define(
+  "Client",
+  {
     idClient: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
     },
 
     nameClient: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
 
-        get() {
-            const name = this.getDataValue("nameClient");
-            return name ? name : null;
-        },
+      get() {
+        const name = this.getDataValue("nameClient");
+        return name ? name : null;
+      },
 
-        set(value) {
-            this.setDataValue("nameClient", value);
-        },
+      set(value) {
+        this.setDataValue("nameClient", value);
+      },
 
-        validate: {
-            isAlpha: true,
-            notEmpty: true
-        }
+      validate: {
+        notEmpty: true,
+      },
     },
 
     mailClient: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
 
-        get() {
-            const mail = this.getDataValue("mailClient");
-            return mail ? mail : null;
-        },
+      get() {
+        const mail = this.getDataValue("mailClient");
+        return mail ? mail : null;
+      },
 
-        set(value) {
-            this.setDataValue("mailClient", value);
-        },
+      set(value) {
+        this.setDataValue("mailClient", value);
+      },
 
-        validate: {
-            isEmail: true,
-            notEmpty: true
-        }
+      validate: {
+        isEmail: true,
+        notEmpty: true,
+      },
     },
 
     nationClient: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
 
-        get() {
-            const nation = this.getDataValue("nationClient");
-            return nation ? nation : null;
-        },
+      get() {
+        const nation = this.getDataValue("nationClient");
+        return nation ? nation : null;
+      },
 
-        set(value) {
-            this.setDataValue("nationClient", value);
-        },
+      set(value) {
+        this.setDataValue("nationClient", value);
+      },
 
-        validate: {
-            isAlpha: true
-        }
+      validate: {
+        isAlpha: true,
+      },
     },
 
     phoneClient: {
-        type: DataTypes.STRING,
-        defaultValue: 'N/A',
+      type: DataTypes.STRING,
+      defaultValue: "N/A",
 
-        get() {
-            const phone = this.getDataValue("phoneClient");
-            return phone ? phone : null;
-        },
+      get() {
+        const phone = this.getDataValue("phoneClient");
+        return phone ? phone : null;
+      },
 
-        set(value) {
-            this.setDataValue("phoneClient", value);
-        }
+      set(value) {
+        this.setDataValue("phoneClient", value);
+      },
     },
 
     addressClient: {
-        type: DataTypes.STRING,
-        defaultValue: 'N/A',
+      type: DataTypes.STRING,
+      defaultValue: "N/A",
 
-        get() {
-            const address = this.getDataValue("addressClient");
-            return address ? address : null;
-        },
+      get() {
+        const address = this.getDataValue("addressClient");
+        return address ? address : null;
+      },
 
-        set(value) {
-            this.setDataValue("addressClient", value);
-        },
+      set(value) {
+        this.setDataValue("addressClient", value);
+      },
 
-        validate: {
-            notEmpty: true
-        }
+      validate: {
+        notEmpty: true,
+      },
     },
 
     userClient: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
 
-        get() {
-            const user = this.getDataValue("userClient");
-            return user ? user : null;
-        },
+      get() {
+        const user = this.getDataValue("userClient");
+        return user ? user : null;
+      },
 
-        set(value) {
-            this.setDataValue("userClient", value);
-        },
+      set(value) {
+        this.setDataValue("userClient", value);
+      },
 
-        validate: {
-            notEmpty: true
-        }
+      validate: {
+        notEmpty: true,
+      },
     },
     passClient_hash: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
 
-        get() {
-            const pass = this.getDataValue("passClient_hash");
-            return pass ? pass : null;
-        },
+      get() {
+        const pass = this.getDataValue("passClient_hash");
+        return pass ? pass : null;
+      },
 
-        set(value) {
-            this.setDataValue("passClient_hash", value);
-        },
+      set(value) {
+        this.setDataValue("passClient_hash", value);
+      },
 
-        validate: {
-            notEmpty: true
-        }
+      validate: {
+        notEmpty: true,
+      },
     },
     adminUser: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: 0,
+      type: DataTypes.BOOLEAN,
+      defaultValue: 0,
 
-        get() {
-            const admin = this.getDataValue("adminUser");
-            return admin;
-        },
+      get() {
+        const admin = this.getDataValue("adminUser");
+        return admin;
+      },
 
-        set(value) {
-            this.setDataValue("adminUser", value);
-        },
+      set(value) {
+        this.setDataValue("adminUser", value);
+      },
 
-        validate: {
-            notEmpty: true
-        }
+      validate: {
+        notEmpty: true,
+      },
     },
-}, {
+  },
+  {
     sequelize,
-    modelName: "clients"
-});
+    modelName: "clients",
+  }
+);
 
 module.exports = Client;
