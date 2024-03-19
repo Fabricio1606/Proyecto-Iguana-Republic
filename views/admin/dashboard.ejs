@@ -7,8 +7,9 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/elements/buttons.css">
 </head>
-<body>
+<body onload="checkCookie()">
     <section id="sidebar">
 		<a href="#" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -87,22 +88,22 @@
 				<li>
 					<i class='bx bxs-calendar-check' ></i>
 					<span class="text">
-						<h3>1020</h3>
-						<p>New Order</p>
+						<h3><%- numOrders %></h3>
+						<p>Orders</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-group' ></i>
 					<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
+						<h3><%- clients %></h3>
+						<p>Clients</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-dollar-circle' ></i>
 					<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
+						<h3><%- products %></h3>
+						<p>Products</p>
 					</span>
 				</li>
 			</ul>
@@ -120,49 +121,30 @@
 								<th>User</th>
 								<th>Date Order</th>
 								<th>Status</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status process">Process</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status pending">Pending</span></td>
-							</tr>
-							<tr>
-								<td>
-									<img src="img/people.png">
-									<p>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-							</tr>
+							<% for (var i = 0; i < orders.length; i++) { %>
+								<tr>
+									<td><%- orders[i].Client.nameClient %></td>
+									<td><%- orders[i].dateOrder %></td>
+
+									<% if(orders[i].statusOrder == "Pending") { %>
+										<td><span class="status pending"><%- orders[i].statusOrder %></span></td>
+									<% } else if(orders[i].statusOrder == "Process") { %>
+										<td><span class="status process"><%- orders[i].statusOrder %></span></td>
+									<% } else { %>
+										<td><span class="status completed"><%- orders[i].statusOrder %></span></td>
+									<% } %>
+
+									<td>
+										<a href="/dashboard/orders/info/<%- orders[i].idOrder %>" class="button-normal">View more</a>
+										<a href="/dashboard/orders/modify/<%- orders[i].idOrder %>" class="button-normal">Modify</a>
+										<a href="/dashboard/orders/delete/<%- orders[i].idOrder %>" class="button-danger">Delete</a>
+									</td>
+								</tr>
+							<% } %>
 						</tbody>
 					</table>
 				</div>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/elements/buttons.css">
 </head>
-<body>
+<body onload="checkCookie()">
     <section id="sidebar">
 		<a href="#" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -22,13 +22,13 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="/dashboard/products">
 					<i class='bx bxs-shopping-bag' ></i>
 					<span class="text">Products</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="/dashboard/clients">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Clients</span>
@@ -73,7 +73,7 @@
 					<h1>Clients</h1>
 					<ul class="breadcrumb">
 						<li>
-							<a href="#">Clients</a>
+							<a href="/dashboard/clients/newclient">Clients</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 						<li>
@@ -101,28 +101,36 @@
 							<tr>
 								<th>Id</th>
 								<th>Name</th>
-								<th>Price</th>
-								<th>Stock</th>
-								<th>Category</th>
+								<th>Email</th>
+								<th>User</th>
+								<th>Type</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Cafe</td>
-								<td>5$</td>
-								<td>100</td>
-								<td>Capucchino</td>
-								<td>
-                                    <a href="#" class="button-normal">Modificar</a>
-                                    <a href="#" class="button-danger">Eliminar</a>
-                                </td>
-							</tr>
+							<% for (var i = 0; i < clients.length; i++) { %>
+								<tr>
+									<td><%- clients[i].idClient %></td>
+									<td><%- clients[i].nameClient %></td>
+									<td><%- clients[i].mailClient %></td>
+									<td><%- clients[i].userClient %></td>
+									<% if(clients[i].adminUser) { %>
+										<td>Administrador</td>
+									<% } else { %>
+										<td>Usuario</td>
+									<% } %>
+									<td>
+										<a href="/dashboard/clients/info/<%- clients[i].idClient %>" class="button-normal">View more</a>
+										<a href="/dashboard/clients/modify/<%- clients[i].idClient %>" class="button-normal">Modify</a>
+										<a href="/dashboard/clients/delete/<%- clients[i].idClient %>" class="button-danger">Delete</a>
+									</td>
+								</tr>
+							<% } %>
 						</tbody>
 					</table>
 				</div>
             </div>
         </main>
     </section>
+	<script src="/js/dashboard.js"></script>
 </body>

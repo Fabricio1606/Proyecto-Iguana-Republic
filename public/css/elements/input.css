@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form form {
+    display: flex;
+    align-items: flex-start;
+    min-height: 15vh;
+    flex-direction: row;
+    margin-top: 20px;
+    gap: 10px
+}
+
+.form .leftside {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form.dark #drop-area {
+    margin-top: 30px;
+    width: 700px;
+    height: 405px;
+    padding: 30px;
+    background: #19193b;
+    text-align: center;
+    border-radius: 20px;
+    display: block;
+    cursor: pointer;
+}
+
+#drop-area {
+    margin-top: 30px;
+    width: 700px;
+    height: 405px;
+    padding: 30px;
+    background: #fff;
+    text-align: center;
+    border-radius: 20px;
+    display: block;
+    cursor: pointer;
+    transition: 0.20s ease-in-out;
+}
+
+.form.dark #img-view {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 2px dashed #19193b;
+    background: #2b2b66;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#img-view {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 2px dashed #bbb5ff;
+    background: #f7f8ff;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#img-view img {
+    width: 100px;
+    margin-top: 25px;
+}
+
+#img-view p {
+    display: block;
+    font-size: 24px;
+    margin-top: 15px;
+}
+
+#img-view span {
+    display: block;
+    font-size: 18px;
+    color: #777;
+    margin-top: 15px;
+}
+
+.form.dark #img-view p {
+    display: block;
+    font-size: 24px;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.form.dark #img-view span {
+    display: block;
+    font-size: 18px;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.form .rightside {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.inputBox {
+    position: relative;
+    width: 750px;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    background: #eee;
+    border-radius: 5px;
+    outline: none;
+    color: #000000;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.inputBox input.menu {
+    cursor: pointer;
+}
+
+.inputBox#menu::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    right: 28px;
+    width: 12px;
+    height: 2px;
+    background: #555;
+    z-index: 10;
+    transform: rotate(40deg);
+    transition: 0.5s;
+}
+
+.inputBox#menu::after {
+    content: "";
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    width: 12px;
+    height: 2px;
+    background: #555;
+    z-index: 10;
+    transform: rotate(-40deg);
+    transition: 0.5s;
+}
+
+.inputBox.active#menu::before {
+    right: 20px;
+}
+
+.inputBox.active#menu::after {
+    right: 28px;
+}
+
+.inputBox.active#menu .option {
+    visibility: visible;
+    opacity: 1;
+}
+
+.inputBox textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    background: #eee;
+    border-radius: 5px;
+    outline: none;
+    color: #000000;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.inputBox textarea.description {
+    height: 150px;
+}
+
+.form.dark .inputBox input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: #060714;
+    border-radius: 5px;
+    outline: none;
+    color: #ffffff;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.form.dark .inputBox textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: #060714;
+    border-radius: 5px;
+    outline: none;
+    color: #ffffff;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.75);
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.form.dark .inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.75);
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
+    color: #006bf7;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.75em;
+    padding: 0 10px;
+    background: #eee;
+    border-left: 1px solid #00dfc4;
+    border-right: 1px solid #00dfc4;
+    letter-spacing: 0.2em;
+}
+
+.inputBox textarea:valid ~ span,
+.inputBox textarea:focus ~ span {
+    color: #006bf7;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.75em;
+    padding: 0 10px;
+    background: #eee;
+    border-left: 1px solid #00dfc4;
+    border-right: 1px solid #00dfc4;
+    letter-spacing: 0.2em;
+}
+
+.form.dark .inputBox input:valid ~ span,
+.form.dark .inputBox input:focus ~ span {
+    color: #00dfc4;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.75em;
+    padding: 0 10px;
+    background: #060714;
+    border-left: 1px solid #00dfc4;
+    border-right: 1px solid #00dfc4;
+    letter-spacing: 0.2em;
+}
+
+.form.dark .inputBox textarea:valid ~ span,
+.form.dark .inputBox textarea:focus ~ span {
+    color: #00dfc4;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.75em;
+    padding: 0 10px;
+    background: #060714;
+    border-left: 1px solid #00dfc4;
+    border-right: 1px solid #00dfc4;
+    letter-spacing: 0.2em;
+}
+
+.form.dark .inputBox:nth-child(2) input:valid ~ span,
+.form.dark .inputBox:nth-child(2) input:focus ~ span {
+    background: #00dfc4;
+    color: #1d2b3a;
+}
+
+.inputBox input:valid,
+.inputBox input:focus {
+    border: 1px solid #006bf7;
+}
+
+.inputBox textarea:valid,
+.inputBox textarea:focus {
+    border: 1px solid #006bf7;
+}
+
+.form.dark .inputBox input:valid,
+.form.dark .inputBox input:focus {
+    border: 1px solid #00dfc4;
+}
+
+.form.dark .inputBox textarea:valid,
+.form.dark .inputBox textarea:focus {
+    border: 1px solid #00dfc4;
+}
+
+textarea {
+    resize: none;
+}
+
+.inputBox .option {
+    position: absolute;
+    width: 100%;
+    top: 70px;
+    background: #fff;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.inputBox .option div {
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.inputBox .option div:hover {
+    background: #62baea;
+    color: #fff;
+}

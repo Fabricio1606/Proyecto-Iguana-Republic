@@ -76,11 +76,6 @@ const Client = sequelize.define("Client", {
 
         set(value) {
             this.setDataValue("phoneClient", value);
-        },
-
-        validate: {
-            isNumeric: true,
-            isFloat: false
         }
     },
 
@@ -143,7 +138,7 @@ const Client = sequelize.define("Client", {
 
         get() {
             const admin = this.getDataValue("adminUser");
-            return admin ? admin : null;
+            return admin;
         },
 
         set(value) {

@@ -8,8 +8,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/elements/buttons.css">
+    <link rel="stylesheet" href="/css/elements/options.css">
 </head>
-<body>
+<body onload="checkCookie()">
     <section id="sidebar">
 		<a href="#" class="brand">
 			<i class='bx bxs-smile'></i>
@@ -88,7 +89,7 @@
 					<div class="head">
 						<h3>Categories</h3>
                         <div class="head-title">
-                            <a href="#" class="btn-download">
+                            <a href="/dashboard/category/newcategory" class="btn-download">
                                 <i class='bx bxs-cloud-download' ></i>
                                 <span class="text">New Category</span>
                             </a>
@@ -99,20 +100,28 @@
 							<tr>
 								<th>Id</th>
 								<th>Category</th>
-								<th>Description</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Capucchino</td>
-								<td><span>Es un capucchino</span></td>
-								<td>
-                                    <a href="#" class="button-normal">Modificar</a>
-                                    <a href="#" class="button-danger">Eliminar</a>
-                                </td>
-							</tr>
+							<% for (var i = 0; i < categories.length; i++) { %>
+								<tr>
+									<td><%- categories[i].idCate %></td>
+									<td><%- categories[i].nomCate %></td>
+									<td class="navigation">
+										<div class="menuToggle"></div>
+										<div class="menu">
+											<ul>
+												<li style="--i:0.1s"><a href="#"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
+												<li style="--i:0.2s"><a href="#"><ion-icon name="create-outline"></ion-icon></a></li>
+												<li style="--i:0.3s"><a href="#"><ion-icon name="trash-outline"></ion-icon></a></li>
+											</ul>
+										</div>
+										<!-- <a href="/dashboard/category/modify/<%- categories[i].idProd %>" class="button-normal">Modificar</a>
+										<a href="/dashboard/category/delete/<%- categories[i].idProd %>" class="button-danger">Eliminar</a> -->
+									</td>
+								</tr>
+							<% } %>
 						</tbody>
 					</table>
 				</div>
@@ -122,10 +131,8 @@
 				<div class="order">
 					<div class="head">
 						<h3>Products</h3>
-						
-
                         <div class="head-title" style="margin-top: 20px;">
-                            <a href="#" class="btn-download">
+                            <a href="/dashboard/products/newproduct" class="btn-download">
                                 <i class='bx bxs-cloud-download' ></i>
                                 <span class="text">New Product</span>
                             </a>
@@ -143,21 +150,26 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Cafe</td>
-								<td>5$</td>
-								<td>100</td>
-								<td>Capucchino</td>
-								<td>
-                                    <a href="#" class="button-normal">Modificar</a>
-                                    <a href="#" class="button-danger">Eliminar</a>
-                                </td>
-							</tr>
+							<% for (var i = 0; i < products.length; i++) { %>
+								<tr>
+									<td><%- products[i].idProd %></td>
+									<td><%- products[i].nameProd %></td>
+									<td><%- products[i].priceProd %></td>
+									<td><%- products[i].stockProd %></td>
+									<td><%- products[i].Category.nomCate %></td>
+									<td>
+										<a href="/dashboard/products/modify/<%- products[i].idProd %>" class="button-normal">Modificar</a>
+										<a href="/dashboard/products/delete/<%- products[i].idProd %>" class="button-danger">Eliminar</a>
+									</td>
+								</tr>
+							<% } %>
 						</tbody>
 					</table>
 				</div>
             </div>
         </main>
     </section>
+	<script src="/js/dashboard.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

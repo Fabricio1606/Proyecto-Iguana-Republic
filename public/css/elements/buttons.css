@@ -73,3 +73,76 @@
   .button-danger:focus {
     box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
   }
+
+  .submit {
+    position: relative;
+    background: #fff;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    padding: 10px 30px;
+    transition: 0.5s;
+    width: 270px;
+  }
+
+  .submit:hover {
+    background: #1e9bff;
+    letter-spacing: 0.25em;
+    width: 320px;
+    box-shadow: 0 0 35px #1e9bff;
+  }
+
+  .submit::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #060714;
+  }
+
+  .submit span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .submit i {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .submit i::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 30px;
+    height: 4px;
+    background: #060714;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+  }
+
+  .submit:hover i::before {
+    width: 40px;
+    left: 20%;
+  }
+
+  .submit i::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 30px;
+    height: 4px;
+    background: #060714;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+  }
+
+  .submit:hover i::after {
+    width: 40px;
+    left: 80%;
+  }
