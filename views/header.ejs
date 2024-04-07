@@ -1,41 +1,66 @@
 <header id="header" class="header-scrolled">
-    <div class="header-top">
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-lg-2 col-md-4 col-4 header-top-left no-padding">
-                    <div id="logo">
-                        <a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250" height="100" /></a>
-                    </div>
-                </div>
-            </div>
+  <div class="header-top">
+    <div class="container">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-lg-2 col-md-4 col-4 header-top-left no-padding">
+          <div id="logo">
+            <a href="/"
+              ><img
+                src="/img/logo.png"
+                class="logo"
+                alt=""
+                title=""
+                width="250"
+                height="100"
+            /></a>
+          </div>
         </div>
-        <div class="container">
-            <nav id="nav-menu-container">
-                <ul class="nav-menu" st>
-                    <li class="menu-active"><a href="/">Home</a></li>
-                    <li><a href="/aboutUs">About Us</a></li>
-                    <li><a href="/products">Products</a></li>
-                    <li><a href="/fincas">Farms</a></li>
-                    <% if (user) { %>
-                        <div class="inicioSesion">
-                            <% if (admin) { %>
-                                <li style="text-align: right;"><a href="/dashboard">Administrador <%= user %></a></li>
-                                <% } else { %>
-                                    <li style="text-align: right;"><a href="/profile">Hola, <%= user %></a></li>
-                                    <% } %>
-                                        <li style="text-align: right;"><a href="/logout">Logout</a></li>
-                                        <li style="text-align: right;"><a href="/cart"><img src="/img/elements/cart.png"
-                                                    alt="Cart" title="Cart"
-                                                    style="width: 20px; height: 20px; margin-left: 5px;"></a></li>
-                        </div>
-                        <% } else { %>
-                            <div class="inicioSesion" style="vertical-align: middle;">
-                                <li style="text-align: right;"><a href="/login"><i class='bx bx-door-open'
-                                            style="font-size: 18px; vertical-align: middle;"></i>Log In</a></li>
-                            </div>
-                    <% } %>
-                </ul>
-            </nav><!-- #nav-menu-container -->
-        </div>
+      </div>
     </div>
-</header><!-- #header -->
+    <div class="container">
+      <nav id="nav-menu-container">
+        <ul class="nav-menu" st>
+          <li class="menu-active"><a href="/">Home</a></li>
+          <li><a href="/aboutUs">About Us</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/fincas">Farms</a></li>
+          <% if (user) { %>
+          <div class="inicioSesion">
+            <% if (admin) { %>
+            <li style="text-align: right">
+              <a href="/dashboard">Administrador <%= user %></a>
+            </li>
+            <% } else { %>
+            <li style="text-align: right">
+              <a href="/profile">Hola, <%= user %></a>
+            </li>
+            <% } %>
+            <li style="text-align: right"><a href="/logout">Logout</a></li>
+            <li style="text-align: right">
+              <a href="/cart"
+                ><img
+                  src="/img/elements/cart.png"
+                  alt="Cart"
+                  title="Cart"
+                  style="width: 20px; height: 20px; margin-left: 5px" /></a
+              >99
+            </li>
+          </div>
+          <% } else { %>
+          <div class="inicioSesion" style="vertical-align: middle">
+            <li style="text-align: right">
+              <a href="/login"
+                ><i
+                  class="bx bx-door-open"
+                  style="font-size: 18px; vertical-align: middle"
+                ></i
+                >Log In</a
+              >
+            </li>
+          </div>
+          <% } %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

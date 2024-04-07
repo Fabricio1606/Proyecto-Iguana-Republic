@@ -1,103 +1,161 @@
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
-
-<head>
-    <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="img/fav.png">
-    <!-- Author Meta -->
-    <meta name="author" content="codepixer">
-    <!-- Meta Description -->
-    <meta name="description" content="">
-    <!-- Meta Keyword -->
-    <meta name="keywords" content="">
-    <!-- meta character set -->
-    <meta charset="UTF-8">
-    <!-- Site Title -->
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="shortcut icon" href="img/fav.png" />
+    <meta name="author" content="codepixer" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta charset="UTF-8" />
     <title>Iguana Republic</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/linearicons.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/main.css">
-</head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/linearicons.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/nice-select.css" />
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/owl.carousel.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-<body id="welcome">
+  <body id="welcome">
     <%- include('header', {}); %>
-
-        <!-- Start menu-list Area -->
-        <section class="menu-list-area section-gap">
-            <div class="container">
+    <section class="menu-list-area section-gap">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div style="margin-top: 50px" class="menu-cat">
+              <h1>Your Cart</h1>
+              <p style="color: brown">
+                Review and manage the items in your cart.
+              </p>
+            </div>
+            <div class="site-section">
+              <div class="container">
+                <div class="row mb-5">
+                  <form class="col-md-12" method="post">
+                    <div class="site-blocks-table">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="product-thumbnail">Image</th>
+                            <th class="product-name">Product</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-total">Total</th>
+                            <th class="product-remove">Remove</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="product-thumbnail">
+                              <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+                            </td>
+                            <td class="product-name">
+                              <h2 class="h5 text-black">Top Up T-Shirt</h2>
+                            </td>
+                            <td>$49.00</td>
+                            <td>
+                              <div class="input-group mb-3" style="max-width: 120px;">
+                                <div class="input-group-prepend">
+                                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                </div>
+                                <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                </div>
+                              </div>
+        
+                            </td>
+                            <td>$49.00</td>
+                            <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                          </tr>
+        
+                          <tr>
+                            <td class="product-thumbnail">
+                              <img src="images/cloth_2.jpg" alt="Image" class="img-fluid">
+                            </td>
+                            <td class="product-name">
+                              <h2 class="h5 text-black">Polo Shirt</h2>
+                            </td>
+                            <td>$49.00</td>
+                            <td>
+                              <div class="input-group mb-3" style="max-width: 120px;">
+                                <div class="input-group-prepend">
+                                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                </div>
+                                <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                </div>
+                              </div>
+        
+                            </td>
+                            <td>$49.00</td>
+                            <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </form>
+                </div>
+        
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div style="margin-top: 50px" class="menu-cat">
-                            <h1>Your Cart</h1>
-                            <p style="color: brown;">Review and manage the items in your cart.</p>
-                        </div>
-                        <div class="single-menu-list">
-                            <div class="title-wrap d-flex justify-content-between">
-                                <h4 style="color: brown;">Cart Items</h4>
-                                <hr class="vertical-line">
-                                <h4 style="color: brown;">Price</h4>
-
-
-                            </div>
-                            <div style="margin-top: 30px" class="content-wrap">
-                                <ul class="price-list">
-                                    <li class="d-flex justify-content-between">
-                                    <li class="d-flex justify-content-between">
-                                        <p>Product 1</p>
-                                        <hr>
-                                        <p>$19.99</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                  <div class="col-md-6">
+                    <div class="row mb-5">
+                      <div class="col-md-6 mb-3 mb-md-0">
+                        <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
+                      </div>
+                      <div class="col-md-6">
+                        <button class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>
+                      </div>
                     </div>
-                </div>
-            </div>
-
-        </section>
-
-        <section>
-            <div style="position: relative;">
-                <div style="align-items: flex-end; position: absolute; right: 20%;" class="cart-btn mt-60">
-                    <a href="#" class="btn btn-success template-btn">Proceed to Checkout</a>
-                </div>
-            </div>
-        </section>
-        <!-- Start footer Area -->
-        <footer class="footer-area section-gap">
-            <div style="margin-top: 100px" class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-md-6 col-sm-6">
-                        <div class="single-footer-widget">
-                            <a href="/aboutUs#contact">
-                                <h4 style="color: brown;">About Us</h4>
-                            </a>
-                            <p>
-                                For more information, please go here!
-                            </p>
+                  </div>
+                  <div class="col-md-6 pl-5">
+                    <div class="row justify-content-end">
+                      <div class="col-md-7">
+                        <div class="row">
+                          <div class="col-md-12 text-right border-bottom mb-5">
+                            <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                          </div>
                         </div>
-                    </div>
-                    <div class="col-lg-5  col-md-6 col-sm-6">
-                        <div class="single-footer-widget">
-                            <a href="/aboutUs#contact">
-                                <h4 style="color: brown;">Contact Us</h4>
-                            </a>
-
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <span class="text-black">Subtotal</span>
+                          </div>
+                          <div class="col-md-6 text-right">
+                            <strong class="text-black">$230.00</strong>
+                          </div>
                         </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                          <span class="text-black">Total</span>
+                        </div>
+                      <div class="col-md-6 text-right">
+                        <strong class="text-black">$230.00</strong>
+                      </div>
                     </div>
+        
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary btn-lg py-3 btn-block">Proceed To Checkout</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </footer>
-        <!-- End footer Area -->
-</body>
-
+          </div>
+        </div>
+    </section>
+  </body>
 </html>

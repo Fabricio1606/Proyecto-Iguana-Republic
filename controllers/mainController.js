@@ -1,6 +1,8 @@
 // mainController.js
-const MainModel = require('../models/mainModel');
-const Products = require('../models/product');
+const MainModel = require("../models/mainModel");
+const Products = require("../models/product");
+const CartDetail = require("../models/cartDetail");
+const Cart = require("../models/cart");
 
 class MainController {
   constructor() {
@@ -12,14 +14,23 @@ class MainController {
     const data = this.model.getData();
     res.locals.user = req.session.client;
     const user = res.locals.user;
+    console.log(res.locals.user.idClient);
+    /*const cart = await Cart.findOne({
+      where: { ClientIdClient: res.locals.user.idClient },
+    });*/
 
     const productos = await Products.findAll();
 
-    if(user) {
+    if (user) {
       // Renderizar la vista con los datos
-      res.render('index', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data, product: productos });
+      res.render("index", {
+        user: res.locals.user.userClient,
+        admin: res.locals.user.adminUser,
+        data,
+        product: productos,
+      });
     } else {
-      res.render("index", { data, product: productos  })
+      res.render("index", { data, product: productos });
     }
   }
   getLogin(req, res) {
@@ -27,14 +38,14 @@ class MainController {
     const data = this.model.getData();
 
     // Renderizar la vista con los datos
-    res.render('login', {  });
+    res.render("login", {});
   }
   getRegister(req, res) {
     // Obtener datos del modelo
     const data = this.model.getData();
 
     // Renderizar la vista con los datos
-    res.render('register', {  });
+    res.render("register", {});
   }
   getaboutUs(req, res) {
     // Obtener datos del modelo
