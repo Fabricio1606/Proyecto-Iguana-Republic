@@ -153,32 +153,32 @@ const Client = sequelize.define("Client", {
         validate: {
             notEmpty: true
         }
-    },
-    createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false,
-        get() {
-            const createdAt = this.getDataValue("createdAt");
-            return createdAt ? createdAt : null;
-        },
-        set(value) {
-            this.setDataValue("createdAt", value);
-        }
-    },
-
-    updatedAt: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-        allowNull: false,
-        get() {
-            const updatedAt = this.getDataValue("updatedAt");
-            return updatedAt ? updatedAt : null;
-        },
-        set(value) {
-            this.setDataValue("updatedAt", value);
-        }
     }
+    // createdAt: {
+    //     type: DataTypes.DATE,
+    //     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    //     allowNull: false,
+    //     get() {
+    //         const createdAt = this.getDataValue("createdAt");
+    //         return createdAt ? createdAt : null;
+    //     },
+    //     set(value) {
+    //         this.setDataValue("createdAt", value);
+    //     }
+    // },
+
+    // updatedAt: {
+    //     type: DataTypes.DATE,
+    //     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    //     allowNull: false,
+    //     get() {
+    //         const updatedAt = this.getDataValue("updatedAt");
+    //         return updatedAt ? updatedAt : null;
+    //     },
+    //     set(value) {
+    //         this.setDataValue("updatedAt", value);
+    //     }
+    // }
 }, {
     sequelize,
     modelName: "clients"

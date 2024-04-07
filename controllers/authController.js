@@ -35,7 +35,9 @@ authController.login = async (req, res) => {
         }
 
         req.session.client = client; // Almacena al cliente en la sesión
+        req.session.id = client.idClient; // Almacena al cliente en la sesión
         res.locals.user = req.session.client;
+        res.locals.id = req.session.id;
         res.redirect('/'); // Redirige a la página de dashboard u otra ruta
     } catch (error) {
         console.error(error);
@@ -59,6 +61,7 @@ authController.register = async (req, res) => {
             adminUser: false,
         });
 
+        req.session.client = newClient;
         req.session.client = newClient;
         res.locals.user = req.session.client;
         res.redirect('/');

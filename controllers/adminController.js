@@ -2,6 +2,7 @@ const Products = require('../models/product');
 const Clients = require('../models/client');
 const Category = require('../models/category');
 const Orders = require('../models/orders');
+const Cart = require('../models/cart');
 const bcrypt = require('bcryptjs');
 
 const adminController = {};
@@ -10,6 +11,7 @@ adminController.showDashboard = async (req, res) => {
     const client = await Clients.count();
     const product = await Products.count();
     const numberOrders = await Orders.count();
+    const cart = await Cart.findAll();
     const order = await Orders.findAll({
         include: Clients,
         limit: 5,
@@ -189,6 +191,12 @@ adminController.showClients = async (req, res) => {
     const Client = await Clients.findAll();
 
     res.render('admin/clients/clients', { clients: Client }); 
+};
+
+adminController.showInfoClient = async (req, res) => {
+    const id = req.params.id;
+    const client = await Clients.findByPk(id);
+    res.render('admin/clients/infoClient', { client: client }); 
 };
 
 adminController.showFormClient = (req, res) => {

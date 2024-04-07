@@ -37,30 +37,54 @@ class MainController {
     res.render('register', {  });
   }
   getaboutUs(req, res) {
+    // Obtener datos del modelo
+    const data = this.model.getData();
     res.locals.user = req.session.client;
     const user = res.locals.user;
-    const data = this.model.getData();
-    
+
     if(user) {
       // Renderizar la vista con los datos
-      res.render('aboutUs', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data});
+      res.render('aboutUs', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data });
     } else {
-      res.render("aboutUs", { data})
+      res.render("aboutUs", { data })
     }
-
   }
   getCart(req, res) {
-    // Renderizar la vista del carrito sin pasar datos
-    res.render('cart');
+    const data = this.model.getData();
+    res.locals.user = req.session.client;
+    const user = res.locals.user;
+
+    if(user) {
+      // Renderizar la vista con los datos
+      res.render('cart', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data });
+    } else {
+      res.render("cart", { data })
+    }
 }
 getProfile(req, res) {
-  // Renderizar la vista del carrito sin pasar datos
-  res.render('profile');
+  const data = this.model.getData();
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+
+  if(user) {
+    // Renderizar la vista con los datos
+    res.render('profile', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data });
+  } else {
+    res.render("profile", { data })
+  }
 }
 
 getFincas(req, res) {
-  // Renderizar la vista del carrito sin pasar datos
-  res.render('fincas');
+  const data = this.model.getData();
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+
+  if(user) {
+    // Renderizar la vista con los datos
+    res.render('fincas', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data });
+  } else {
+    res.render("fincas", { data })
+  }
 }
 
 }

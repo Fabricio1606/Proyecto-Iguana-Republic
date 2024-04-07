@@ -43,6 +43,8 @@ router.get('/category/delete/:id', controller.deleteCategory);
 // CRUD CLIENTS
 router.get('/clients', controller.showClients);
 
+router.get('/clients/info/:id', controller.showInfoClient);
+
 router.get('/clients/newclient', controller.showFormClient);
 router.post('/clients/newclient', controller.createClient);
 

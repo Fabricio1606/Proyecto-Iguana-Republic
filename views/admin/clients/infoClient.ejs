@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information - Client</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/elements/buttons.css">
+    <link rel="stylesheet" href="/css/elements/options.css">
+    <link rel="stylesheet" href="/css/elements/modal.css">
+    <link rel="stylesheet" href="/css/elements/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Iguana Republic</span>
+		</a>
+		<ul class="side-menu top">
+			<li >
+				<a href="/dashboard">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/products">
+					<i class='bx bxs-shopping-bag' ></i>
+					<span class="text">Products</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="/dashboard/clients">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Clients</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/orders">
+					<i class='bx bx-food-menu'></i>
+					<span class="text">Orders</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/logout" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+
+    <section id="content">
+        <nav>
+            <i class='bx bx-menu' ></i>
+            <a href="#" class="nav-link">Clients</a>
+
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" name="" id="">
+                    <button type="submit" class="search"><i class='bx bx-search' ></i></button>
+                </div>
+            </form>
+
+            <input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+        </nav>
+
+        <div class="container">
+            <div class="profile-card"> 
+    
+                <div class="profile-details">
+                     <div class="intro">
+                        <h2><%- client.nameClient %></h2>
+                        <% if (client.adminUser) { %>
+                            <h4>Administrator</h4>
+                        <% } else { %>
+                            <h4>User</h4>
+                        <% } %>
+                     </div>
+    
+                     <div class="contact-info">
+                        <div class="row">
+                             <div class="icon">
+                                <i class="fa fa-phone"  style="color:var(--dark-magenta)"></i>
+                             </div>
+                             <div class="content">
+                                <span>Phone</span>
+                                <h5><%- client.phoneClient %></h5>
+                             </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="icon">
+                               <i class="fa fa-envelope-open"  style="color:var(--light-green)"></i>
+                            </div>
+                            <div class="content">
+                               <span>Email</span>
+                               <h5><%- client.mailClient %></h5>
+                            </div>
+                       </div>
+        
+                       <div class="row">
+                        <div class="icon">
+                           <i class="fa fa-map-marker"  style="color:var(--light-purple)"></i>
+                        </div>
+                        <div class="content">
+                           <span>Location</span>
+                           <h5><%- client.nationClient %></h5>
+                        </div>
+                     </div>
+                     
+                </div>
+                   <a href="/dashboard/clients/modify/<%- client.idClient %>"><button class="download-btn"> <i class="fa fa-download"></i> Modify information</button></a>
+                </div>
+           </div>
+
+           <div class="about">
+           <h2>Information details</h2>
+           <div class="work">
+              <div class="workbox">
+                  <div class="icon">
+                     <img src="/img/web.svg" alt="">
+                  </div>
+                  <div class="desc">
+                     <h3>Address</h3>
+                     <p><%- client.addressClient %></p>
+                  </div>
+              </div>
+ 
+              <div class="workbox">
+                 <div class="icon">
+                    <img src="/img/ui.svg" alt="">
+                 </div>
+                 <div class="desc">
+                    <h3>Username</h3>
+                    <p><%- client.userClient %></p>
+                 </div>
+             </div>
+           </div>
+        </div>
+    </section>
+    
+	<script src="/js/dashboard.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</body>
+</html>

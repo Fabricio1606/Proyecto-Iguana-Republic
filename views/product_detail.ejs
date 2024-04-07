@@ -6,14 +6,56 @@
     <title>Iguana Republic</title>
     
 	<link rel="stylesheet" href="/css/product_detail.css">
-	<link rel="stylesheet" href="/css/linearicons.css">
-	<link rel="stylesheet" href="/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/css/bootstrap.css">
-	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <%- include('header', {}); %>
-
-	
+	<div class="container">
+        <div class="background">
+            <img src="/img/product.png" alt="">
+        </div>
+        <div class="card">
+            <div class="left">
+                <div class="logo-icon">
+                    <img src="/img/b1,jpg" alt="">
+                </div>
+                <div class="text">
+                    <div class="logo"><img src="/img/logo.png" alt=""></div>
+                    <div class="price">$520</div>
+                    <div class="title">Cafe con leche</div>
+                    <button class="know-more">Know More</button>
+                </div>
+            </div>
+            <div class="description">
+                <div class="description-icon">
+                    <img src="/img/logo.png" alt="">
+                </div>
+                <div class="text">
+                    <div class="logo"><img src="/img/logo.png" alt=""></div>
+                    <div class="title">Cafe con leche</div>
+                    <div class="content">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <br>
+                        Designed to endure wet weather of all shapes and sizes, the Keb features classic, hard-wearing details that ultimately assure versatility, no matter where your journey takes you.
+                    </div>
+                    <button class="buy">Let's Buy</button>
+                </div>
+            </div>
+            <div class="right">
+                <div class="sections">
+                    <div class="title">RESUME</div>
+					<span class="content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
+                </div>
+                <div class="sections">
+                    <div class="title">STOCK <span> 10</span></div>
+                </div>
+                <button>BUY NOW</button>
+            </div>
+            <div class="product">
+                <img src="/img/g1.jpg" alt="">
+            </div>
+        </div>
+    </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="/js/product_detail.js"></script>
 </body>
 </html>
