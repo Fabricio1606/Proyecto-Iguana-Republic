@@ -40,7 +40,7 @@ productController.getAllProductsByCategory = async (req, res) => {
   const category = await Category.findAll();
   const product = await producto.findAll({
     where: {
-      categoryIdCate : id
+      CategoryIdCate : id
     }
   });
 

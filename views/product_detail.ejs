@@ -6,6 +6,7 @@
     <title>Iguana Republic</title>
     
 	<link rel="stylesheet" href="/css/product_detail.css">
+	<link rel="stylesheet" href="/css/elements/buttons.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -16,12 +17,14 @@
         <div class="card">
             <div class="left">
                 <div class="logo-icon">
-                    <img src="/img/b1,jpg" alt="">
+                    <img src="/img/logo.png" alt="">
                 </div>
                 <div class="text">
-                    <div class="logo"><img src="/img/logo.png" alt=""></div>
-                    <div class="price">$520</div>
-                    <div class="title">Cafe con leche</div>
+                    <div class="logo">
+                        <a href="/"><img src="/img/logo.png" alt=""></a>
+                    </div>
+                    <div class="price">$<%- product.priceProd %></div>
+                    <div class="title"><%- product.nameProd %></div>
                     <button class="know-more">Know More</button>
                 </div>
             </div>
@@ -31,11 +34,9 @@
                 </div>
                 <div class="text">
                     <div class="logo"><img src="/img/logo.png" alt=""></div>
-                    <div class="title">Cafe con leche</div>
+                    <div class="title"><%- product.nameProd %></div>
                     <div class="content">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        <br>
-                        Designed to endure wet weather of all shapes and sizes, the Keb features classic, hard-wearing details that ultimately assure versatility, no matter where your journey takes you.
+                        <%- product.descProd %>
                     </div>
                     <button class="buy">Let's Buy</button>
                 </div>
@@ -43,19 +44,31 @@
             <div class="right">
                 <div class="sections">
                     <div class="title">RESUME</div>
-					<span class="content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
+					<span class="content"><%- product.shortDescProd %></span>
                 </div>
                 <div class="sections">
-                    <div class="title">STOCK <span> 10</span></div>
+                    <div class="title">STOCK <span><%- product.stockProd %></span></div>
                 </div>
-                <button>BUY NOW</button>
+                
+                <button class="cart-button">
+                    <span class="add-to-cart">
+                        ADD TO CART
+                    </span>
+                    <span class="added">
+                        ADDED :)
+                    </span>
+                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-box"></i>
+                </button>
             </div>
             <div class="product">
-                <img src="/img/g1.jpg" alt="">
+                <img src="/img//products/<%- product.imgProd %>" alt="">
             </div>
         </div>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="/js/product_detail.js"></script>
+	<script src="/js/addCart.js"></script>
+    <script src="https://kit.fontawesome.com/74ff222a65.js" crossorigin="anonymous"></script>
 </body>
 </html>

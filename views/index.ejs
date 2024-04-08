@@ -30,7 +30,7 @@
 	<link rel="stylesheet" href="css/animate.min.css">
 	<link rel="stylesheet" href="css/owl.carousel.css">
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/elements/transition.css">
+	<link rel="stylesheet" href="/css/elements/transition.css">
 </head>
 
 <body id="welcome" data-barba="wrapper">
@@ -78,53 +78,6 @@
 			</div>
 		</section>
 		<!-- End video-sec Area -->
-	
-		<!-- Start menu Area -->
-		<section class="menu-area section-gap" id="coffee">
-			<div class="container">
-				<div class="row d-flex justify-content-center">
-					<div class="menu-content pb-60 col-lg-10">
-						<div class="title text-center">
-							<h1 class="mb-10">What kind of Coffee we serve for you</h1>
-							<p>Who are in extremely love with eco friendly system.</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<table class="table">
-							<tbody>
-								<% for (var i = 0; i < product.length; i+=4) { %>
-									<tr>
-										<% for (var j = i; j < i+4; j++) { %>
-											<% if (j < product.length) { %>
-												<td>
-													<a href="/products/<%- product[j].idProd %>" style="color: brown; text-decoration: none;">
-														<div class="single-menu">
-															<div class="title-div justify-content-between d-flex">
-																<h4><%- product[j].nameProd %></h4>
-																<p class="price float-right">
-																	<%- product[j].priceProd %>$
-																</p>
-															</div>
-															<p>
-																<%- product[j].descProd %>
-															</p>
-														</div>
-													</a>
-												</td>
-											<% } %>
-										<% } %>
-									</tr>
-								<% } %>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<!-- End menu Area -->
 	
 		<!-- Start gallery Area -->
 		<section class="gallery-area section-gap" id="gallery">
