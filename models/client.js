@@ -65,7 +65,9 @@ const Client = sequelize.define(
       },
 
       validate: {
-        isAlpha: true,
+        notEmpty: true,
+        // Permitir letras y espacios
+        is: /^[A-Za-z\s]+$/,
       },
     },
 
