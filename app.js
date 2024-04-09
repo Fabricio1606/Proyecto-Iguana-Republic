@@ -56,7 +56,7 @@ app.set('view engine', 'ejs');
 const mainController = new MainController();
 app.get('/', mainController.getIndex.bind(mainController));
 app.get('/aboutUs', mainController.getaboutUs.bind(mainController));
-app.get('/cart', mainController.getCart.bind(mainController));
+// app.get('/cart', mainController.getCart.bind(mainController));
 app.get('/profile', mainController.getProfile.bind(mainController));
 app.get('/fincas', mainController.getFincas.bind(mainController));
 
@@ -95,8 +95,9 @@ app.use('/resetpass', resetpassRoute);
 const adminRoute = require('./routes/adminRoute');
 app.use('/dashboard', adminRoute);
 const productRoute = require("./routes/productRoute");
-const Cart = require('./models/cart');
 app.use('/products', productRoute); 
+const cartController = require("./routes/cartRoute");
+app.use("/cart", cartController);
 
 sequelize
     .sync()

@@ -25,7 +25,6 @@ const Cart = sequelize.define("Cart", {
         },
 
         validate: {
-            isDate: true,
             notEmpty: true
         }
     },
@@ -60,7 +59,7 @@ const Cart = sequelize.define("Cart", {
             return total ? total : null
         },
 
-        set() {
+        set(value) {
             this.setDataValue("totalPriceCart", value);
         },
 

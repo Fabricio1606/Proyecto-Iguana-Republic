@@ -7,6 +7,7 @@
     
 	<link rel="stylesheet" href="/css/product_detail.css">
 	<link rel="stylesheet" href="/css/elements/buttons.css">
+	<link rel="stylesheet" href="/css/elements/quantity.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -49,8 +50,20 @@
                 <div class="sections">
                     <div class="title">STOCK <span><%- product.stockProd %></span></div>
                 </div>
+
+                <div class="sections">
+                    <div class="title">QUANTITY OF PRODUCTS</div>
+                    <div class="wrapper">
+                        <span class="minus">-</span>
+                        <span class="num">1</span>
+                        <span class="plus">+</span>
+                    </div>
+                </div>
                 
                 <button class="cart-button">
+                    <input type="text" id="idProd" value="<%- product.idProd %>" hidden>
+                    <input type="text" id="priceProd" value="<%- product.priceProd %>" hidden>
+                    <input type="text" id="stockProd" value="<%- product.stockProd %>" hidden>
                     <span class="add-to-cart">
                         ADD TO CART
                     </span>
@@ -68,6 +81,7 @@
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="/js/product_detail.js"></script>
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
 	<script src="/js/addCart.js"></script>
     <script src="https://kit.fontawesome.com/74ff222a65.js" crossorigin="anonymous"></script>
 </body>
