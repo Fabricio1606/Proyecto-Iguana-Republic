@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - Iguana Republic</title>
 
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/elements/buttons.css">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Administration - Iguana Republic</title>
+
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="/css/dashboard.css">
+	<link rel="stylesheet" href="/css/elements/buttons.css">
 </head>
+
 <body onload="checkCookie()">
-    <section id="sidebar">
-		<a href="#" class="brand">
-			<i class='bx bxs-smile'></i>
-			<span class="text">Iguana Republic</span>
-		</a>
+	<section id="sidebar">
+		<div id="logo">
+			<a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250" height="100" /></a>
+		</div>
 		<ul class="side-menu top">
 			<li class="active">
 				<a href="/dashboard">
-					<i class='bx bxs-dashboard' ></i>
+					<i class='bx bxs-dashboard'></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
 				<a href="/dashboard/products">
-					<i class='bx bxs-shopping-bag' ></i>
+					<i class='bx bxs-shopping-bag'></i>
 					<span class="text">Products</span>
 				</a>
 			</li>
 			<li>
 				<a href="/dashboard/clients">
-					<i class='bx bxs-group' ></i>
+					<i class='bx bxs-group'></i>
 					<span class="text">Clients</span>
 				</a>
 			</li>
@@ -44,7 +45,7 @@
 		<ul class="side-menu">
 			<li>
 				<a href="/logout" class="logout">
-					<i class='bx bxs-log-out-circle' ></i>
+					<i class='bx bxs-log-out-circle'></i>
 					<span class="text">Logout</span>
 				</a>
 			</li>
@@ -52,31 +53,29 @@
 	</section>
 	<!-- SIDEBAR -->
 
-    <section id="content">
-        <nav>
-            <i class='bx bx-menu' ></i>
-            <a href="#" class="nav-link">Categories</a>
+	<section id="content">
+		<nav>
+			<i class='bx bx-menu'></i>
+			<a href="#" class="nav-link">Categories</a>
 
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" name="" id="">
-                    <button type="submit" class="search"><i class='bx bx-search' ></i></button>
-                </div>
-            </form>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" name="" id="">
+					<button type="submit" class="search"><i class='bx bx-search'></i></button>
+				</div>
+			</form>
 
-            <input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
-        </nav>
+		</nav>
 
-        <main>
-            <div class="head-title">
+		<main>
+			<div class="head-title">
 				<div class="left">
-					<h1>Dashboard</h1>
+					<h1 style="color: #00b13a;">Dashboard</h1>
 					<ul class="breadcrumb">
 						<li>
 							<a href="#">Dashboard</a>
 						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
+						<li><i class='bx bx-chevron-right'></i></li>
 						<li>
 							<a class="active" href="#">Home</a>
 						</li>
@@ -84,23 +83,23 @@
 				</div>
 			</div>
 
-            <ul class="box-info">
+			<ul class="box-info">
 				<li>
-					<i class='bx bxs-calendar-check' ></i>
+					<i class='bx bxs-calendar-check'></i>
 					<span class="text">
 						<h3><%- numOrders %></h3>
 						<p>Orders</p>
 					</span>
 				</li>
 				<li>
-					<i class='bx bxs-group' ></i>
+					<i class='bx bxs-group'></i>
 					<span class="text">
 						<h3><%- clients %></h3>
 						<p>Clients</p>
 					</span>
 				</li>
 				<li>
-					<i class='bx bxs-dollar-circle' ></i>
+					<i class='bx bxs-dollar-circle'></i>
 					<span class="text">
 						<h3><%- products %></h3>
 						<p>Products</p>
@@ -108,12 +107,12 @@
 				</li>
 			</ul>
 
-            <div class="table-data">
+			<div class="table-data">
 				<div class="order">
 					<div class="head">
 						<h3>Recent Orders</h3>
-						<i class='bx bx-search' ></i>
-						<i class='bx bx-filter' ></i>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
 					</div>
 					<table>
 						<thead>
@@ -125,32 +124,37 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% for (var i = 0; i < orders.length; i++) { %>
+							<% for (var i=0; i < orders.length; i++) { %>
 								<tr>
 									<td><%- orders[i].Client.nameClient %></td>
 									<td><%- orders[i].dateOrder %></td>
 
-									<% if(orders[i].statusOrder == "Pending") { %>
+									<% if(orders[i].statusOrder=="Pending" ) { %>
 										<td><span class="status pending"><%- orders[i].statusOrder %></span></td>
-									<% } else if(orders[i].statusOrder == "Process") { %>
-										<td><span class="status process"><%- orders[i].statusOrder %></span></td>
-									<% } else { %>
-										<td><span class="status completed"><%- orders[i].statusOrder %></span></td>
-									<% } %>
+										<% } else if(orders[i].statusOrder=="Process" ) { %>
+											<td><span class="status process"><%- orders[i].statusOrder %></span></td>
+											<% } else { %>
+												<td><span class="status completed"><%- orders[i].statusOrder %></span>
+												</td>
+												<% } %>
 
-									<td>
-										<a href="/dashboard/orders/info/<%- orders[i].idOrder %>" class="button-normal">View more</a>
-										<a href="/dashboard/orders/modify/<%- orders[i].idOrder %>" class="button-normal">Modify</a>
-										<a href="/dashboard/orders/delete/<%- orders[i].idOrder %>" class="button-danger">Delete</a>
-									</td>
+													<td>
+														<a href="/dashboard/orders/info/<%- orders[i].idOrder %>"
+															class="button-normal">View more</a>
+														<a href="/dashboard/orders/modify/<%- orders[i].idOrder %>"
+															class="button-normal">Modify</a>
+														<a href="/dashboard/orders/delete/<%- orders[i].idOrder %>"
+															class="button-danger">Delete</a>
+													</td>
 								</tr>
-							<% } %>
+								<% } %>
 						</tbody>
 					</table>
 				</div>
-            </div>
-        </main>
-    </section>
+			</div>
+		</main>
+	</section>
 </body>
 <script src="/js/dashboard.js"></script>
+
 </html>

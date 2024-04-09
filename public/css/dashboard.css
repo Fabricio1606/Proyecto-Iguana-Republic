@@ -18,12 +18,11 @@ li {
 	--poppins: 'Poppins', sans-serif;
 	--lato: 'Lato', sans-serif;
 
-	--light: #F9F9F9;
-	--blue: #237513;
-	--light-blue: #CFE8FF;
-	--grey: #eee;
+	--light: #5a3a0f;
+	--blue: #00b13a;
+	--grey: #f0f0f0;
 	--dark-grey: #AAAAAA;
-	--dark: #342E37;
+	--dark: #ffffff;
 	--red: #DB504A;
 	--yellow: #FFCE26;
 	--light-yellow: #FFF2C6;
