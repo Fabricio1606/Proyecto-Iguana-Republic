@@ -90,14 +90,32 @@ app.post('/resetpass', authController.resetPassword);
 app.get('/errorLogin', authController.showerrorLogin);
 app.use('/resetpass', resetpassRoute);
 
+const authAdmin = (req, res, next) => {
+    res.locals.user = req.session.client;
+    const user = res.locals.user;
+    if (user) {
+        const admin = res.locals.user.adminUser;
+
+        if(admin) {
+            next();
+            return;
+        }
+    }
+    res.render("403");
+};
+
 // Las demás rutas y configuraciones permanecen sin cambios
 
 const adminRoute = require('./routes/adminRoute');
-app.use('/dashboard', adminRoute);
+app.use('/dashboard', authAdmin, adminRoute);
 const productRoute = require("./routes/productRoute");
 app.use('/products', productRoute); 
 const cartController = require("./routes/cartRoute");
 app.use("/cart", cartController);
+
+app.use("*", (req, res) => {
+    res.render("404");
+})
 
 sequelize
     .sync()
@@ -114,5 +132,5 @@ sequelize
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Algo salió mal!');
+    res.render("500");
 });

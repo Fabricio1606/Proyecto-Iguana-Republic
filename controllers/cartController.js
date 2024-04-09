@@ -25,7 +25,7 @@ cartController.showCart = async (req, res) => {
 cartController.getAllCarts = async (req, res) => {
   res.locals.user = req.session.client;
   const user = res.locals.user;
-  res.render("carts", { user: user });
+  res.render("/cart", { user: user });
 };
 
 cartController.addToCart = async (req, res) => {
