@@ -127,7 +127,7 @@ span{font-size:14px;}
 .contain .cards .imgBx {
   position: absolute;
   inset: 20px 20px 50px 20px;
-  background: #f00;
+  background: rgb(57, 219, 57);
   border-radius: 15px;
   transition: 0.5s;
   z-index: 1000;

@@ -50,7 +50,10 @@
                     <h2 class="border-bottom filter-title">Categories</h2>
                     <div class="mb-30 filter-options">
                       <% for (var i = 0; i < categories.length; i++) { %>
-                        <a href="/products/<%- categories[i].idCate %>"><button class="filter"><%- categories[i].nomCate %></button></a>
+                        <a href="/products/<%- categories[i].idCate %>">
+                          <button class="filter" style="background-color: #00b13a;"><%- categories[i].nomCate %></button>
+                        </a>
+                        
                       <% } %>
                     </div>
                   </div>
