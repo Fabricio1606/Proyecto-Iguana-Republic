@@ -10,26 +10,108 @@ const cartController = {};
 cartController.showCart = async (req, res) => {
   res.locals.user = req.session.client;
   const user = res.locals.user;
-  const cart = await Cart.findAll();
   if (user) {
-    res.render("cart_detail", {
-      user: res.locals.user,
-      admin: res.locals.admin,
+    const cart = await Cart.findOne({
+      where: {
+        ClientIdClient: user.idClient,
+        stateCart: 1
+      }
+    });
+  
+    const details = await CartDetail.findAll({
+      include: Product,
+      where: {
+        CartIdCart: cart.idCart
+      }
+    });
+
+    const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id",{
+      replacements: { id: cart.idCart}
+    });
+    
+    res.render("cart", {
+      user: res.locals.user.userClient,
+      admin: res.locals.user.adminUser,
+      products: details,
       cart: cart,
+      subtotal: records
     });
   } else {
-    res.render("cart_detail", { cart: cart });
+    res.render("login");
   }
 };
 
-cartController.getAllCarts = async (req, res) => {
+cartController.deleteProductCart = async (req, res) => {
   res.locals.user = req.session.client;
   const user = res.locals.user;
-  res.render("cart", {
-    user: res.locals.user.userClient,
-    admin: res.locals.user.adminUser,
-  });
-};
+  const id = req.params.id;
+  
+  if (user) {
+    const cart = await Cart.findOne({
+      where: {
+        ClientIdClient: user.idClient,
+        stateCart: 1
+      }
+    });
+
+    const productStock = await CartDetail.findOne({
+      where: {
+        idDetCart: id
+      }
+    });
+
+    await Product.increment("stockProd", {
+      by: productStock.dataValues.quantity,
+      where: { idProd: productStock.dataValues.ProductIdProd }
+    });
+
+    await productStock.destroy();
+
+    var total = await CartDetail.findOne(
+      {
+        attributes: [
+          [
+            sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
+            "total",
+          ],
+        ],
+      },
+      {
+        where: {
+          CartIdCart: cart.idCart,
+        },
+      }
+    );
+
+    if(total.dataValues.total == null) {
+      await Cart.update(
+        {
+          totalPriceCart: 0,
+        },
+        {
+          where: {
+            idCart: cart.idCart,
+          },
+        }
+      );
+    } else {
+      await Cart.update(
+        {
+          totalPriceCart: total.dataValues.total,
+        },
+        {
+          where: {
+            idCart: cart.idCart,
+          },
+        }
+      );
+    }
+
+    res.redirect("/cart");
+  } else {
+    res.redirect("login");
+  }
+}
 
 cartController.addToCart = async (req, res) => {
   const { idProd, priceProd, quantityProd } = req.body;
