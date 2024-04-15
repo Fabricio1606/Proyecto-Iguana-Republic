@@ -63,7 +63,11 @@
         <label for="chk" aria-hidden="true">Sign up</label>
         <input type="text" id="nameClient" name="nameClient" placeholder="Full Name" required>
         <input type="email" id="mailClient" name="mailClient" placeholder="Email" required>
-        <input type="text" id="nationClient" name="nationClient" placeholder="Nationality" required>
+        <select class="custom-select" id="nationClient" name="nationClient">
+          <% for (var i=0; i < countries.length; i++) { %>
+            <option><%- countries[i].name %></option>
+          <% } %>
+        </select>
         <input type="text" id="userClient" name="userClient" placeholder="Username" required>
         <input type="password" id="passClient" name="passClient" placeholder="Password" required>
         <button>Register</button>

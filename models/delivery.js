@@ -1,8 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require("../config/sequelize");
 const Orders = require("./orders");
-const Client = require("./client");
-const DeliveryZone = require("./deliveryZone");
 
 const Delivery = sequelize.define("delivery", {
     idDelivery: {
@@ -79,17 +77,5 @@ Orders.hasOne(Delivery, {
     onUpdate: "CASCADE"
 });
 Delivery.belongsTo(Orders);
-
-Client.hasOne(Delivery, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-});
-Delivery.belongsTo(Client);
-
-DeliveryZone.hasOne(Delivery, {
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE"
-});
-Delivery.belongsTo(DeliveryZone);
 
 module.exports = Delivery;

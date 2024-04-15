@@ -53,8 +53,8 @@
                       </div>
                     </div>
                   </td>
-                  <td><input type="number" value="<%- products[i].quantity %>"></td>
-                  <td><%- subtotal[0][i].total %></td>
+                  <td><input type="number" data-prod="<%- products[i].ProductIdProd %>" data-cart="<%- cart.idCart %>" class="quantity" value="<%- products[i].quantity %>"></td>
+                  <td class="sub"><%- subtotal[0][i].total %></td>
               </tr>
             <% } %>
         </table>
@@ -62,15 +62,18 @@
         <div class="total-price">
           <table>
             <td>Total</td>
-            <td>$<%- cart.totalPriceCart %></td>
+            <td class="total">$<%- cart.totalPriceCart %></td>
           </table>
           <br>
         </div>
 
         <div class="checkout">
-          <a href="#" class="submit"><span>Checkout</span><i></i></a>
+            <a href="/cart/checkout" class="submit"><span>Checkout</span><i></i></a>
         </div>
       </div>
     </div>
+
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="/js/cart.js"></script>
   </body>
 </html>

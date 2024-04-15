@@ -50,6 +50,20 @@ input{
 	outline: none;
 	border-radius: 5px;
 }
+
+select {
+	width: 60%;
+	height: 37px;
+	background: #FFFF;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+
 button{
 	width: 60%;
 	height: 40px;

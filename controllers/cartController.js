@@ -11,13 +11,21 @@ cartController.showCart = async (req, res) => {
   res.locals.user = req.session.client;
   const user = res.locals.user;
   if (user) {
-    const cart = await Cart.findOne({
+    var cart = await Cart.findOne({
       where: {
         ClientIdClient: user.idClient,
         stateCart: 1
       }
     });
   
+    if(cart == null) {
+      cart = await Cart.create({
+        stateCart: 1,
+        totalPriceCart: 0,
+        ClientIdClient: user.idClient,
+      });
+    }
+
     const details = await CartDetail.findAll({
       include: Product,
       where: {
@@ -250,5 +258,76 @@ cartController.addToCart = async (req, res) => {
     });
   }
 };
+
+cartController.changeQuantity = async (req, res) => {
+  const { quantity, idProd, idCart } = req.body;
+
+  try {
+    await CartDetail.update({
+      quantity: quantity
+    }, {
+      where: {
+        ProductIdProd: idProd,
+        CartIdCart: idCart
+      }
+    });
+
+    var total = await CartDetail.findOne(
+      {
+        attributes: [
+          [
+            sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
+            "total",
+          ],
+        ],
+      },
+      {
+        where: {
+          CartIdCart: idCart,
+        },
+      }
+    );
+
+    await Cart.update(
+      {
+        totalPriceCart: total.dataValues.total,
+      },
+      {
+        where: {
+          idCart: idCart,
+        },
+      }
+    );
+
+    const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id AND product_id_prod = :prod",{
+      replacements: { id: idCart, prod: idProd }
+    });
+    var subtotal = records[0][0].total;
+
+    res.json({
+      result : 1,
+      total: total.dataValues.total,
+      subtotal: subtotal
+    });
+  } catch(ex) {
+    res.json({
+      result : 0
+    });
+  }
+}
+
+cartController.checkout = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+
+  if(user) {
+    if(user.addressClient != "N/A") {
+      
+      res.render("checkout");
+    } else {
+      res.redirect("/profile");
+    }
+  }
+}
 
 module.exports = cartController;

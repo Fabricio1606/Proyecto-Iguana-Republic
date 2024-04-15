@@ -3,12 +3,14 @@ const Client = require('../models/client');
 const TokenModel = require('../models/tokenModel');
 const EmailService = require('../logic/emailService');
 const TempPassModel = require('../models/tempPassModel');
+const { Country } = require("country-state-city");
 const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com', TempPassModel);
 
 const authController = {};
 
 authController.showLogin = (req, res) => {
-    res.render('login'); // Renderiza la vista de inicio de sesión
+    const countries = Country.getAllCountries();
+    res.render('login', { countries: countries }); // Renderiza la vista de inicio de sesión
 };
 
 authController.showRegister = (req, res) => {
