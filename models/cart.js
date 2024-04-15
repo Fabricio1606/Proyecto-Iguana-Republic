@@ -64,7 +64,6 @@ const Cart = sequelize.define("Cart", {
         },
 
         validate: {
-            isNumeric: true,
             notEmpty: true
         }
     }

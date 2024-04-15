@@ -22,13 +22,14 @@
         <ul class="nav-menu" st>
           <li class="menu-active"><a href="/">Home</a></li>
           <li><a href="/aboutUs">About Us</a></li>
-          <li><a href="/products">Products</a></li>
+          <li><a href="/products">Products</a></li> 
           <li><a href="/fincas">Farms</a></li>
           <% if (user) { %>
           <div class="inicioSesion">
             <% if (admin) { %>
             <li style="text-align: right">
-              <a href="/dashboard">Administrador <%= user %></a>
+              <a href="/profile">Administrador <%= user %></a>
+              <a href="/dashboard">Dashboard</a>
             </li>
             <% } else { %>
             <li style="text-align: right">
