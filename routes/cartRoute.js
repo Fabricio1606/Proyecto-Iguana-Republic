@@ -8,5 +8,6 @@ router.get("/delete/:id", controller.deleteProductCart);
 
 router.post("/amount", controller.changeQuantity);
 router.post("/add", controller.addToCart);
+router.post("/checkout/orders", controller.makeOrder);
 
 module.exports = router;

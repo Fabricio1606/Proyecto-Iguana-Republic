@@ -12,7 +12,7 @@ const Delivery = sequelize.define("delivery", {
 
     dateDeli: {
         type: DataTypes.DATEONLY,
-        allowNull: false,
+        allowNull: true,
 
         get() {
             const date = this.getDataValue("dateDeli");
@@ -24,8 +24,7 @@ const Delivery = sequelize.define("delivery", {
         },
 
         validate: {
-            isDate: true,
-            notEmpty: true
+            isDate: true
         }
     },
 
@@ -51,7 +50,7 @@ const Delivery = sequelize.define("delivery", {
 
     commentDeli: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
 
         get() {
             const comment = this.getDataValue("commentDeli");
@@ -60,11 +59,6 @@ const Delivery = sequelize.define("delivery", {
 
         set(value) {
             this.setDataValue("commentDeli", value);
-        },
-
-        validate: {
-            notEmpty: true,
-            len: [1, 255]
         }
     }
 }, {

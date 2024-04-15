@@ -2,8 +2,10 @@ const { NOW, where } = require("sequelize");
 const Cart = require("../models/cart.js");
 const CartDetail = require("../models/cartDetail.js");
 const Client = require("../models/client.js");
+const Delivery = require("../models/delivery.js");
 const sequelize = require("../config/sequelize.js");
 const Product = require("../models/product.js");
+const Orders = require("../models/orders.js");
 
 const cartController = {};
 
@@ -322,11 +324,43 @@ cartController.checkout = async (req, res) => {
 
   if(user) {
     if(user.addressClient != "N/A") {
-      
-      res.render("checkout");
+      const cart = await Cart.findOne({
+        where: {
+          ClientIdClient: user.idClient,
+          stateCart: 1
+        }
+      });
+      res.render("checkout", { user: res.locals.user.userClient, admin: res.locals.user.adminUser, profile: user, cart: cart });
     } else {
       res.redirect("/profile");
     }
+  }
+}
+
+cartController.makeOrder = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+  const { idCart, comment, total } = req.body;
+
+  try{
+    const order = await Orders.create({
+      totalOrder: total,
+      ClientIdClient: user.idClient,
+      CartIdCart: idCart
+    });
+  
+    await Delivery.create({
+      commentDeli: comment,
+      OrderIdOrder: order.dataValues.idOrder
+    });
+    
+    res.json({
+      result : 1
+    });
+  } catch(ex) {
+    res.json({
+      result : ex
+    });
   }
 }
 
