@@ -26,15 +26,22 @@
 		</div>
 	</div>
 	</section>
+
     <section id="sidebar">
 		<div id="logo">
-			<a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250" height="100" /></a>
+			<a href="/"><img src="/img/logo_alt.png" class="logo" alt="" title="" width="250" height="100" /></a>
 		</div>
 		<ul class="side-menu top">
 			<li >
 				<a href="/dashboard">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/category">
+					<i class='bx bx-store-alt'></i>
+					<span class="text">Categories</span>
 				</a>
 			</li>
 			<li>
@@ -55,6 +62,12 @@
 					<span class="text">Orders</span>
 				</a>
 			</li>
+			<li>
+				<a href="/dashboard/suppliers">
+					<i class='bx bx-coffee'></i>
+					<span class="text">Suppliers</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
@@ -72,15 +85,12 @@
             <i class='bx bx-menu' ></i>
             <a href="#" class="nav-link">Clients</a>
 
-            <form action="#">
+            <form action="/dashboard/clients/search" method="post">
                 <div class="form-input">
-                    <input type="search" name="" id="">
+                    <input type="search" placeholder="Search by User" name="userClient" id="userClient">
                     <button type="submit" class="search"><i class='bx bx-search' ></i></button>
                 </div>
             </form>
-
-            <input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
         </nav>
 
         <main>

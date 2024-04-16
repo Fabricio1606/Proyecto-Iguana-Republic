@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/elements/modal.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
-<body onload="checkCookie()">
+<body>
 	<section id="modal">
 		<span class="overlay"></span>
 		<div class="modal-box">
@@ -28,13 +28,19 @@
 
     <section id="sidebar">
 		<div id="logo">
-			<a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250" height="100" /></a>
+			<a href="/"><img src="/img/logo_alt.png" class="logo" alt="" title="" width="250" height="100" /></a>
 		</div>
 		<ul class="side-menu top">
-			<li >
+			<li>
 				<a href="/dashboard">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/category">
+					<i class='bx bx-store-alt'></i>
+					<span class="text">Categories</span>
 				</a>
 			</li>
 			<li class="active">
@@ -55,6 +61,12 @@
 					<span class="text">Orders</span>
 				</a>
 			</li>
+			<li>
+				<a href="/dashboard/suppliers">
+					<i class='bx bx-coffee'></i>
+					<span class="text">Suppliers</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
@@ -71,9 +83,9 @@
             <i class='bx bx-menu' ></i>
             <a href="#" class="nav-link">Products</a>
 
-            <form action="#">
+            <form action="/dashboard/products/search" method="post">
                 <div class="form-input">
-                    <input type="search" name="" id="">
+                    <input type="search" placeholder="Search by name" name="nameProd" id="nameProd">
                     <button type="submit" class="search"><i class='bx bx-search' ></i></button>
                 </div>
             </form>
@@ -85,44 +97,6 @@
 					<h1 style="color: #00b13a;">Products</h1>
 				</div>
 			</div>
-
-            <div class="table-data">
-				<div class="order">
-					<div class="head">
-						<h3>Categories</h3>
-                        <div class="head-title">
-							<a href="/dashboard/category/newcategory" class="submit"><span>Create new category</span><i></i></a>
-                        </div>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Category</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% for (var i = 0; i < categories.length; i++) { %>
-								<tr>
-									<td><%- categories[i].idCate %></td>
-									<td><%- categories[i].nomCate %></td>
-									<td class="navigation">
-										<div class="menuToggle"></div>
-										<div class="menu">
-											<ul>
-												<li style="--i:0.1s"><a href="/dashboard/category/info/<%- categories[i].idCate %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
-												<li style="--i:0.2s"><a href="/dashboard/category/modify/<%- categories[i].idCate %>"><ion-icon name="create-outline"></ion-icon></a></li>
-												<li style="--i:0.3s"><a onclick="showModal('category/delete/<%- categories[i].idCate %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							<% } %>
-						</tbody>
-					</table>
-				</div>
-            </div>
 
             <div class="table-data">
 				<div class="order">
@@ -155,7 +129,6 @@
 										<div class="menuToggle"></div>
 										<div class="menu">
 											<ul>
-												<li style="--i:0.1s"><a href="/dashboard/products/info/<%- products[i].idProd %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
 												<li style="--i:0.2s"><a href="/dashboard/products/modify/<%- products[i].idProd %>"><ion-icon name="create-outline"></ion-icon></a></li>
 												<li style="--i:0.3s"><a onclick="showModal('products/delete/<%- products[i].idProd %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
 											</ul>

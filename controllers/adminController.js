@@ -3,7 +3,13 @@ const Clients = require('../models/client');
 const Category = require('../models/category');
 const Orders = require('../models/orders');
 const Cart = require('../models/cart');
+const CartDetail = require('../models/cartDetail');
+const Supplier = require('../models/supplier');
+const Delivery = require('../models/delivery');
 const bcrypt = require('bcryptjs');
+const { Sequelize, Op } = require('sequelize');
+const exceljs = require("exceljs")
+const fs = require('fs').promises;
 
 const adminController = {};
 
@@ -11,7 +17,6 @@ adminController.showDashboard = async (req, res) => {
     const client = await Clients.count();
     const product = await Products.count();
     const numberOrders = await Orders.count();
-    const cart = await Cart.findAll();
     const order = await Orders.findAll({
         include: Clients,
         limit: 5,
@@ -196,7 +201,10 @@ adminController.showClients = async (req, res) => {
 adminController.showInfoClient = async (req, res) => {
     const id = req.params.id;
     const client = await Clients.findByPk(id);
-    res.render('admin/clients/infoClient', { client: client }); 
+    const orders = await Orders.findAll({
+        where: { ClientIdClient: id }
+    });
+    res.render('admin/clients/infoClient', { client: client, orders: orders }); 
 };
 
 adminController.showFormClient = (req, res) => {
@@ -226,8 +234,11 @@ adminController.createClient = async (req, res) => {
     res.redirect("/dashboard/clients")
 }
 
-adminController.showOrders = (req, res) => {
-    res.render('admin/orders/orders'); 
+adminController.showOrders = async (req, res) => {
+    const orders = await Orders.findAll({
+        include: [ Clients, Delivery ]
+    });
+    res.render('admin/orders/orders', { orders: orders }); 
 };
 
 adminController.showModifyClient = async (req, res) => {
@@ -288,6 +299,357 @@ adminController.deleteClient = async (req, res) => {
     });
 
     res.redirect("/dashboard/clients")
+}
+
+adminController.showCategories = async (req, res) => {
+    const categories = await Category.findAll();
+    res.render('admin/categories/categories', { categories: categories }); 
+}
+
+adminController.showInfoCategory = async (req, res) => {
+    const id = req.params.id;
+    
+    const product = await Products.findAll({
+        where: {
+        CategoryIdCate : id
+        }
+    });
+    const category = await Category.findOne({
+        where: {
+            idCate: id
+        }
+    })
+
+    res.render("admin/categories/infoCategory", { products: product, category: category.nomCate });
+}
+
+adminController.showFormOrder = async (req, res) => {
+    res.render("admin/orders/createOrder");
+}
+
+adminController.createOrder = async (req, res) => {
+    const { statusOrder, paymentMethod, clientId, dateDeli, commentDeli } = req.body;
+
+    try {
+        var cart = await Cart.findOne({
+            where: {
+              ClientIdClient: clientId,
+              stateCart: 1
+            }
+        });
+        
+        if(cart == null) {
+            cart = await Cart.create({
+              stateCart: 1,
+              totalPriceCart: 0,
+              ClientIdClient: user.idClient,
+            });
+        }
+
+        const order = await Orders.create({
+            statusOrder: statusOrder,
+            paymentMethod: paymentMethod,
+            ClientIdClient: clientId,
+            CartIdCart: cart.idCart,
+            totalOrder: cart.totalPriceCart
+        });
+  
+        await Delivery.create({
+            dateDeli: dateDeli,
+            commentDeli: commentDeli,
+            OrderIdOrder: order.dataValues.idOrder
+        });
+
+        res.redirect("/dashboard/orders");
+    } catch (ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.deleteOrder = async (req, res) => {
+    const id = req.params.id;
+    await Orders.destroy({
+        where: { idOrder: id }
+    });
+    res.redirect("/dashboard/orders");
+}
+
+adminController.showModifyOrder = async (req, res) => {
+    const id = req.params.id;
+    const order = await Orders.findByPk(id);
+    const delivery = await Delivery.findOne({
+        where: { OrderIdOrder: id }
+    });
+
+    res.render("admin/orders/modifyOrder", { order: order, delivery: delivery })
+}
+
+adminController.modifyOrder = async (req, res) => {
+    const { statusOrder, paymentMethod, clientId, dateDeli, commentDeli } = req.body;
+
+    try {
+        await Orders.update({
+            statusOrder: statusOrder,
+            paymentMethod: paymentMethod
+        }, {
+            where: { ClientIdClient: clientId }
+        });
+
+        const order = await Orders.findOne({
+            where: { ClientIdClient: clientId }
+        });
+
+        await Delivery.update({
+            dateDeli: dateDeli,
+            commentDeli: commentDeli
+        }, {
+            where: { OrderIdOrder: order.idOrder }
+        });
+        res.redirect("/dashboard/orders");
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.showInfoOrder = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const order = await Orders.findByPk(id);
+        const client = await Clients.findByPk(order.ClientIdClient);
+        const products = await CartDetail.findAll({
+            include: Products,
+            where: {
+                CartIdCart: order.CartIdCart
+            }
+        });
+        const delivery = await Delivery.findOne({
+            where: {
+                OrderIdOrder: order.idOrder
+            }
+        });
+
+        res.render("admin/orders/infoOrder", { order: order, client: client, products: products, delivery: delivery })
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.createReport = async (req, res) => {
+    const { startDate, endDate } = req.body;
+
+    const orders = await Orders.findAll({
+        where: {
+            dateOrder: {
+                [Op.between] : [startDate, endDate]
+            }
+        }
+    });
+
+    let name = "report" + Date.now();
+
+    const workbook = new exceljs.Workbook();
+    const worksheet = workbook.addWorksheet("Order");
+    const path = "./docs";
+
+    worksheet.columns = [
+        { header: "ID", key: "idOrder", width: 15 },
+        { header: "Date order", key: "dateOrder", width: 15 },
+        { header: "Status order", key: "statusOrder", width: 15 },
+        { header: "Total order", key: "totalOrder", width: 15, numFmt: '$#,##0.00;$#0' },
+    ];
+    let counter = 1;
+    
+    orders.forEach((order) => {
+        counter++;
+
+        worksheet.addRow({
+            idOrder: order.idOrder,
+            dateOrder: order.dateOrder,
+            statusOrder: order.statusOrder,
+            totalOrder: +order.totalOrder
+        });
+    });
+
+    worksheet.getCell(`C${counter+1}`).value = "Total";
+    worksheet.getCell(`D${counter+1}`).value = { formula: `SUM(D2:D${counter})`, date1904: false };;
+    
+
+    worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true }
+    });
+
+    try {
+        const data = await workbook.xlsx.writeFile(`${path}/${name}.xlsx`).then(() => {
+            res.download(`${path}/${name}.xlsx`);
+        });
+
+    } catch(ex) {
+        console.log(ex);
+        res.render("500")
+    }
+}
+
+adminController.showSuppliers = async (req, res) => {
+    const suppliers = await Supplier.findAll();
+    res.render("admin/suppliers/suppliers", { suppliers: suppliers });
+}
+
+adminController.showFormSupplier = async (req, res) => {
+    res.render("admin/suppliers/createSupplier");
+}
+
+adminController.createSupplier = async (req, res) =>{
+    const { nameSupplier, mailSupplier, phoneSupplier, addressSupplier } = req.body;
+
+    try {
+        await Supplier.create({
+            nameSupplier: nameSupplier,
+            mailSupplier: mailSupplier,
+            phoneSupplier: phoneSupplier,
+            addressSupplier: addressSupplier
+        });
+
+        res.redirect("/dashboard/suppliers");
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.showModifySupplier = async (req, res) => {
+    const id = req.params.id;
+    const supplier = await Supplier.findByPk(id);
+    res.render("admin/suppliers/modifySupplier", { supplier: supplier });
+}
+
+adminController.modifySupplier = async (req, res) => {
+    const { idSupplier, nameSupplier, mailSupplier, phoneSupplier, addressSupplier } = req.body;
+
+    try {
+        await Supplier.update({
+            nameSupplier: nameSupplier,
+            mailSupplier: mailSupplier,
+            phoneSupplier: phoneSupplier,
+            addressSupplier: addressSupplier
+        }, {
+            where: { idSupplier: idSupplier }
+        });
+
+        res.redirect("/dashboard/suppliers");
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.deleteSupplier = async (req, res) => {
+    const id = req.params.id;
+    await Supplier.destroy({
+        where: { idSupplier: id }
+    });
+
+    res.redirect("/dashboard/suppliers");
+}
+
+adminController.searchSupplier = async (req, res) => {
+    const { nameSupplier } = req.body;
+
+    try{ 
+        const suppliers = await Supplier.findAll({
+            where: {
+                nameSupplier: {
+                    [Op.like] : "%" + nameSupplier + "%"
+                }
+            }
+        });
+
+        res.render("admin/suppliers/suppliers", { suppliers: suppliers });
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchProduct = async (req, res) => {
+    const { nameProd } = req.body;
+
+    try {
+        const products = await Products.findAll({
+            include: Category,
+            where: {
+                nameProd: {
+                    [Op.like] : "%" + nameProd + "%"
+                }
+            }
+        });
+
+        res.render("admin/products/products", { products: products });
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchOrder = async (req, res) => {
+    const { startDate, endDate } = req.body;
+
+    try{
+        const orders = await Orders.findAll({
+            include: [ Clients, Delivery ],
+            where: {
+                dateOrder: {
+                    [Op.between] : [startDate, endDate]
+                }
+            }
+        });
+
+        res.render("admin/orders/orders", { orders: orders })
+    } catch (ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchClient = async (req, res) => {
+    const { userClient } = req.body;
+
+    try {
+        const clients = await Clients.findAll({
+            where: {
+                userClient: {
+                    [Op.like] : "%" + userClient + "%"
+                }
+            }
+        });
+
+        res.render("admin/clients/clients", { clients: clients })
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchCategory = async (req, res) => {
+    const { nomCate } = req.body;
+
+    try {
+        const categories = await Category.findAll({
+            where: {
+                nomCate: {
+                    [Op.like] : "%" + nomCate + "%"
+                }
+            }
+        });
+
+        res.render("admin/categories/categories", { categories: categories })
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
 }
 
 module.exports = adminController;

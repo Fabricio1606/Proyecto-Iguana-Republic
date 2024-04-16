@@ -6,32 +6,55 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Administration - Iguana Republic</title>
 
-	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" href="/css/dashboard.css">
-	<link rel="stylesheet" href="/css/elements/buttons.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/elements/buttons.css">
+    <link rel="stylesheet" href="/css/elements/options.css">
+    <link rel="stylesheet" href="/css/elements/modal.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
 
-<body onload="checkCookie()">
-	<section id="sidebar">
+<body>
+	<section id="modal">
+		<span class="overlay"></span>
+		<div class="modal-box">
+		<ion-icon name="alert-circle-outline"></ion-icon>
+		<h2>CAUTION</h2>
+		<h3>Are you sure about delete this record?</h3>
+
+		<div class="buttons">
+			<button class="close-btn">CANCEL</button>
+			<a href="#" id="delete-modal"><button class="delete-btn">DELETE</button></a>
+		</div>
+	</div>
+	</section>
+
+    <section id="sidebar">
 		<div id="logo">
-			<a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250" height="100" /></a>
+			<a href="/"><img src="/img/logo_alt.png" class="logo" alt="" title="" width="250" height="100" /></a>
 		</div>
 		<ul class="side-menu top">
 			<li class="active">
 				<a href="/dashboard">
-					<i class='bx bxs-dashboard'></i>
+					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
+				<a href="/dashboard/category">
+					<i class='bx bx-store-alt'></i>
+					<span class="text">Categories</span>
+				</a>
+			</li>
+			<li>
 				<a href="/dashboard/products">
-					<i class='bx bxs-shopping-bag'></i>
+					<i class='bx bxs-shopping-bag' ></i>
 					<span class="text">Products</span>
 				</a>
 			</li>
 			<li>
 				<a href="/dashboard/clients">
-					<i class='bx bxs-group'></i>
+					<i class='bx bxs-group' ></i>
 					<span class="text">Clients</span>
 				</a>
 			</li>
@@ -41,29 +64,25 @@
 					<span class="text">Orders</span>
 				</a>
 			</li>
+			<li>
+				<a href="/dashboard/suppliers">
+					<i class='bx bx-coffee'></i>
+					<span class="text">Suppliers</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
 				<a href="/logout" class="logout">
-					<i class='bx bxs-log-out-circle'></i>
+					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
 			</li>
 		</ul>
 	</section>
-	<!-- SIDEBAR -->
 
 	<section id="content">
 		<nav>
-			<i class='bx bx-menu'></i>
-			<a href="#" class="nav-link">Categories</a>
-
-			<form action="#">
-				<div class="form-input">
-					<input type="search" name="" id="">
-					<button type="submit" class="search"><i class='bx bx-search'></i></button>
-				</div>
-			</form>
 
 		</nav>
 
@@ -71,15 +90,6 @@
 			<div class="head-title">
 				<div class="left">
 					<h1 style="color: #00b13a;">Dashboard</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="#">Dashboard</a>
-						</li>
-						<li><i class='bx bx-chevron-right'></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
-					</ul>
 				</div>
 			</div>
 
@@ -111,8 +121,6 @@
 				<div class="order">
 					<div class="head">
 						<h3>Recent Orders</h3>
-						<i class='bx bx-search'></i>
-						<i class='bx bx-filter'></i>
 					</div>
 					<table>
 						<thead>
@@ -131,23 +139,24 @@
 
 									<% if(orders[i].statusOrder=="Pending" ) { %>
 										<td><span class="status pending"><%- orders[i].statusOrder %></span></td>
-										<% } else if(orders[i].statusOrder=="Process" ) { %>
-											<td><span class="status process"><%- orders[i].statusOrder %></span></td>
-											<% } else { %>
-												<td><span class="status completed"><%- orders[i].statusOrder %></span>
-												</td>
-												<% } %>
-
-													<td>
-														<a href="/dashboard/orders/info/<%- orders[i].idOrder %>"
-															class="button-normal">View more</a>
-														<a href="/dashboard/orders/modify/<%- orders[i].idOrder %>"
-															class="button-normal">Modify</a>
-														<a href="/dashboard/orders/delete/<%- orders[i].idOrder %>"
-															class="button-danger">Delete</a>
-													</td>
+									<% } else if(orders[i].statusOrder=="Process" ) { %>
+										<td><span class="status process"><%- orders[i].statusOrder %></span></td>
+									<% } else { %>
+										<td><span class="status completed"><%- orders[i].statusOrder %></span>
+										</td>
+									<% } %>
+									<td class="navigation">
+										<div class="menuToggle"></div>
+										<div class="menu">
+											<ul>
+												<li style="--i:0.1s"><a href="/dashboard/orders/info/<%- orders[i].idOrder %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
+												<li style="--i:0.2s"><a href="/dashboard/orders/modify/<%- orders[i].idOrder %>"><ion-icon name="create-outline"></ion-icon></a></li>
+												<li style="--i:0.3s"><a onclick="showModal('orders/delete/<%- orders[i].idOrder %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
+											</ul>
+										</div>
+									</td>
 								</tr>
-								<% } %>
+							<% } %>
 						</tbody>
 					</table>
 				</div>
@@ -156,5 +165,8 @@
 	</section>
 </body>
 <script src="/js/dashboard.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 </html>

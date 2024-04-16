@@ -10,17 +10,22 @@
     <link rel="stylesheet" href="/css/elements/buttons.css">
     <link rel="stylesheet" href="/css/elements/input.css">
 </head>
-<body onload="checkCookie()">
+<body>
     <section id="sidebar">
-		<a href="#" class="brand">
-			<i class='bx bxs-smile'></i>
-			<span class="text">Iguana Republic</span>
-		</a>
+		<div id="logo">
+			<a href="/"><img src="/img/logo_alt.png" class="logo" alt="" title="" width="250" height="100" /></a>
+		</div>
 		<ul class="side-menu top">
-			<li >
+			<li>
 				<a href="/dashboard">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/dashboard/category">
+					<i class='bx bx-store-alt'></i>
+					<span class="text">Categories</span>
 				</a>
 			</li>
 			<li class="active">
@@ -41,6 +46,12 @@
 					<span class="text">Orders</span>
 				</a>
 			</li>
+			<li>
+				<a href="/dashboard/suppliers">
+					<i class='bx bx-coffee'></i>
+					<span class="text">Suppliers</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
@@ -53,21 +64,6 @@
 	</section>
 
     <section id="content">
-        <nav>
-            <i class='bx bx-menu' ></i>
-            <a href="#" class="nav-link">Products</a>
-
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" name="" id="">
-                    <button type="submit" class="search"><i class='bx bx-search' ></i></button>
-                </div>
-            </form>
-
-            <input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
-        </nav>
-
         <main>
             <div class="head-title">
 				<div class="left">

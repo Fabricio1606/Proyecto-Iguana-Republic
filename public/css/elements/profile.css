@@ -1,8 +1,6 @@
 :root{
     --purple:#2F192E;
     --purple-light:#30192d;
-    --dark-blue:#012677;
-    --blue:#5c65c0;
     --skyblue :#00b4fc;
     --light-blue:#005bc5;
     --dark-pink:#f64c57;
@@ -17,9 +15,7 @@
     text-decoration: none;
     font-family: poppins,sans-serif;
 }
-body{
-    background: linear-gradient(45deg, var(--purple),var(--purple-light));
-}
+
 .container{
     display: flex;
     justify-content: space-around;
@@ -161,6 +157,18 @@ body{
 .about h2{
     color:#f2f2f2;
     font-size: 2rem;
+    margin:0.5rem 0;
+}
+.about h4{
+    color:#f2f2f2;
+    font-size: 1.4rem;
+    margin:0.5rem 0;
+}
+
+.about h5{
+    color:#f2f2f2;
+    font-size: 1rem;
+    font-weight: normal;
     margin:0.5rem 0;
 }
 .about p{
