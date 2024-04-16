@@ -54,7 +54,12 @@
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABd0lEQVRIS8WV4VHDMAyF6w3YgLIBbNBOUDoBdIOyAZ2AdgLKBHQDugFsQDoBbBDex9mcz5ET5UcP3fmSutJ7lvSshMmZLZwZf/J/BG3bTpXdu9ZFJcsP7R9DCA99VahmIIK1Ap8cJYRoKaLG8u0jABwSj21E8DiW4FUBtx50+TQiuBpL8KkA+uCxgwiWbgLVn8Z+eZCjzxYxiGRVxpg9EMG1HFGQx75pshYl3ZW9qBHcy/nZgy6fjdalFjHbUrY1Ao9EOTngWJKzm6BU0FEgTQQD+BTfF3rOskznygDfP6tlkCsIYJp3F6OmeiIC+pQbt3pe7NmzSE1GQWlEHOLp+y4dWd1Yt7mTgaEgJMipy0sHKNm9aO0Fzu+OWQQzeb1lnkiQJkKCMXuotQk4WCJjyFHXnLCjFOvkac/KoBxy6RKlmJVOv+8Dzf+rqSj/BlD7/NIxmmm8ywa/aEXJqmqpsQ0SEBiH3y+Gt7nVHrjyHuHkymAEXsf1B7rldxkCSQ1LAAAAAElFTkSuQmCC"
                   />
                   Place order for $<%- cart.totalPriceCart %></button>
-                </form>
+              </form>
+
+              <form action="/cart/bill" method="post">
+                <button id="place" class="btn" type="submit">
+                  Make a bill</button>
+              </form>
               <br />
             </div>
 

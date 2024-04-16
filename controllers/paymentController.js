@@ -77,8 +77,28 @@ const payProduct = async (req, res) => {
 
 const successPage = async (req, res) => {
   try {
+    res.locals.user = req.session.client;
+    const user = res.locals.user;
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
+
+    const cart = await Cart.findOne({
+      where: { 
+        ClientIdClient: user.idClient,
+        stateCart: 1
+      }
+    });
+    
+    const order = await Orders.create({
+      totalOrder: cart.totalPriceCart,
+      ClientIdClient: user.idClient,
+      CartIdCart: cart.idCart
+    });
+  
+    await Delivery.create({
+      commentDeli: comment,
+      OrderIdOrder: order.dataValues.idOrder
+    });
 
     const execute_payment_json = {
       payer_id: payerId,
@@ -86,7 +106,7 @@ const successPage = async (req, res) => {
         {
           amount: {
             currency: "USD",
-            total: "25.00",
+            total: cart.totalPriceCart,
           },
         },
       ],
@@ -100,7 +120,7 @@ const successPage = async (req, res) => {
           throw error;
         } else {
           console.log(JSON.stringify(payment));
-          res.send("Success");
+          res.render("bill");
         }
       }
     );

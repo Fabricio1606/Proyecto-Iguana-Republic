@@ -383,6 +383,16 @@ cartController.showBill = async (req, res) => {
       CartIdCart: cart.idCart
     }
   });
+    
+  const order = await Orders.create({
+    totalOrder: cart.totalPriceCart,
+    ClientIdClient: user.idClient,
+    CartIdCart: cart.idCart
+  });
+
+  await Delivery.create({
+    OrderIdOrder: order.dataValues.idOrder
+  });
 
   let png = fs.readFileSync("./public/img/logo_alt.png");
   const img = Buffer.from(png).toString("base64");
@@ -432,7 +442,7 @@ cartController.showBill = async (req, res) => {
   //Create your invoice! Easy!
   const result = await easyinvoice.createInvoice(data, function (result) {
       //The response will contain a base64 encoded PDF file
-      console.log('PDF base64 string: ', result.pdf);
+      // console.log('PDF base64 string: ', result.pdf);
   });
 
   let name = `invoice${Date.now()}`
