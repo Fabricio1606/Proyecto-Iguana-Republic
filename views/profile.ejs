@@ -2,13 +2,6 @@
 <html lang="zxx" class="no-js">
 
 <head>
-    
-
-    </script>
-
-</body>
-
-
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
@@ -35,7 +28,10 @@
     <link rel="stylesheet" href="css/nice-select.css">
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/profile.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="views/img/fav.png">
     <meta name="author" content="codepixer">
@@ -43,199 +39,142 @@
     <meta name="keywords" content="">
     <meta charset="UTF-8">
     <title>Iguana Republic</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <style>
-        body {
-            background-image: url('img/finca.jpg');
-            background-size: cover;
-            font-family: 'Jost', sans-serif;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            /* Agregamos position:relative para que los elementos posicionados absolutamente se basen en este */
-            color: #fff;
-            /* Color de texto blanco */
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #5a3f18a6;
-            /* Color semi-transparente */
-            opacity: 1;
-            /* Nivel de transparencia */
-            z-index: -1;
-            /* Z-index menor que el formulario para colocarlo detrás */
-        }
-
-        h1 {
-            font-weight: bold;
-            color: #fff;
-            /* Color de texto blanco */
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: center;
-            /* Centrado horizontal */
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 20%;
-            /* Tamaño del 20% del ancho de la pantalla */
-            height: 30px;
-            padding: 5px;
-            font-size: 14px;
-            /* Tamaño de fuente más pequeño */
-            text-align: center;
-            /* Centrado */
-            border-radius: 25px;
-            /* Bordes redondeados */
-            margin: 0 auto;
-            /* Centrado horizontal */
-            display: block;
-            /* Para que ocupen el ancho completo */
-        }
-
-        .btn {
-            width: 15%;
-            /* Tamaño del 15% del ancho de la pantalla */
-            height: 25px;
-            /* Altura reducida */
-            margin-bottom: 10px;
-            font-size: 12px;
-            /* Tamaño de fuente más pequeño */
-            border-radius: 25px;
-            /* Bordes redondeados */
-            margin: 0 auto;
-            /* Centrado horizontal */
-            display: block;
-            /* Para que ocupen el ancho completo */
-            background-color: #3a2506;
-            /* Color café */
-            color: #fff;
-            /* Texto blanco */
-            border: none;
-            /* Quitamos el borde */
-            transition: background-color 0.3s, color 0.3s;
-            /* Transición de color */
-        }
-
-        .btn:hover {
-            background-color: #fff;
-            /* Cambio de color al pasar el ratón */
-            color: #492d03;
-            /* Texto café */
-        }
-    </style>
 </head>
 
 <body>
-    <header id="header" class="header-scrolled">
-        <div class="header-top">
-            <div class="container">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-lg-2 col-md-4 col-4 header-top-left no-padding">
-                        <div id="logo">
-                            <a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250"
-                                    height="100" /></a>
+        
+	<%- include('header', {}); %>
+    <div class="container light-style flex-grow-1 container-p-y" id="userpage">
+        <h4 class="font-weight-bold py-3 mb-4">
+            Account settings
+        </h4>
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div class="list-group account-settings-links" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#account-general" role="tab" aria-controls="list-home">Information</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#account-change-password" role="tab" aria-controls="list-profile">Change password</a>
+                        <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#account-info" role="tab" aria-controls="list-messages">Orders</a>
+                      </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="account-general">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control mb-1" value="<%- profile.userClient %>" id="userClient">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" value="<%- profile.nameClient %>" id="nameClient">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="text" class="form-control mb-1" value="<%- profile.mailClient %>" id="mailClient">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Country</label>
+                                    <select class="custom-select" id="nationClient">
+                                        <% for (var i=0; i < countries.length; i++) { %>
+                                            <% if (profile.nationClient == countries[i].name) { %>  
+                                                <option selected><%- countries[i].name %></option>
+                                            <% } else { %>
+                                                <option><%- countries[i].name %></option>
+                                            <% } %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone</label>
+                                    <input type="number" class="form-control" id="phoneClient" value="<%- profile.phoneClient %>">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" value="<%- profile.addressClient %>" id="addressClient" autocomplete="off">
+                                    <% if (profile.addressClient == "N/A") { %>
+                                        <div class="alert alert-danger mt-3">
+                                            You need an address to checkout your products
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <div class="text-right mt-3">
+                                    <button type="button" id="updateUser" class="btn btn-primary">Save changes</button>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-change-password">
+                            <div class="card-body pb-2">
+                                <div class="form-group">
+                                    <label class="form-label">Current password</label>
+                                    <input type="password" id="passwordClient" class="form-control">
+                                    <div id="alertOld" class="alert alert-danger mt-3" hidden>
+                                        You need your actual password!
+                                    </div>
+                                    <div id="alertWrong" class="alert alert-danger mt-3" hidden>
+                                        Your password is incorrect!
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">New password</label>
+                                    <input type="password" id="newPassword" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Repeat new password</label>
+                                    <input type="password" id="repeatPassword" class="form-control">
+                                    <div id="alertNew" class="alert alert-danger mt-3" hidden>
+                                        The passwords doesn't match!
+                                    </div>
+                                    <div id="alertSuccess" class="alert alert-success mt-3" hidden>
+                                        Your password was modified!
+                                    </div>
+                                </div>
+                                <div class="text-right mt-3">
+                                    <button type="button" id="updatePassword" class="btn btn-primary" disabled>Save changes</button>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-info">
+                            <hr class="border-light m-0">
+                            <div class="card-body pb-2">
+                                <h6 class="mb-4">Recent Orders</h6>
+                                <div class="table-data">
+                                    <div class="order">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Date Order</th>
+                                                    <th>Status</th>
+                                                    <th>Total Order</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for (var i=0; i < orders.length; i++) { %>
+                                                    <tr>
+                                                        <td><%- orders[i].dateOrder %></td>
+                                                        <td><%- orders[i].statusOrder %></td>
+                                                        <td><%- orders[i].totalOrder %></td>
+                                                        <td>
+                                                            <li style="--i:0.1s; display: block;"><a href="/profile/orders/<%- orders[i].CartIdCart %>"><ion-icon style="font-size: 24px;" name="alert-circle-outline"></ion-icon></a></li>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <nav id="nav-menu-container">
-                    <ul class="nav-menu" st>
-                        <li class="menu-active"><a href="/">Home</a></li>
-                        <li><a href="/aboutUs">About Us</a></li>
-                        <li><a href="/#coffee">Products</a></li>
-                        <li><a href="/fincas">Farms</a></li>
-                        <% if (user) { %>
-                            <div class="inicioSesion">
-                                <% if (admin) { %>
-                                    <li style="text-align: right;"><a href="/dashboard">Administrador <%= user %></a>
-                                    </li>
-                                    <% } else { %>
-                                        <li style="text-align: right;"><a href="/profile">Hola, <%= user %></a></li>
-                                        <% } %>
-                                            <li style="text-align: right;"><a href="/logout">Logout</a></li>
-                                            <li style="text-align: right;"><a href="/cart"><img
-                                                        src="/img/elements/cart.png" alt="Cart" title="Cart"
-                                                        style="width: 20px; height: 20px; margin-left: 5px;"></a></li>
-                                            <% } else { %>
-                                                <div class="inicioSesion" style="vertical-align: middle;">
-                                                    <li style="text-align: right;"><a href="/login"><i
-                                                                class='bx bx-door-open'
-                                                                style="font-size: 18px; vertical-align: middle;"></i>Log
-                                                            In</a></li>
-                                                </div>
-                                                <% } %>
-                    </ul>
-                </nav><!-- #nav-menu-container -->
-            </div>
         </div>
-    </header><!-- #header -->
-    <section class="menu-list-area section-gap">
-        <div style="margin-top: 50px" class="container">
-            <h1>Profile</h1>
-            <div>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="fullName"
-                            placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                            placeholder="Enter your email address">
-                    </div>
-                    <div class="form-group">
-                        <label for="nationality">Nationality</label>
-                        <input type="text" class="form-control" id="nationality" name="nationality"
-                            placeholder="Enter your nationality">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                            placeholder="Enter your phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address"
-                            placeholder="Enter your address">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            placeholder="Enter your username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Enter your password">
-                    </div>
-                    <button type="button" class="btn btn-success">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
-                    
-                    <a href="/profile/profileOrders">
-                        <button type="button" class="btn bnt-information">Ordenes</button>
-
-
-                    </a>
-
-                </form>
-
-                
-            </div>
-        </div>
-    </section>
+    </div>
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="/js/userInformation.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

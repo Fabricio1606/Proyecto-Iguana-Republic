@@ -2,34 +2,126 @@ const { NOW, where } = require("sequelize");
 const Cart = require("../models/cart.js");
 const CartDetail = require("../models/cartDetail.js");
 const Client = require("../models/client.js");
+const Delivery = require("../models/delivery.js");
 const sequelize = require("../config/sequelize.js");
 const Product = require("../models/product.js");
+const Orders = require("../models/orders.js");
 
 const cartController = {};
 
 cartController.showCart = async (req, res) => {
   res.locals.user = req.session.client;
   const user = res.locals.user;
-  const cart = await Cart.findAll();
   if (user) {
-    res.render("cart_detail", {
-      user: res.locals.user,
-      admin: res.locals.admin,
+    var cart = await Cart.findOne({
+      where: {
+        ClientIdClient: user.idClient,
+        stateCart: 1
+      }
+    });
+  
+    if(cart == null) {
+      cart = await Cart.create({
+        stateCart: 1,
+        totalPriceCart: 0,
+        ClientIdClient: user.idClient,
+      });
+    }
+
+    const details = await CartDetail.findAll({
+      include: Product,
+      where: {
+        CartIdCart: cart.idCart
+      }
+    });
+
+    const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id",{
+      replacements: { id: cart.idCart}
+    });
+    
+    res.render("cart", {
+      user: res.locals.user.userClient,
+      admin: res.locals.user.adminUser,
+      products: details,
       cart: cart,
+      subtotal: records
     });
   } else {
-    res.render("cart_detail", { cart: cart });
+    res.render("login");
   }
 };
 
-cartController.getAllCarts = async (req, res) => {
+cartController.deleteProductCart = async (req, res) => {
   res.locals.user = req.session.client;
   const user = res.locals.user;
-  res.render("cart", {
-    user: res.locals.user.userClient,
-    admin: res.locals.user.adminUser,
-  });
-};
+  const id = req.params.id;
+  
+  if (user) {
+    const cart = await Cart.findOne({
+      where: {
+        ClientIdClient: user.idClient,
+        stateCart: 1
+      }
+    });
+
+    const productStock = await CartDetail.findOne({
+      where: {
+        idDetCart: id
+      }
+    });
+
+    await Product.increment("stockProd", {
+      by: productStock.dataValues.quantity,
+      where: { idProd: productStock.dataValues.ProductIdProd }
+    });
+
+    await productStock.destroy();
+
+    var total = await CartDetail.findOne(
+      {
+        attributes: [
+          [
+            sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
+            "total",
+          ],
+        ],
+      },
+      {
+        where: {
+          CartIdCart: cart.idCart,
+        },
+      }
+    );
+
+    if(total.dataValues.total == null) {
+      await Cart.update(
+        {
+          totalPriceCart: 0,
+        },
+        {
+          where: {
+            idCart: cart.idCart,
+          },
+        }
+      );
+    } else {
+      await Cart.update(
+        {
+          totalPriceCart: total.dataValues.total,
+        },
+        {
+          where: {
+            idCart: cart.idCart,
+          },
+        }
+      );
+    }
+
+    res.redirect("/cart");
+  } else {
+    res.redirect("login");
+  }
+}
 
 cartController.addToCart = async (req, res) => {
   const { idProd, priceProd, quantityProd } = req.body;
@@ -168,5 +260,108 @@ cartController.addToCart = async (req, res) => {
     });
   }
 };
+
+cartController.changeQuantity = async (req, res) => {
+  const { quantity, idProd, idCart } = req.body;
+
+  try {
+    await CartDetail.update({
+      quantity: quantity
+    }, {
+      where: {
+        ProductIdProd: idProd,
+        CartIdCart: idCart
+      }
+    });
+
+    var total = await CartDetail.findOne(
+      {
+        attributes: [
+          [
+            sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
+            "total",
+          ],
+        ],
+      },
+      {
+        where: {
+          CartIdCart: idCart,
+        },
+      }
+    );
+
+    await Cart.update(
+      {
+        totalPriceCart: total.dataValues.total,
+      },
+      {
+        where: {
+          idCart: idCart,
+        },
+      }
+    );
+
+    const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id AND product_id_prod = :prod",{
+      replacements: { id: idCart, prod: idProd }
+    });
+    var subtotal = records[0][0].total;
+
+    res.json({
+      result : 1,
+      total: total.dataValues.total,
+      subtotal: subtotal
+    });
+  } catch(ex) {
+    res.json({
+      result : 0
+    });
+  }
+}
+
+cartController.checkout = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+
+  if(user) {
+    if(user.addressClient != "N/A") {
+      const cart = await Cart.findOne({
+        where: {
+          ClientIdClient: user.idClient,
+          stateCart: 1
+        }
+      });
+      res.render("checkout", { user: res.locals.user.userClient, admin: res.locals.user.adminUser, profile: user, cart: cart });
+    } else {
+      res.redirect("/profile");
+    }
+  }
+}
+
+cartController.makeOrder = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+  const { idCart, comment, total } = req.body;
+
+  try{
+    const order = await Orders.create({
+      totalOrder: total,
+      ClientIdClient: user.idClient,
+      CartIdCart: idCart
+    });
+  
+    await Delivery.create({
+      commentDeli: comment,
+      OrderIdOrder: order.dataValues.idOrder
+    });
+    
+    res.json({
+      result : 1
+    });
+  } catch(ex) {
+    res.json({
+      result : ex
+    });
+  }
+}
 
 module.exports = cartController;

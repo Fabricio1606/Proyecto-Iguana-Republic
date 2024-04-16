@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require("../config/sequelize")
-const Client = require("./client")
+const Client = require("./client");
+const Cart = require("./cart");
 
 const Orders = sequelize.define("Orders", {
     idOrder: {
@@ -68,6 +69,26 @@ const Orders = sequelize.define("Orders", {
             notEmpty: true,
             isDecimal: true
         }
+    },
+
+    paymentMethod: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        defaultValue: "PAYPAL",
+
+        get() {
+            const payment = this.getDataValue("paymentMethod");
+            return payment ? payment : null;
+        },
+
+        set(value) {
+            this.setDataValue("paymentMethod", value);
+        },
+
+        validate: {
+            len: [1, 50],
+            notEmpty: true
+        }
     }
 }, {
     sequelize,
@@ -79,5 +100,11 @@ Client.hasMany(Orders, {
     onUpdate: "CASCADE"
 });
 Orders.belongsTo(Client);
+
+Cart.hasOne(Orders, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+});
+Orders.belongsTo(Cart);
 
 module.exports = Orders;
