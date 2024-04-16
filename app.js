@@ -4,7 +4,6 @@ const express = require("express");
 const sequelize = require("./config/sequelize");
 const cors = require("cors");
 const app = express();
-var http = require("http").Server(app);
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -94,6 +93,7 @@ const productRoute = require("./routes/productRoute");
 app.use("/products", productRoute);
 const cartController = require("./routes/cartRoute");
 app.use("/cart", cartController);
+app.use("/paypal", paymentRoute);
 const homeController = require("./routes/homeRoute");
 app.use("", homeController);
 
@@ -118,6 +118,3 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.render("500");
 });
-
-//Metodo de pago de PayPal
-app.use("/", paymentRoute);
