@@ -1,4 +1,6 @@
 const paypal = require("paypal-rest-sdk");
+const Orders = require("../models/orders");
+const Cart = require("../models/cart");
 
 const { PAYPAL_MODE, PAYPAL_CLIENT_KEY, PAYPAL_SECRET_KEY } = process.env;
 
@@ -17,24 +19,31 @@ const renderBuyPage = async (req, res) => {
 };
 
 const payProduct = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+  const cart = await Cart.findOne({
+    where: { ClientIdClient: user.idClient }
+  });
+  console.log(cart.totalPriceCart);
+
   try {
     const create_payment_json = {
       intent: "sale",
       payer: {
         payment_method: "paypal",
       },
-      redirect__urls: {
-        return_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/cancel",
+      redirect_urls: {
+        return_url: "http://localhost:3000/cart/bill",
+        cancel_url: "http://localhost:3000/cart/checkout",
       },
       transactions: [
         {
           item_list: {
             items: [
               {
-                name: "Book",
+                name: "Products",
                 sku: "001",
-                price: "25.00",
+                price: cart.totalPriceCart,
                 currency: "USD",
                 quantity: 1,
               },
@@ -42,9 +51,9 @@ const payProduct = async (req, res) => {
           },
           amount: {
             currency: "USD",
-            total: "25.00",
+            total: cart.totalPriceCart,
           },
-          description: "This is a Book",
+          description: "This is the payment of your products",
         },
       ],
     };
@@ -62,6 +71,7 @@ const payProduct = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    console.log(error);
   }
 };
 
