@@ -32,6 +32,10 @@ router.post('/products/modify/:id', modify.single("imgProd"), controller.modifyP
 router.get('/products/delete/:id', controller.deleteProduct);
 
 // CRUD CATEGORIES
+router.get('/category', controller.showCategories);
+
+router.get("/category/info/:id", controller.showInfoCategory);
+
 router.get("/category/newcategory", controller.showFormCategory); 
 router.post("/category/newcategory", controller.createCategory);
 
@@ -55,5 +59,19 @@ router.get('/clients/delete/:id', controller.deleteClient);
 
 // CRUD ORDERS
 router.get('/orders', controller.showOrders);
+
+router.post('/orders/download', controller.createReport);
+router.get('/orders/info/:id', controller.showInfoOrder);
+
+router.get("/orders/neworder", controller.showFormOrder);
+router.post("/orders/neworder", controller.createOrder);
+
+router.get("/orders/modify/:id", controller.showModifyOrder);
+router.post("/orders/modifyorder", controller.modifyOrder);
+
+router.get('/orders/delete/:id', controller.deleteOrder);
+
+// CRUD SUPPLIERS
+router.get("/suppliers", controller.showSuppliers);
 
 module.exports = router;

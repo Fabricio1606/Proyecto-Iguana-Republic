@@ -120,32 +120,74 @@
                 </div>
            </div>
 
-           <div class="about">
-           <h2>Information details</h2>
-           <div class="work">
-              <div class="workbox">
+         <div class="about">
+            <h2>Information details</h2>
+            <div class="work">
+               <div class="workbox">
+                     <div class="icon">
+                        <img src="/img/web.svg" alt="">
+                     </div>
+                     <div class="desc">
+                        <h3>Address</h3>
+                        <p><%- client.addressClient %></p>
+                     </div>
+               </div>
+   
+               <div class="workbox">
                   <div class="icon">
-                     <img src="/img/web.svg" alt="">
+                     <img src="/img/ui.svg" alt="">
                   </div>
                   <div class="desc">
-                     <h3>Address</h3>
-                     <p><%- client.addressClient %></p>
+                     <h3>Username</h3>
+                     <p><%- client.userClient %></p>
                   </div>
-              </div>
- 
-              <div class="workbox">
-                 <div class="icon">
-                    <img src="/img/ui.svg" alt="">
-                 </div>
-                 <div class="desc">
-                    <h3>Username</h3>
-                    <p><%- client.userClient %></p>
-                 </div>
-             </div>
-           </div>
-        </div>
+               </div>
+            </div>
+
+            
+     </div>
     </section>
     
+    <div id="content">
+      <main>
+         <h1 class="mb-4">Recent Orders</h1>
+         <div class="table-data">
+             <div class="order">
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Date Order</th>
+                             <th>Status</th>
+                             <th>Total Order</th>
+                             <th>Actions</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <% for (var i=0; i < orders.length; i++) { %>
+                             <tr>
+                                 <td><%- orders[i].dateOrder %></td>
+                                 <td><%- orders[i].statusOrder %></td>
+                                 <td><%- orders[i].totalOrder %></td>
+                                 
+                                 <td class="navigation">
+                                    <div class="menuToggle"></div>
+                                    <div class="menu">
+                                       <ul>
+                                          <li style="--i:0.1s"><a href="/dashboard/orders/info/<%- orders[i].idOrder %>"><ion-icon name="alert-circle-outline"></ion-icon></a></li>
+                                          <li style="--i:0.2s"><a href="/dashboard/orders/modify/<%- orders[i].idOrder %>"><ion-icon name="create-outline"></ion-icon></a></li>
+                                          <li style="--i:0.3s"><a onclick="showModal('orders/delete/<%- orders[i].idOrder %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
+                                       </ul>
+                                    </div>
+                                 </td>
+                             </tr>
+                         <% } %>
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+      </main>
+</div>
+
 	<script src="/js/dashboard.js"></script>
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
