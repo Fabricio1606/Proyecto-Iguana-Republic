@@ -121,6 +121,3 @@ app.use((err, req, res, next) => {
 
 //Metodo de pago de PayPal
 app.use("/", paymentRoute);
-http.listen(3000, function () {
-  console.log("Server is running");
-});
