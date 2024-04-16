@@ -6,6 +6,8 @@ const Delivery = require("../models/delivery.js");
 const sequelize = require("../config/sequelize.js");
 const Product = require("../models/product.js");
 const Orders = require("../models/orders.js");
+var easyinvoice = require('easyinvoice');
+const fs = require("fs");
 
 const cartController = {};
 
@@ -362,6 +364,82 @@ cartController.makeOrder = async (req, res) => {
       result : ex
     });
   }
+}
+
+cartController.showBill = async (req, res) => {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+
+  const cart = await Cart.findOne({
+    where: { 
+      ClientIdClient: user.idClient,
+      stateCart: 1
+    }
+  })
+
+  const details = await CartDetail.findAll({
+    include: Product,
+    where: {
+      CartIdCart: cart.idCart
+    }
+  });
+
+  let png = fs.readFileSync("./public/img/logo_alt.png");
+  const img = Buffer.from(png).toString("base64");
+
+  var data = {
+    // apiKey: "l9rhAyDx0dONmJcw8B9BPepJwCRwcETmGruQax97dQYL7wuZ41xor8YE1YA31SPM", // Please register to receive a production apiKey: https://app.budgetinvoice.com/register
+    // mode: "development", // Production or development, defaults to production   
+    images: {
+        // The logo on top of your invoice
+        logo: `${img}`,
+    },
+    // Your own data
+    sender: {
+        company: "Iguana Republic",
+        city: "San Jose",
+        country: "Costa Rica"
+    },
+    client: {
+        address: user.addressClient,
+        country: user.nationClient
+    },
+    information: {
+        // Invoice number
+        number: "001",
+        // Invoice data
+        date: "2024-04-16"
+    },
+    products: [
+        
+    ],
+    // The message you would like to display on the bottom of your invoice
+    bottomNotice: "Kindly pay your invoice within 15 days.",
+    settings: {
+        currency: "USD"
+    },
+    translate: {},
+  };
+
+  details.forEach((product) => {
+    data.products.push({
+      quantity: product.quantity,
+      description: product.Product.nameProd,
+      price: product.unitPrice
+    });
+  });
+
+  //Create your invoice! Easy!
+  const result = await easyinvoice.createInvoice(data, function (result) {
+      //The response will contain a base64 encoded PDF file
+      console.log('PDF base64 string: ', result.pdf);
+  });
+
+  let name = `invoice${Date.now()}`
+
+  fs.writeFileSync(`./docs/${name}.pdf`, result.pdf, "base64");
+
+  res.download(`./docs/${name}.pdf`);
 }
 
 module.exports = cartController;

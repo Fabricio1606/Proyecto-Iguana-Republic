@@ -3,6 +3,7 @@ const controller = require("../controllers/cartController");
 
 const router = Router();
 router.get("/", controller.showCart);
+router.post("/bill", controller.showBill);
 router.get("/checkout", controller.checkout);
 router.get("/delete/:id", controller.deleteProductCart);
 
