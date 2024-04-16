@@ -1,78 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Checkout - Iguana Republic</title>
-    <link rel="stylesheet" href="/css/checkout.css">
-    <link rel="stylesheet" href="/css/main.css">
-	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/css/bootstrap.css">
-</head>
-<body>
-	<%- include('header', {}); %>
+    <link rel="stylesheet" href="/css/checkout.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+  </head>
+  <body>
+    <%- include('header', {}); %>
     <section class="main container">
-        <div class="common-parent">
-            <div class="flex">
-                <div class="order-container">
-                    <div class="order-process">
-                        <img src="https://i.imgur.com/FEmmosc.png">
-                        <div class="shipping">
-                            <span class="shipping-text">One more step and your order will be ready.</span>
-                        </div>
-                    </div>
-                    
-                    <div class="info">
-                        <span><%- profile.nameClient %><br>
-                            <%- profile.addressClient %>
-                        </span>
-                    </div>
-    
-                    <hr aria-hidden="true" class="divider">
-    
-                    <div class="info" style="margin-top: 20px;">
-                        <div class="optional">
-                            <h3>Delivery instructions (optional)</h3>
-                            <textarea type="text" id="instructions"></textarea>
-                        </div>
-                    </div>
-    
-                    <hr aria-hidden="true" class="divider">
-                </div>
-                
-    
-                <div class="payment-container">
-                    <div class="p-order" style="flex: 3;">
-                        <button id="place" class="btn"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABd0lEQVRIS8WV4VHDMAyF6w3YgLIBbNBOUDoBdIOyAZ2AdgLKBHQDugFsQDoBbBDex9mcz5ET5UcP3fmSutJ7lvSshMmZLZwZf/J/BG3bTpXdu9ZFJcsP7R9DCA99VahmIIK1Ap8cJYRoKaLG8u0jABwSj21E8DiW4FUBtx50+TQiuBpL8KkA+uCxgwiWbgLVn8Z+eZCjzxYxiGRVxpg9EMG1HFGQx75pshYl3ZW9qBHcy/nZgy6fjdalFjHbUrY1Ao9EOTngWJKzm6BU0FEgTQQD+BTfF3rOskznygDfP6tlkCsIYJp3F6OmeiIC+pQbt3pe7NmzSE1GQWlEHOLp+y4dWd1Yt7mTgaEgJMipy0sHKNm9aO0Fzu+OWQQzeb1lnkiQJkKCMXuotQk4WCJjyFHXnLCjFOvkac/KoBxy6RKlmJVOv+8Dzf+rqSj/BlD7/NIxmmm8ywa/aEXJqmqpsQ0SEBiH3y+Gt7nVHrjyHuHkymAEXsf1B7rldxkCSQ1LAAAAAElFTkSuQmCC"/>
-                            Place order for $<%- cart.totalPriceCart %></button><br>
-                    </div>
-
-                    <div class="order-summary">
-                        <div class="subtotal">
-                            <span class="sub">
-                                Subtotal 
-                            </span>
-        
-                            <div >$<%- cart.totalPriceCart %></div>
-                        </div>
-
-                        <hr aria-hidden="true" class="divide">
-
-                        <div class="subtotal">
-                            <input type="text" id="cartId" value="<%- cart.idCart %>" hidden>
-                            <input type="text" id="total" value="<%- cart.totalPriceCart %>" hidden>
-                            <span class="estimated">Estimated total</span>
-                            <span class="total">$<%- cart.totalPriceCart %></span>
-                        </div>
-                    </div>
-                </div>
+      <div class="common-parent">
+        <div class="flex">
+          <div class="order-container">
+            <div class="order-process">
+              <img src="https://i.imgur.com/FEmmosc.png" />
+              <div class="shipping">
+                <span class="shipping-text"
+                  >One more step and your order will be ready.</span
+                >
+              </div>
             </div>
+
+            <div class="info">
+              <span
+                ><%- profile.nameClient %><br />
+                <%- profile.addressClient %>
+              </span>
+            </div>
+
+            <hr aria-hidden="true" class="divider" />
+
+            <div class="info" style="margin-top: 20px">
+              <div class="optional">
+                <h3>Delivery instructions (optional)</h3>
+                <textarea type="text" id="instructions"></textarea>
+              </div>
+            </div>
+
+            <hr aria-hidden="true" class="divider" />
+          </div>
+
+          <div class="payment-container">
+            <div class="p-order" style="flex: 3">
+              <button id="place" class="btn">
+                <img
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABd0lEQVRIS8WV4VHDMAyF6w3YgLIBbNBOUDoBdIOyAZ2AdgLKBHQDugFsQDoBbBDex9mcz5ET5UcP3fmSutJ7lvSshMmZLZwZf/J/BG3bTpXdu9ZFJcsP7R9DCA99VahmIIK1Ap8cJYRoKaLG8u0jABwSj21E8DiW4FUBtx50+TQiuBpL8KkA+uCxgwiWbgLVn8Z+eZCjzxYxiGRVxpg9EMG1HFGQx75pshYl3ZW9qBHcy/nZgy6fjdalFjHbUrY1Ao9EOTngWJKzm6BU0FEgTQQD+BTfF3rOskznygDfP6tlkCsIYJp3F6OmeiIC+pQbt3pe7NmzSE1GQWlEHOLp+y4dWd1Yt7mTgaEgJMipy0sHKNm9aO0Fzu+OWQQzeb1lnkiQJkKCMXuotQk4WCJjyFHXnLCjFOvkac/KoBxy6RKlmJVOv+8Dzf+rqSj/BlD7/NIxmmm8ywa/aEXJqmqpsQ0SEBiH3y+Gt7nVHrjyHuHkymAEXsf1B7rldxkCSQ1LAAAAAElFTkSuQmCC"
+                />
+                Place order for $<%- cart.totalPriceCart %></button
+              ><br />
+            </div>
+
+            <div class="order-summary">
+              <div class="subtotal">
+                <span class="sub"> Subtotal </span>
+
+                <div>$<%- cart.totalPriceCart %></div>
+              </div>
+
+              <hr aria-hidden="true" class="divide" />
+
+              <div class="subtotal">
+                <input
+                  type="text"
+                  id="cartId"
+                  value="<%- cart.idCart %>"
+                  hidden
+                />
+                <input
+                  type="text"
+                  id="total"
+                  value="<%- cart.totalPriceCart %>"
+                  hidden
+                />
+                <span class="estimated">Estimated total</span>
+                <span class="total">$<%- cart.totalPriceCart %></span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <script src="/js/vendor/jquery-3.7.1.min.js"></script>
     <script src="/js/checkout.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
-</html>        
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
