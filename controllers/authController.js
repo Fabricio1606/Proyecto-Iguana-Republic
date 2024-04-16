@@ -9,8 +9,13 @@ const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com', Tem
 const authController = {};
 
 authController.showLogin = (req, res) => {
-    const countries = Country.getAllCountries();
-    res.render('login', { countries: countries }); // Renderiza la vista de inicio de sesión
+    try {
+        const countries = Country.getAllCountries();
+        res.render('login', { countries: countries }); // Renderiza la vista de inicio de sesión
+    } catch(ex) {
+        console.log(ex);
+        res.render("500")
+    }
 };
 
 authController.showRegister = (req, res) => {
@@ -43,7 +48,7 @@ authController.login = async (req, res) => {
         res.redirect('/'); // Redirige a la página de dashboard u otra ruta
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 };
 
@@ -69,7 +74,7 @@ authController.register = async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 };
 
@@ -115,7 +120,7 @@ authController.logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error(err);
-            res.status(500).send('Error al cerrar sesión');
+            res.render("500");
         } else {
             res.locals.user = null;
             res.redirect('/');

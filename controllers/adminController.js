@@ -14,40 +14,55 @@ const fs = require('fs').promises;
 const adminController = {};
 
 adminController.showDashboard = async (req, res) => {
-    const client = await Clients.count();
-    const product = await Products.count();
-    const numberOrders = await Orders.count();
-    const order = await Orders.findAll({
-        include: Clients,
-        limit: 5,
-        order: [ ["idOrder", "DESC"] ]
-    });
+    try {
+        const client = await Clients.count();
+        const product = await Products.count();
+        const numberOrders = await Orders.count();
+        const order = await Orders.findAll({
+            include: Clients,
+            limit: 5,
+            order: [ ["idOrder", "DESC"] ]
+        });
 
-    res.render('admin/dashboard', { clients : client, products : product, numOrders : numberOrders, orders : order }); 
+        res.render('admin/dashboard', { clients : client, products : product, numOrders : numberOrders, orders : order }); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 };
 
 adminController.showProducts = async (req, res) => {
-    const product = await Products.findAll({
-        include: Category
-    });
-    const categories = await Category.findAll();
-
-    res.render('admin/products/products', { products: product, categories: categories }); 
+    try {
+        const product = await Products.findAll({
+            include: Category
+        });
+        const categories = await Category.findAll();
+    
+        res.render('admin/products/products', { products: product, categories: categories }); 
+    } catch (ex) {
+        console.log(ex);
+        res.render("500")
+    }
 };
 
 adminController.showFormProduct = async (req, res) => {
-    const category = await Category.findAll();
-    res.render('admin/products/createProduct', { categories : category}); 
+    try {
+        const category = await Category.findAll();
+        res.render('admin/products/createProduct', { categories : category}); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 };
 
 adminController.createProduct = async (req, res) => {
     const { nameProd, priceProd, stockProd, shortDescProd, descProd, cateProd } = req.body;
-    const imgProd = req.file.filename;
-    const category = await Category.findOne({
-        where: { nomCate: cateProd }
-    })
-    const CategoryIdCate = category.idCate;
     try {
+        const imgProd = req.file.filename;
+        const category = await Category.findOne({
+            where: { nomCate: cateProd }
+        })
+        const CategoryIdCate = category.idCate;
         const product = await Products.create({
             nameProd,
             imgProd,
@@ -59,7 +74,7 @@ adminController.createProduct = async (req, res) => {
         })
     } catch(error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 
     res.redirect("/dashboard/products")
@@ -67,22 +82,28 @@ adminController.createProduct = async (req, res) => {
 
 adminController.showModifyProduct = async (req, res) => {
     const id = req.params.id;
-    const product = await Products.findByPk(id, {
-        include: Category
-    });
-
-    const category = await Category.findAll();
-    res.render('admin/products/modifyProduct', { categories : category, product : product }); 
+    
+    try {
+        const product = await Products.findByPk(id, {
+            include: Category
+        });
+    
+        const category = await Category.findAll();
+        res.render('admin/products/modifyProduct', { categories : category, product : product }); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500");
+    }
 };
 
 adminController.modifyProduct = async (req, res) => {
     const { idProd, nameProd, priceProd, stockProd, shortDescProd, descProd, cateProd } = req.body;
-    const category = await Category.findOne({
-        where: { nomCate: cateProd }
-    })
-    const CategoryIdCate = category.idCate;
 
     try{
+        const category = await Category.findOne({
+            where: { nomCate: cateProd }
+        })
+        const CategoryIdCate = category.idCate;
         const product = await Products.update({
             idProd,
             nameProd,
@@ -96,7 +117,7 @@ adminController.modifyProduct = async (req, res) => {
         });
     } catch(error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 
     res.redirect("/dashboard/products")
@@ -104,13 +125,13 @@ adminController.modifyProduct = async (req, res) => {
 
 adminController.modifyProductImage = async (req, res) => {
     const { idProd, nameProd, priceProd, stockProd, shortDescProd, descProd, cateProd } = req.body;
-    const category = await Category.findOne({
-        where: { nomCate: cateProd }
-    })
-    const imgProd = req.file.filename;
-    const CategoryIdCate = category.idCate;
 
     try{
+        const category = await Category.findOne({
+            where: { nomCate: cateProd }
+        })
+        const imgProd = req.file.filename;
+        const CategoryIdCate = category.idCate;
         const product = await Products.update({
             idProd,
             nameProd,
@@ -125,7 +146,7 @@ adminController.modifyProductImage = async (req, res) => {
         });
     } catch(error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 
     res.redirect("/dashboard/products")
@@ -133,11 +154,17 @@ adminController.modifyProductImage = async (req, res) => {
 
 adminController.deleteProduct = async (req, res) => {
     const id = req.params.id;
-    await Products.destroy({
-        where: { idProd : id }
-    });
-
-    res.redirect("/dashboard/products")
+    
+    try{
+        await Products.destroy({
+            where: { idProd : id }
+        });
+    
+        res.redirect("/dashboard/products")
+    } catch(ex) {
+        console.log(ex)
+        res.render("500");
+    }
 }
 
 adminController.showFormCategory = (req, res) => {
@@ -153,7 +180,7 @@ adminController.createCategory = async (req, res) => {
         });
     } catch(error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 
     res.redirect("/dashboard/products");
@@ -161,9 +188,15 @@ adminController.createCategory = async (req, res) => {
 
 adminController.showModifyCategory = async (req, res) => {
     const id = req.params.id;
-    const category = await Category.findByPk(id);
 
-    res.render("admin/categories/modifyCategory", { category : category })
+    try {
+        const category = await Category.findByPk(id);
+
+        res.render("admin/categories/modifyCategory", { category : category })
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.modifyCategory = async (req, res) => {
@@ -177,7 +210,7 @@ adminController.modifyCategory = async (req, res) => {
         });
     } catch(error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 
     res.redirect("/dashboard/products");
@@ -185,26 +218,43 @@ adminController.modifyCategory = async (req, res) => {
 
 adminController.deleteCategory = async (req, res) => {
     const id = req.params.id;
-    await Category.destroy({
-        where: { idCate : id }
-    });
-
-    res.redirect("/dashboard/products")
+    
+    try{
+        await Category.destroy({
+            where: { idCate : id }
+        });
+    
+        res.redirect("/dashboard/products")
+    } catch (ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.showClients = async (req, res) => {
-    const Client = await Clients.findAll();
+    try{
+        const Client = await Clients.findAll();
 
-    res.render('admin/clients/clients', { clients: Client }); 
+        res.render('admin/clients/clients', { clients: Client }); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 };
 
 adminController.showInfoClient = async (req, res) => {
     const id = req.params.id;
-    const client = await Clients.findByPk(id);
-    const orders = await Orders.findAll({
-        where: { ClientIdClient: id }
-    });
-    res.render('admin/clients/infoClient', { client: client, orders: orders }); 
+    
+    try{
+        const client = await Clients.findByPk(id);
+        const orders = await Orders.findAll({
+            where: { ClientIdClient: id }
+        });
+        res.render('admin/clients/infoClient', { client: client, orders: orders }); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 };
 
 adminController.showFormClient = (req, res) => {
@@ -228,24 +278,34 @@ adminController.createClient = async (req, res) => {
         });
     } catch(error) {
         console.error(error);
-        res.status(500).send('Internal Error');
+        res.render("500");
     }
 
     res.redirect("/dashboard/clients")
 }
 
 adminController.showOrders = async (req, res) => {
-    const orders = await Orders.findAll({
-        include: [ Clients, Delivery ]
-    });
-    res.render('admin/orders/orders', { orders: orders }); 
+    try{
+        const orders = await Orders.findAll({
+            include: [ Clients, Delivery ]
+        });
+        res.render('admin/orders/orders', { orders: orders }); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500");
+    }
 };
 
 adminController.showModifyClient = async (req, res) => {
-    const id = req.params.id;
-    const client = await Clients.findByPk(id);
-
-    res.render("admin/clients/modifyClient", { client: client})
+    try{
+        const id = req.params.id;
+        const client = await Clients.findByPk(id);
+    
+        res.render("admin/clients/modifyClient", { client: client})
+    } catch(ex) {
+        console.log(ex)
+        res.render("500");
+    }
 }
 
 adminController.modifyClient = async (req, res) => {
@@ -266,7 +326,7 @@ adminController.modifyClient = async (req, res) => {
             });
         } catch(error) {
             console.error(error);
-            res.status(500).send('Internal Error');
+            res.render("500");
         }
     } else {
         try{
@@ -285,7 +345,7 @@ adminController.modifyClient = async (req, res) => {
             });
         } catch(error) {
             console.error(error);
-            res.status(500).send('Internal Error');
+            res.render("500");
         }
     }
 
@@ -294,33 +354,49 @@ adminController.modifyClient = async (req, res) => {
 
 adminController.deleteClient = async (req, res) => {
     const id = req.params.id;
-    await Clients.destroy({
-        where: { idClient : id }
-    });
 
-    res.redirect("/dashboard/clients")
+    try{
+        await Clients.destroy({
+            where: { idClient : id }
+        });
+    
+        res.redirect("/dashboard/clients")
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.showCategories = async (req, res) => {
-    const categories = await Category.findAll();
-    res.render('admin/categories/categories', { categories: categories }); 
+    try {
+        const categories = await Category.findAll();
+        res.render('admin/categories/categories', { categories: categories }); 
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.showInfoCategory = async (req, res) => {
     const id = req.params.id;
     
-    const product = await Products.findAll({
-        where: {
-        CategoryIdCate : id
-        }
-    });
-    const category = await Category.findOne({
-        where: {
-            idCate: id
-        }
-    })
-
-    res.render("admin/categories/infoCategory", { products: product, category: category.nomCate });
+    try {
+        const product = await Products.findAll({
+            where: {
+            CategoryIdCate : id
+            }
+        });
+        const category = await Category.findOne({
+            where: {
+                idCate: id
+            }
+        })
+    
+        res.render("admin/categories/infoCategory", { products: product, category: category.nomCate });
+    } catch(ex){
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.showFormOrder = async (req, res) => {
@@ -369,20 +445,31 @@ adminController.createOrder = async (req, res) => {
 
 adminController.deleteOrder = async (req, res) => {
     const id = req.params.id;
-    await Orders.destroy({
-        where: { idOrder: id }
-    });
-    res.redirect("/dashboard/orders");
+    
+    try{
+        await Orders.destroy({
+            where: { idOrder: id }
+        });
+        res.redirect("/dashboard/orders");
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.showModifyOrder = async (req, res) => {
     const id = req.params.id;
-    const order = await Orders.findByPk(id);
-    const delivery = await Delivery.findOne({
-        where: { OrderIdOrder: id }
-    });
+    try {    
+        const order = await Orders.findByPk(id);
+        const delivery = await Delivery.findOne({
+            where: { OrderIdOrder: id }
+        });
 
-    res.render("admin/orders/modifyOrder", { order: order, delivery: delivery })
+        res.render("admin/orders/modifyOrder", { order: order, delivery: delivery })
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.modifyOrder = async (req, res) => {
@@ -441,48 +528,47 @@ adminController.showInfoOrder = async (req, res) => {
 adminController.createReport = async (req, res) => {
     const { startDate, endDate } = req.body;
 
-    const orders = await Orders.findAll({
-        where: {
-            dateOrder: {
-                [Op.between] : [startDate, endDate]
-            }
-        }
-    });
-
-    let name = "report" + Date.now();
-
-    const workbook = new exceljs.Workbook();
-    const worksheet = workbook.addWorksheet("Order");
-    const path = "./docs";
-
-    worksheet.columns = [
-        { header: "ID", key: "idOrder", width: 15 },
-        { header: "Date order", key: "dateOrder", width: 15 },
-        { header: "Status order", key: "statusOrder", width: 15 },
-        { header: "Total order", key: "totalOrder", width: 15, numFmt: '$#,##0.00;$#0' },
-    ];
-    let counter = 1;
-    
-    orders.forEach((order) => {
-        counter++;
-
-        worksheet.addRow({
-            idOrder: order.idOrder,
-            dateOrder: order.dateOrder,
-            statusOrder: order.statusOrder,
-            totalOrder: +order.totalOrder
-        });
-    });
-
-    worksheet.getCell(`C${counter+1}`).value = "Total";
-    worksheet.getCell(`D${counter+1}`).value = { formula: `SUM(D2:D${counter})`, date1904: false };;
-    
-
-    worksheet.getRow(1).eachCell((cell) => {
-        cell.font = { bold: true }
-    });
-
     try {
+        const orders = await Orders.findAll({
+            where: {
+                dateOrder: {
+                    [Op.between] : [startDate, endDate]
+                }
+            }
+        });
+    
+        let name = "report" + Date.now();
+    
+        const workbook = new exceljs.Workbook();
+        const worksheet = workbook.addWorksheet("Order");
+        const path = "./docs";
+    
+        worksheet.columns = [
+            { header: "ID", key: "idOrder", width: 15 },
+            { header: "Date order", key: "dateOrder", width: 15 },
+            { header: "Status order", key: "statusOrder", width: 15 },
+            { header: "Total order", key: "totalOrder", width: 15, numFmt: '$#,##0.00;$#0' },
+        ];
+        let counter = 1;
+        
+        orders.forEach((order) => {
+            counter++;
+    
+            worksheet.addRow({
+                idOrder: order.idOrder,
+                dateOrder: order.dateOrder,
+                statusOrder: order.statusOrder,
+                totalOrder: +order.totalOrder
+            });
+        });
+    
+        worksheet.getCell(`C${counter+1}`).value = "Total";
+        worksheet.getCell(`D${counter+1}`).value = { formula: `SUM(D2:D${counter})`, date1904: false };;
+        
+    
+        worksheet.getRow(1).eachCell((cell) => {
+            cell.font = { bold: true }
+        });
         const data = await workbook.xlsx.writeFile(`${path}/${name}.xlsx`).then(() => {
             res.download(`${path}/${name}.xlsx`);
         });
@@ -494,8 +580,13 @@ adminController.createReport = async (req, res) => {
 }
 
 adminController.showSuppliers = async (req, res) => {
-    const suppliers = await Supplier.findAll();
-    res.render("admin/suppliers/suppliers", { suppliers: suppliers });
+    try {
+        const suppliers = await Supplier.findAll();
+        res.render("admin/suppliers/suppliers", { suppliers: suppliers });
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.showFormSupplier = async (req, res) => {
@@ -522,8 +613,14 @@ adminController.createSupplier = async (req, res) =>{
 
 adminController.showModifySupplier = async (req, res) => {
     const id = req.params.id;
-    const supplier = await Supplier.findByPk(id);
-    res.render("admin/suppliers/modifySupplier", { supplier: supplier });
+    
+    try{
+        const supplier = await Supplier.findByPk(id);
+        res.render("admin/suppliers/modifySupplier", { supplier: supplier });
+    } catch(ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.modifySupplier = async (req, res) => {
@@ -548,11 +645,17 @@ adminController.modifySupplier = async (req, res) => {
 
 adminController.deleteSupplier = async (req, res) => {
     const id = req.params.id;
-    await Supplier.destroy({
-        where: { idSupplier: id }
-    });
-
-    res.redirect("/dashboard/suppliers");
+    
+    try {
+        await Supplier.destroy({
+            where: { idSupplier: id }
+        });
+    
+        res.redirect("/dashboard/suppliers");
+    } catch (ex) {
+        console.log(ex)
+        res.render("500")
+    }
 }
 
 adminController.searchSupplier = async (req, res) => {

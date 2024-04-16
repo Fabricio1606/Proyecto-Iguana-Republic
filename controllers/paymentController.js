@@ -71,7 +71,7 @@ const payProduct = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
-    console.log(error);
+    res.render("500");
   }
 };
 
@@ -126,6 +126,7 @@ const successPage = async (req, res) => {
     );
   } catch (error) {
     console.log(error.message);
+    res.render("500");
   }
 };
 

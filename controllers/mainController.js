@@ -16,19 +16,24 @@ class MainController {
 
   async getIndex(req, res) {
     // Obtener datos del modelo
-    const data = this.model.getData();
-    res.locals.user = req.session.client;
-    const user = res.locals.user;
-
-    if (user) {
-      // Renderizar la vista con los datos
-      res.render("index", {
-        user: res.locals.user.userClient,
-        admin: res.locals.user.adminUser,
-        data,
-      });
-    } else {
-      res.render("index", { data });
+    try{
+      const data = this.model.getData();
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
+  
+      if (user) {
+        // Renderizar la vista con los datos
+        res.render("index", {
+          user: res.locals.user.userClient,
+          admin: res.locals.user.adminUser,
+          data,
+        });
+      } else {
+        res.render("index", { data });
+      }
+    } catch(ex) {
+      console.log(ex);
+      res.render(500);
     }
   }
   getLogin(req, res) {
@@ -75,24 +80,29 @@ async getProfile(req, res) {
   res.locals.user = req.session.client;
   const user = res.locals.user;
 
-  if(user) {
-    const profile = await Client.findOne({
-      where: {
-        idClient: user.idClient
-      }
-    })
-
-    const orders = await Orders.findAll({
-      where: {
-        ClientIdClient: user.idClient
-      }
-    });
-    
-    const countries = Country.getAllCountries();
-    
-    res.render('profile', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data, profile: profile, orders: orders, countries: countries });
-  } else {
-    res.redirect("login")
+  try {
+    if(user) {
+      const profile = await Client.findOne({
+        where: {
+          idClient: user.idClient
+        }
+      })
+  
+      const orders = await Orders.findAll({
+        where: {
+          ClientIdClient: user.idClient
+        }
+      });
+      
+      const countries = Country.getAllCountries();
+      
+      res.render('profile', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, data, profile: profile, orders: orders, countries: countries });
+    } else {
+      res.redirect("login")
+    }
+  } catch(ex) {
+    console.log(ex);
+    res.render("500")
   }
 }
 
@@ -102,21 +112,26 @@ async getOrderDetail(req, res) {
   const user = res.locals.user;
   const id = req.params.id;
 
-  if(user) {
-    const products = await CartDetail.findAll({
-      include: Products,
-      where: {
-        CartIdCart: id
-      }
-    });
-
-    const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id",{
-      replacements: { id: id }
-    });
-
-    res.render("orderDetails", { user: res.locals.user.userClient, admin: res.locals.user.adminUser, products: products, subtotal: records })
-  } else {
-    res.render("login");
+  try{
+    if(user) {
+      const products = await CartDetail.findAll({
+        include: Products,
+        where: {
+          CartIdCart: id
+        }
+      });
+  
+      const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id",{
+        replacements: { id: id }
+      });
+  
+      res.render("orderDetails", { user: res.locals.user.userClient, admin: res.locals.user.adminUser, products: products, subtotal: records })
+    } else {
+      res.render("login");
+    }
+  } catch(ex) {
+    console.log(ex);
+    res.render("500")
   }
 }
 
