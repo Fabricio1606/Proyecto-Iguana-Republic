@@ -4,11 +4,9 @@ const mysql = require("mysql2");
 const pool = mysql.createConnection({
   host: "localhost",
   user: "root",
-<<<<<<< HEAD
+
   password: "1234",
-=======
-  password: "soraraper1",
->>>>>>> 3ff41638d4ca5dd66aa2da5ac042be72ed70e6ff
+
   database: "IguanaRepublicDb",
   port: "3306",
 });
