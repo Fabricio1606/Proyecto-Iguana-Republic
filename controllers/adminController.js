@@ -323,11 +323,6 @@ adminController.showInfoCategory = async (req, res) => {
     res.render("admin/categories/infoCategory", { products: product, category: category.nomCate });
 }
 
-adminController.showSuppliers = async (req, res) => {
-    const suppliers = await Supplier.findAll();
-    res.render("admin/suppliers/suppliers", { suppliers: suppliers });
-}
-
 adminController.showFormOrder = async (req, res) => {
     res.render("admin/orders/createOrder");
 }
@@ -496,7 +491,165 @@ adminController.createReport = async (req, res) => {
         console.log(ex);
         res.render("500")
     }
+}
 
+adminController.showSuppliers = async (req, res) => {
+    const suppliers = await Supplier.findAll();
+    res.render("admin/suppliers/suppliers", { suppliers: suppliers });
+}
+
+adminController.showFormSupplier = async (req, res) => {
+    res.render("admin/suppliers/createSupplier");
+}
+
+adminController.createSupplier = async (req, res) =>{
+    const { nameSupplier, mailSupplier, phoneSupplier, addressSupplier } = req.body;
+
+    try {
+        await Supplier.create({
+            nameSupplier: nameSupplier,
+            mailSupplier: mailSupplier,
+            phoneSupplier: phoneSupplier,
+            addressSupplier: addressSupplier
+        });
+
+        res.redirect("/dashboard/suppliers");
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.showModifySupplier = async (req, res) => {
+    const id = req.params.id;
+    const supplier = await Supplier.findByPk(id);
+    res.render("admin/suppliers/modifySupplier", { supplier: supplier });
+}
+
+adminController.modifySupplier = async (req, res) => {
+    const { idSupplier, nameSupplier, mailSupplier, phoneSupplier, addressSupplier } = req.body;
+
+    try {
+        await Supplier.update({
+            nameSupplier: nameSupplier,
+            mailSupplier: mailSupplier,
+            phoneSupplier: phoneSupplier,
+            addressSupplier: addressSupplier
+        }, {
+            where: { idSupplier: idSupplier }
+        });
+
+        res.redirect("/dashboard/suppliers");
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.deleteSupplier = async (req, res) => {
+    const id = req.params.id;
+    await Supplier.destroy({
+        where: { idSupplier: id }
+    });
+
+    res.redirect("/dashboard/suppliers");
+}
+
+adminController.searchSupplier = async (req, res) => {
+    const { nameSupplier } = req.body;
+
+    try{ 
+        const suppliers = await Supplier.findAll({
+            where: {
+                nameSupplier: {
+                    [Op.like] : "%" + nameSupplier + "%"
+                }
+            }
+        });
+
+        res.render("admin/suppliers/suppliers", { suppliers: suppliers });
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchProduct = async (req, res) => {
+    const { nameProd } = req.body;
+
+    try {
+        const products = await Products.findAll({
+            include: Category,
+            where: {
+                nameProd: {
+                    [Op.like] : "%" + nameProd + "%"
+                }
+            }
+        });
+
+        res.render("admin/products/products", { products: products });
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchOrder = async (req, res) => {
+    const { startDate, endDate } = req.body;
+
+    try{
+        const orders = await Orders.findAll({
+            include: [ Clients, Delivery ],
+            where: {
+                dateOrder: {
+                    [Op.between] : [startDate, endDate]
+                }
+            }
+        });
+
+        res.render("admin/orders/orders", { orders: orders })
+    } catch (ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchClient = async (req, res) => {
+    const { userClient } = req.body;
+
+    try {
+        const clients = await Clients.findAll({
+            where: {
+                userClient: {
+                    [Op.like] : "%" + userClient + "%"
+                }
+            }
+        });
+
+        res.render("admin/clients/clients", { clients: clients })
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
+}
+
+adminController.searchCategory = async (req, res) => {
+    const { nomCate } = req.body;
+
+    try {
+        const categories = await Category.findAll({
+            where: {
+                nomCate: {
+                    [Op.like] : "%" + nomCate + "%"
+                }
+            }
+        });
+
+        res.render("admin/categories/categories", { categories: categories })
+    } catch(ex) {
+        console.log(ex);
+        res.render("500");
+    }
 }
 
 module.exports = adminController;

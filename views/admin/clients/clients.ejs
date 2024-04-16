@@ -29,7 +29,7 @@
 
     <section id="sidebar">
 		<div id="logo">
-			<a href="/"><img src="/img/logo.png" class="logo" alt="" title="" width="250" height="100" /></a>
+			<a href="/"><img src="/img/logo_alt.png" class="logo" alt="" title="" width="250" height="100" /></a>
 		</div>
 		<ul class="side-menu top">
 			<li >
@@ -85,9 +85,9 @@
             <i class='bx bx-menu' ></i>
             <a href="#" class="nav-link">Clients</a>
 
-            <form action="#">
+            <form action="/dashboard/clients/search" method="post">
                 <div class="form-input">
-                    <input type="search" name="" id="">
+                    <input type="search" placeholder="Search by User" name="userClient" id="userClient">
                     <button type="submit" class="search"><i class='bx bx-search' ></i></button>
                 </div>
             </form>
