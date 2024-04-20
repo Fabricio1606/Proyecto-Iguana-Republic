@@ -160,7 +160,7 @@ adminController.deleteProduct = async (req, res) => {
             where: { idProd : id }
         });
     
-        res.redirect("/dashboard/products")
+        res.redirect("/dashboard/category")
     } catch(ex) {
         console.log(ex)
         res.render("500");
@@ -183,7 +183,7 @@ adminController.createCategory = async (req, res) => {
         res.render("500");
     }
 
-    res.redirect("/dashboard/products");
+    res.redirect("/dashboard/category");
 }
 
 adminController.showModifyCategory = async (req, res) => {
@@ -213,7 +213,7 @@ adminController.modifyCategory = async (req, res) => {
         res.render("500");
     }
 
-    res.redirect("/dashboard/products");
+    res.redirect("/dashboard/category");
 }
 
 adminController.deleteCategory = async (req, res) => {
@@ -224,7 +224,7 @@ adminController.deleteCategory = async (req, res) => {
             where: { idCate : id }
         });
     
-        res.redirect("/dashboard/products")
+        res.redirect("/dashboard/category")
     } catch (ex) {
         console.log(ex)
         res.render("500")
