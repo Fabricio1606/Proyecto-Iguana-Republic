@@ -4,82 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iguana Republic</title>
-    
-	<link rel="stylesheet" href="/css/product_detail.css">
+
+	<link rel="stylesheet" href="/css/newProductDetail.css">
+	<link rel="stylesheet" href="/css/newNav.css">
+	<link rel="stylesheet" href="/css/newIndex.css">
 	<link rel="stylesheet" href="/css/elements/buttons.css">
 	<link rel="stylesheet" href="/css/elements/quantity.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<div class="container">
-        <div class="background">
-            <img src="/img/product.jpg" alt="">
-        </div>
-        <div class="card">
-            <div class="left">
-                <div class="logo-icon">
-                    <img src="/img/logo.png" alt="">
-                </div>
-                <div class="text">
-                    <div class="logo">
-                        <a href="/"><img src="/img/logo.png" alt=""></a>
-                    </div>
-                    <div class="price">$<%- product.priceProd %></div>
-                    <div class="title"><%- product.nameProd %></div>
-                    <button class="know-more">Know More</button>
-                </div>
-            </div>
-            <div class="description">
-                <div class="description-icon">
-                    <img src="/img/logo.png" alt="">
-                </div>
-                <div class="text">
-                    <div class="logo"><img src="/img/logo.png" alt=""></div>
-                    <div class="title"><%- product.nameProd %></div>
-                    <div class="content">
-                        <%- product.descProd %>
-                    </div>
-                    <button class="buy">Let's Buy</button>
-                </div>
-            </div>
-            <div class="right">
-                <div class="sections">
-                    <div class="title">RESUME</div>
-					<span class="content"><%- product.shortDescProd %></span>
-                </div>
-                <div class="sections">
-                    <div class="title">STOCK <span><%- product.stockProd %></span></div>
-                </div>
+	<header class="header" id="header">
+		<div class="header__border"></div>
 
-                <div class="sections">
-                    <div class="title">QUANTITY OF PRODUCTS</div>
-                    <div class="wrapper">
-                        <span class="minus">-</span>
-                        <span class="num">1</span>
-                        <span class="plus">+</span>
-                    </div>
-                </div>
+		<nav class="nav container">
+			<a class="nav__logo">
+				<img src="/img/logo.png" alt="">
+			</a>
+
+			<div class="nav__menu">
+				<ul class="nav__list">
+					<li class="nav__item">
+						<a href="#home" class="nav__link">
+							<i class="ri-home-5-fill"></i>
+							<span>Home</span>
+						</a>
+					</li>
+
+					<li class="nav__item">
+						<a href="#about" class="nav__link">
+							<i class="ri-award-fill"></i>
+							<span>About</span>
+						</a>
+					</li>
+
+					<li class="nav__item">
+						<a href="#steps" class="nav__link">
+							<i class="ri-message-3-fill"></i>
+							<span>Steps</span>
+						</a>
+					</li>
+
+					<li class="nav__item">
+						<a href="/products" class="nav__link active-link">
+							<i class="ri-shopping-bag-4-fill"></i>
+							<span>Shop</span>
+						</a>
+					</li>
+
+					<li class="nav__item">
+						<a href="/login" class="nav__link">
+							<i class="ri-login-box-fill"></i>
+							<span>Login</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+    <section class="home">
+        <div class="content">
+            <h1 class="title"><span><%- product.nameProd %></span></h1>
+            <p class="description"><%- product.descProd %></p>
+            <h3 class="price"><span>Price: </span>$<%- product.priceProd %></h3>
+            <div class="price">
+                <span>Stock: </span><%- product.stockProd %>
                 
-                <button class="cart-button">
-                    <input type="text" id="idProd" value="<%- product.idProd %>" hidden>
-                    <input type="text" id="priceProd" value="<%- product.priceProd %>" hidden>
-                    <input type="text" id="stockProd" value="<%- product.stockProd %>" hidden>
-                    <span class="add-to-cart">
-                        ADD TO CART
-                    </span>
-                    <span class="added">
-                        ADDED :)
-                    </span>
-                    <i class="fas fa-shopping-cart"></i>
-                    <i class="fas fa-box"></i>
-                </button>
-            </div>
-            <div class="product">
-                <img src="/img//products/<%- product.imgProd %>" alt="">
-            </div>
+                <div class="wrapper">
+                    <span class="minus">-</span>
+                    <span class="num">1</span>
+                    <span class="plus">+</span>
+                </div>
+            </div> <br>
+                
+            <button class="cart-button">
+                <input type="text" id="idProd" value="<%- product.idProd %>" hidden>
+                <input type="text" id="priceProd" value="<%- product.priceProd %>" hidden>
+                <input type="text" id="stockProd" value="<%- product.stockProd %>" hidden>
+                <span class="add-to-cart">
+                    ADD TO CART
+                </span>
+                <span class="added">
+                    ADDED :)
+                </span>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fas fa-box"></i>
+            </button>
         </div>
-    </div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <div class="image">
+            <img src="/img//products/<%- product.imgProd %>" data-speed="-3" class="move" alt="product image">
+        </div>
+    </section>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
 	<script src="/js/product_detail.js"></script>
     <script src="/js/vendor/jquery-3.7.1.min.js"></script>
 	<script src="/js/addCart.js"></script>

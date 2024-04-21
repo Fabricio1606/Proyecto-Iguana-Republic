@@ -46,8 +46,18 @@ const sr = ScrollReveal({
 });
 
 // Home page
-sr.reveal(".home__data, .products__data, .steps__content, footer__container");
-sr.reveal(".home__img", { origin: "bottom" });
+sr.reveal(".products__data, .steps__content, footer__container");
+sr.reveal(".home__img", { origin: "bottom", delay: 3000 });
+sr.reveal(".home__data", { delay: 3000 });
 sr.reveal(".products__card", { interval: 100 });
 sr.reveal(".about__img, .testimonial__img", { origin: "right" });
-sr.reveal(".about__data, .testimonial__data", { origin: "left" })
+sr.reveal(".about__data, .testimonial__data", { origin: "left" });
+
+// Loader
+onload = () => {
+	const load = document.getElementById("load");
+
+	setTimeout(() => {
+		load.classList.add("closed");
+	}, 2500)
+}
