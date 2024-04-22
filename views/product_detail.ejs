@@ -13,54 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<header class="header" id="header">
-		<div class="header__border"></div>
-
-		<nav class="nav container">
-			<a class="nav__logo">
-				<img src="/img/logo.png" alt="">
-			</a>
-
-			<div class="nav__menu">
-				<ul class="nav__list">
-					<li class="nav__item">
-						<a href="#home" class="nav__link">
-							<i class="ri-home-5-fill"></i>
-							<span>Home</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="#about" class="nav__link">
-							<i class="ri-award-fill"></i>
-							<span>About</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="#steps" class="nav__link">
-							<i class="ri-message-3-fill"></i>
-							<span>Steps</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="/products" class="nav__link active-link">
-							<i class="ri-shopping-bag-4-fill"></i>
-							<span>Shop</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="/login" class="nav__link">
-							<i class="ri-login-box-fill"></i>
-							<span>Login</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+	<%- include('header', { opcion: 2 }); %>
 
     <section class="home">
         <div class="content">
@@ -98,6 +51,8 @@
     </section>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+	<script src="/js/scrollreveal.min.js"></script>
+	<script src="/js/header.js"></script>
 	<script src="/js/product_detail.js"></script>
     <script src="/js/vendor/jquery-3.7.1.min.js"></script>
 	<script src="/js/addCart.js"></script>

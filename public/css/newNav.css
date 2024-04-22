@@ -218,48 +218,66 @@ img {
   color: var(--second-color);
 }
 
+.nav__item.user {
+  display: none;
+}
+
+.nav__item.dashboard {
+  display: none;
+}
+
+.nav__list-movil {
+  display: none;
+  position: absolute;
+  top: 945%;
+  right: 105px;
+  height: 120px;
+  width: 128px;
+  background-color: hsl(12, 32%, 22%);
+  align-content: center;
+  border-radius: 15%;
+  transition: 1s opacity ease-in-out;
+}
+
+.nav__list-movil.show {
+  display: block;
+}
+
+.nav__list-movil .nav__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__list-movil .nav__item .nav__link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+}
+
+#user {
+  display: flex;
+  gap: 10px;
+}
+
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
 @media screen and (max-width: 300px) {
     .container {
       margin-inline: 1rem;
     }
+
+    .nav__list {
+      gap: 20px;
+    }
+
+    .nav__list-movil {
+      top: 945%;
+      right: 10px;
+    }
   
     .nav__menu {
       padding-inline: 3rem;
-    }
-  
-    .home__title {
-      width: 220px;
-      text-align: center;
-    }
-  
-    .home__title img {
-      bottom: 2.5rem;
-    }
-  
-    .products__content {
-      grid-template-columns: 1fr;
-    }
-  
-    .steps__content {
-      row-gap: 3rem;
-    }
-  
-    .steps__card {
-      width: initial;
-    }
-  
-    .steps__border {
-      left: 0;
-      top: 5.5rem;
-    }
-  }
-  
-  @media screen and (min-width: 400px) {
-    .steps-content {
-      grid-template-columns: 325px;
-      justify-content: center;
     }
   }
   
@@ -268,14 +286,14 @@ img {
     .nav__menu {
       width: 376px;
     }
-  
-    .home__container,
-    .products__container,
-    .about__container,
-    .testimonial__container,
-    .footer__container {
-      grid-template-columns: 400px;
-      justify-content: center;
+
+    .nav__list {
+      gap: 30px;
+    }
+
+    .nav__list-movil {
+      top: 945%;
+      right: 50px;
     }
   }
   
@@ -284,6 +302,19 @@ img {
     .section {
       padding-block: 7.5rem 5.5rem;
       --border-section: 104px 104px 0 0;
+    }
+
+    .nav__item.user {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav__item.dashboard {
+      display: block;
+    }
+
+    .nav__item.burguer {
+      display: none;
     }
   
     .nav {
@@ -301,6 +332,18 @@ img {
   
     .nav__link i {
       display: none;
+    }
+
+    .nav__link#logout i {
+      display: block;
+    }
+
+    .nav__link#cart i {
+      display: block;
+    }
+
+    .nav__link#profile i {
+      display: block;
     }
   
     .home__container {

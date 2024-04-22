@@ -61,3 +61,11 @@ onload = () => {
 		load.classList.add("closed");
 	}, 2500)
 }
+
+// Show menu movil
+const menu = document.getElementById("account");
+const burguer = document.getElementById("burguer");
+
+menu.addEventListener("click", () => {
+	burguer.classList.toggle("show");
+});

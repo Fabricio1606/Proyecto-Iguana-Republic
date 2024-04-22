@@ -542,10 +542,6 @@ img {
     margin-inline: 1rem;
   }
 
-  .nav__menu {
-    padding-inline: 3rem;
-  }
-
   .home__title {
     width: 220px;
     text-align: center;
@@ -582,10 +578,6 @@ img {
 
 /* For medium devices */
 @media screen and (min-width: 576px) {
-  .nav__menu {
-    width: 376px;
-  }
-
   .home__container,
   .products__container,
   .about__container,
@@ -601,23 +593,6 @@ img {
   .section {
     padding-block: 7.5rem 5.5rem;
     --border-section: 104px 104px 0 0;
-  }
-
-  .nav {
-    height: calc(var(--header-height) + 2rem);
-    justify-content: space-between;
-  }
-
-  .nav__menu {
-    width: initial;
-  }
-
-  .nav__list {
-    column-gap: 4.5rem;
-  }
-
-  .nav__link i {
-    display: none;
   }
 
   .home__container {

@@ -16,55 +16,7 @@
 		<img src="/img/loadcoffee.gif" class="load__gif" alt="load image">
 	</div>
 
-	<!-- Navbar -->
-	<header class="header" id="header">
-		<div class="header__border"></div>
-
-		<nav class="nav container">
-			<a class="nav__logo">
-				<img src="/img/logo.png" alt="">
-			</a>
-
-			<div class="nav__menu">
-				<ul class="nav__list">
-					<li class="nav__item">
-						<a href="#home" class="nav__link active-link">
-							<i class="ri-home-5-fill"></i>
-							<span>Home</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="#about" class="nav__link">
-							<i class="ri-award-fill"></i>
-							<span>About</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="#steps" class="nav__link">
-							<i class="ri-message-3-fill"></i>
-							<span>Steps</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="/products" class="nav__link">
-							<i class="ri-shopping-bag-4-fill"></i>
-							<span>Shop</span>
-						</a>
-					</li>
-
-					<li class="nav__item">
-						<a href="/login" class="nav__link">
-							<i class="ri-login-box-fill"></i>
-							<span>Login</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+	<%- include('header', { opcion: 1 }); %>
 
 	<!-- Main content -->
 	<main class="main">
