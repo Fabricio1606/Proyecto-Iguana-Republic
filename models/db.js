@@ -5,7 +5,7 @@ const pool = mysql.createConnection({
   host: "localhost",
   user: "root",
 
-  password: "soraraper1",
+  password: "1234",
 
   database: "IguanaRepublicDb",
   port: "3306",
