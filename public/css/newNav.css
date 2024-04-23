@@ -8,12 +8,12 @@
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --first-color: hsl(12, 32%, 22%);
-  --first-color-alt: hsl(12, 42%, 12%);
-  --first-color-light: hsl(12, 24%, 32%);
+  --first-color: #f5f5f5;
+  --first-color-alt: #faf0ee;
+  --first-color-light: #e3e3e6;
   --second-color: hsl(39, 62%, 65%);
-  --title-color: hsl(12, 12%, 16%);
-  --text-color: hsl(12, 12%, 32%);
+  --title-color: black;
+  --text-color: black;
   --text-color-light: hsl(12, 8%, 48%);
   --white-color: #fff;
 
@@ -151,7 +151,7 @@ img {
     align-items: center;
     column-gap: .5rem;
     font-size: var(--h3-font-size);
-    font-family: var(--second-font);
+    font-family: var(--body-font);
 }
 
 .nav__logo img {
@@ -181,8 +181,8 @@ img {
 }
 
 .nav__link {
-    color: var(--white-color);
-    font-family: var(--second-font);
+    color: black;
+    font-family: var(--body-font);
     font-size: 15px;
     display: flex;
     flex-direction: column;
@@ -192,16 +192,14 @@ img {
 }
 
 .nav__link i {
-  background: linear-gradient(180deg,
-              hsl(39, 62%, 75%) 0%,
-              hsl(39, 62%, 45%) 100%);
+  background: black;
   color: transparent;
   background-clip: text;
   font-size: 1.5rem;
 }
 
 .nav__link:hover {
-  color: var(--second-color);
+  color: crimson;
 }
 
 /* Change background header */
@@ -215,7 +213,7 @@ img {
 
 /* Active link */
 .active-link {
-  color: var(--second-color);
+  color: crimson;
 }
 
 .nav__item.user {
@@ -228,12 +226,12 @@ img {
 
 .nav__list-movil {
   display: none;
-  position: absolute;
-  top: 945%;
-  right: 105px;
+  position: fixed;
+  bottom: 80px;
+  right: 50px;
   height: 120px;
   width: 128px;
-  background-color: hsl(12, 32%, 22%);
+  background-color: #faf0ee;
   align-content: center;
   border-radius: 15%;
   transition: 1s opacity ease-in-out;

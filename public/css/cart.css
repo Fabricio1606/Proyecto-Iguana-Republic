@@ -2,18 +2,18 @@
     border: 2px solid hsl(12, 8%, 48%);
     border-radius: 10px;
     padding: 30px;
-    background: hsla(12, 32%, 12%, .5);
+    background: white;
 }
 
 p,
 small {
-    color: #fff;
+    color: #000;
 }
 
 .cart-page {
     margin: 0px auto;
     position: relative;
-    top: 200px;
+    top: 100px;
 }
 
 table {
@@ -35,7 +35,7 @@ th {
 }
 
 tr:nth-child(odd):not(.total) {
-    background: hsl(11, 25%, 22%);
+    background: #ebebeb;
 }
 
 .total {
@@ -44,7 +44,7 @@ tr:nth-child(odd):not(.total) {
 
 td {
     padding: 10px 5px;
-    color: #fff;
+    color: #000;
 }
 
 td input {
@@ -53,7 +53,7 @@ td input {
     padding: 5px;
     background: transparent;
     border: 2px solid hsl(12, 8%, 48%);
-    color: #fff;
+    color: #000;
     font-weight: bold;
 }
 
@@ -103,4 +103,10 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 850px) {
+    .cart-page {
+        top: 15px;
+    }
 }

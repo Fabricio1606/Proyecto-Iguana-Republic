@@ -5,7 +5,9 @@ body {
 
 #userpage {
     position: relative;
-    top: 190px;
+    top: 125px;
+	height: 120vh;
+	align-content: baseline;
 }
 
 .ui-w-80 {

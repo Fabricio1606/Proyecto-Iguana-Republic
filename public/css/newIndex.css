@@ -8,15 +8,14 @@
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --first-color: hsl(12, 32%, 22%);
-  --first-color-alt: hsl(12, 42%, 12%);
-  --first-color-light: hsl(12, 24%, 32%);
+  --first-color: #f5f5f5;
+  --first-color-alt: #faf0ee;
+  --first-color-light: #e3e3e6;
   --second-color: hsl(39, 62%, 65%);
-  --title-color: hsl(12, 12%, 16%);
-  --text-color: hsl(12, 12%, 32%);
+  --title-color: black;
+  --text-color: black;
   --text-color-light: hsl(12, 8%, 48%);
   --white-color: #fff;
-
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: "Poppins", sans-serif;
@@ -116,9 +115,7 @@ img {
 
 /*=============== HOME ===============*/
 .home {
-  background: linear-gradient(180deg,
-              var(--first-color) 0%,
-              var(--first-color-alt) 100%);
+  background: #ebebeb;
 }
 
 .home__container {
@@ -132,14 +129,14 @@ img {
 
 .home__subtitle {
   font-size: var(--normal-font-size);
-  color: var(--second-color);
+  color: crimson;
   font-weight: var(--font-medium);
   margin-bottom: .75rem;
 }
 
 .home__title,
 .home__description {
-  color: var(--white-color);
+  color: black;
 }
 
 .home__title {
@@ -198,11 +195,11 @@ img {
 
 /*=============== PRODUCTS ===============*/
 .products {
-  background-color: var(--first-color-alt);
+  background-color: #ebebeb;
 }
 
 .products__bg {
-  background-color: var(--first-color);
+  background-color: var(--first-color-light);
   border-radius: var(--border-section);
 }
 
@@ -217,7 +214,7 @@ img {
   background-color: var(--first-color-alt);
   padding: 1rem 1.5rem;
   border-radius: 4rem;
-  color: var(--white-color);
+  color: black;
   font-weight: var(--font-medium);
   box-shadow: 0 8px 24px hsla(12, 32%, 8%, .5);
   margin-bottom: 2rem;
@@ -236,7 +233,7 @@ img {
 .products__data,
 .products__card {
   text-align: center;
-  color: var(--white-color);
+  color: black;
 }
 
 .products__content {
@@ -266,11 +263,11 @@ img {
 
 /*=============== ABOUT ===============*/
 .about {
-  background-color: var(--first-color);
+  background-color: var(--first-color-light);
 }
 
 .about__bg {
-  background-color: var(--white-color);
+  background-color: #f5f5f5;
   border-radius: var(--border-section);
 }
 
@@ -295,7 +292,7 @@ img {
 }
 
 .steps__bg {
-  background-color: var(--first-color);
+  background-color: var(--first-color-alt);
   border-radius: var(--border-section);
 }
 
@@ -305,7 +302,7 @@ img {
 
 .steps .section__title,
 .steps__description {
-  color: var(--white-color);
+  color: black;
 }
 
 .steps__content {
@@ -393,7 +390,7 @@ img {
 }
 
 .testimonial__bg {
-  background-color: var(--white-color);
+  background-color: #f5f5f5;
   border-radius: var(--border-section);
 }
 
@@ -490,9 +487,7 @@ img {
   position: fixed;
   right: 1rem;
   bottom: -50%;
-  background: linear-gradient(180deg,
-              var(--first-color) 0%,
-              var(--first-color-alt) 100%);
+  background: black;
   box-shadow: 0 0 8px hsla(12, 32%, 12%, .5);
   color: var(--white-color);
   font-size: 1.1rem;

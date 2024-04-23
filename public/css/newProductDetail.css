@@ -23,6 +23,10 @@ section {
 .home .content {
     flex: 1 1 40rem;
     padding-top: 6.5rem;
+    border: 3px solid black;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #fff;
 }
 
 .home .image {
@@ -41,11 +45,11 @@ section {
 }
 
 .home .content .description {
-    font-size: 1.5rem;
-    font-weight: lighter;
+    font-size: 1.3rem;
+    font-weight: normal;
     line-height: 1.8;
     padding: 1rem 0;
-    color: #fff;
+    color: #000;
 }
 
 .home .content .btn {
@@ -59,7 +63,7 @@ section {
 }
 
 .price {
-  color: #fff;
+  color: #000;
   font-size: 1.4rem;
   display: flex;
   gap: 15px;
