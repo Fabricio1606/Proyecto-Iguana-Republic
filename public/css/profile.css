@@ -6,7 +6,7 @@ body {
 #userpage {
     position: relative;
     top: 125px;
-	height: 120vh;
+	height: 175vh;
 	align-content: baseline;
 }
 
@@ -157,6 +157,10 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 	align-items: center;
 	grid-gap: 12px;
 	padding-left: 6px;
+}
+
+.table-data .order table tr:nth-child(even) {
+	background: #ebebeb;
 }
 
 .table-data .order table td img {

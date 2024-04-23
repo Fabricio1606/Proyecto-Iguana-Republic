@@ -6,12 +6,12 @@ const path = require("path");
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../Proyecto-Iguana-Republic/public/img/products')
+        cb(null, require.main?.path + "/" + 'public/img/products')
     },
 
     filename: (req, file, cb) => {
         console.log(file)
-        cb(null, Date.now() + path.extname(file.originalname));
+        cb(null, Date.now() + path.extname(file.originalname.replace()));
     }
 })
 const upload = multer({ storage: storage })
