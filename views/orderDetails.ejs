@@ -21,29 +21,23 @@
     <!--
         CSS
         ============================================= -->
-    <link rel="stylesheet" href="/css/linearicons.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-    <link rel="stylesheet" href="/css/nice-select.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
-    <link rel="stylesheet" href="/css/owl.carousel.css">
     <link rel="stylesheet" href="/css/main.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/css/profile.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="views/img/fav.png">
-    <meta name="author" content="codepixer">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="/css/newNav.css">
     <title>Iguana Republic</title>
 </head>
 
 <body>
         
-	<%- include('header', {}); %>
+	<%- include('header', { opcion: 2 }); %>
     <div class="container light-style flex-grow-1 container-p-y" id="userpage">
         <h4 class="font-weight-bold py-3 mb-4">
             Account settings
@@ -52,7 +46,7 @@
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group account-settings-links" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action" href="/profile">Return</a>
+                        <a class="list-group-item list-group-item-action" href="/profile"><i class="ri-arrow-left-line"></i> Return</a>
                     </div>
                 </div>
                 <div class="col-md-9">

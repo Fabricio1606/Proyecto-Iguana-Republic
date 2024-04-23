@@ -1,0 +1,117 @@
+* {
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+body {
+    font-size: 62.5%;
+}
+
+section {
+    padding: 2rem 9%;
+}
+
+.home {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.home .content {
+    flex: 1 1 40rem;
+    padding-top: 6.5rem;
+    border: 3px solid black;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.home .image {
+    flex: 1 1 20rem;
+}
+
+.home .content .title {
+    font-size: 3rem;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.home .content .title span {
+    text-transform: uppercase;
+    color: #d3ad7f;
+}
+
+.home .content .description {
+    font-size: 1.3rem;
+    font-weight: normal;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color: #000;
+}
+
+.home .content .btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .9rem 3rem;
+    font-size: 1.7rem;
+    color: #fff;
+    background: #d3ad7f;
+    cursor: pointer;
+}
+
+.price {
+  color: #000;
+  font-size: 1.4rem;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.price span {
+  color: #d3ad7f;
+  font-size: 1.4rem;
+}
+
+/* BREAKPOINTS */
+@media (max-width:991px){
+    /* html{
+      font-size: 55%;
+    } */
+  
+    section{
+      padding: 2rem;
+    }
+  
+  }
+  
+  @media (max-width:768px){
+    .home .content{
+      padding-top: 4rem;
+    }
+  
+    .home .image img{
+      width: 368px;
+    } 
+
+    .home .image{
+      padding-bottom: 8rem;
+    } 
+  
+    .home .content .title{
+      font-size: 2rem;
+    }
+  
+    .home .content .description{
+      font-size: 1rem;
+    }
+  
+  }
+  
+  @media (max-width:450px){
+    /* html{
+      font-size: 50%;
+    } */
+  }

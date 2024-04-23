@@ -1,7 +1,19 @@
+.small-container {
+    border: 2px solid hsl(12, 8%, 48%);
+    border-radius: 10px;
+    padding: 30px;
+    background: white;
+}
+
+p,
+small {
+    color: #000;
+}
+
 .cart-page {
     margin: 0px auto;
     position: relative;
-    top: 200px;
+    top: 100px;
 }
 
 table {
@@ -18,22 +30,35 @@ th {
     text-align: left;
     padding: 5px;
     color: #fff;
-    background: #ff523b;
+    background: hsl(12, 24%, 32%);
     font-weight: normal;
+}
+
+tr:nth-child(odd):not(.total) {
+    background: #ebebeb;
+}
+
+.total {
+    background: transparent;
 }
 
 td {
     padding: 10px 5px;
+    color: #000;
 }
 
 td input {
     width: 40px;
     height: 30px;
     padding: 5px;
+    background: transparent;
+    border: 2px solid hsl(12, 8%, 48%);
+    color: #000;
+    font-weight: bold;
 }
 
 td a {
-    color: #ff523b;
+    color: hsl(39, 62%, 45%);
     font-size: 12;
 }
 
@@ -46,10 +71,11 @@ td img {
 .total-price {
     display: flex;
     justify-content: flex-end;
+    margin: 10px 0px;
 }
 
 .total-price table {
-    border-top: 3px solid #ff523b;
+    border-top: 3px solid hsl(12, 8%, 48%);
     width: 100%;
     max-width: 350px;
 }
@@ -77,4 +103,10 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 850px) {
+    .cart-page {
+        top: 15px;
+    }
 }

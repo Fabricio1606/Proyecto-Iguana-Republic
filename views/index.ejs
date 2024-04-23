@@ -1,41 +1,22 @@
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-
+<html lang="en">
 <head>
-
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/fav.png">
-	<!-- Author Meta -->
-	<meta name="author" content="codepixer">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
 	<meta charset="UTF-8">
-	<!-- Site Title -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Iguana Republic</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-	<!--
-			CSS
-			============================================= -->
-	<link rel="stylesheet" href="css/linearicons.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/animate.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="/css/elements/transition.css">
+	<!-- CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="/css/newNav.css">
+	<link rel="stylesheet" href="/css/newIndex.css">
 </head>
+<body>
+	<!-- Loader -->
+	<div class="load" id="load">
+		<img src="/img/loadcoffee.gif" class="load__gif" alt="load image">
+	</div>
 
-<body id="welcome" data-barba="wrapper">
-	<div class="transition"></div>
-	<%- include('header', {}); %>
+	<%- include('header', { opcion: 1 }); %>
 
 		<!-- start banner Area -->
 		<main data-barba="container" data-barba-namespace="home" class="cube">
@@ -50,150 +31,265 @@
 							</h1>
 							<a href="/products" class="primary-btn text-uppercase">Buy Now</a>
 
-						</div>
+					<h1 class="home__title">
+						It's time for a <br>
+						good coffe
+
+						<img src="/img/home-coffee-title.png" alt="home image">
+					</h1>
+
+					<p class="home__description">
+						Each select coffee beans reflects our commitment
+						to Costa Rican coffee growers, who bring the best
+						select coffee to your table.
+					</p>
+
+					<a href="/products" class="button">
+						Get Started <i class="ri-arrow-right-s-line"></i>
+					</a>
+				</div>
+
+				<img src="/img/home-coffee.png" class="home__img" alt="home image">
+			</div>
+		</section>
+
+		<!-- Products -->
+		<section class="products">
+			<div class="products__bg section">
+				<div class="products__container container grid">
+					<div class="products__data">
+						<a href="#about" class="products__button">
+							Scroll Down <i class="ri-arrow-down-s-line"></i>
+						</a>
+
+						<p class="products__description">
+							We strive to form deep partnerships with farmers
+							from all over the world to create perspective
+							together and form healthy working relationships
+							built on trust and respect.
+						</p>
+					</div>
+
+					<div class="products__content">
+						<article class="products__card">
+							<img src="/img/product-coffee-1.png" class="products__img" alt="product image">
+							<h3 class="products__name">Classic Coffee</h3>
+							<span class="products__price">$17.90</span>
+						</article>
+
+						<article class="products__card">
+							<img src="/img/product-coffee-2.png" class="products__img" alt="product image">
+							<h3 class="products__name">Black Coffee</h3>
+							<span class="products__price">$24.90</span>
+						</article>
+
+						<article class="products__card">
+							<img src="/img/product-coffee-3.png" class="products__img" alt="product image">
+							<h3 class="products__name">Strong Coffee</h3>
+							<span class="products__price">$32.90</span>
+						</article>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section class="video-sec-area pb-100 pt-40" id="about">
-				<div class="container">
-					<div class="row justify-content-start align-items-center">
-						<div class="col-lg-6 video-right justify-content-center align-items-center d-flex">
-							<div class="overlay overlay-bg"></div>
-							<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img
-									class="img-fluid" src="img/play-icon.png" alt=""></a>
-						</div>
-						<div class="col-lg-6 video-left">
-							<h6>Live Coffee making process.</h6>
-							<h1>We Telecast our <br>
-								Coffee Making Live</h1>
-							<p><span>We are here to listen from you deliver exellence</span></p>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or
-								incididunt ut
-								labore et dolore magna aliqua. Ut enim ad minim.
-							</p>
-							<img class="img-fluid" src="img/signature.png" alt="">
-						</div>
+		<!-- About -->
+		<section class="about" id="about">
+			<div class="about__bg section">
+				<div class="about__container container grid">
+					<div class="about__data">
+						<h2 class="section__title">
+							Our history
+						</h2>
+
+						<p class="about__description">
+							Iguana Republic was born from the passionate desire to bring Costa Rica's coffee culture to
+                            the world. With a focus on excellence and authenticity, the project began by reaching out to
+                            suppliers from the country's finest estates and carefully selecting the most exquisite
+                            coffee beans.
+
+							The mission was clear: to share Costa Rica's rich coffee heritage with coffee lovers
+                            worldwide, offering not just a beverage, but a sensory experience that captured the very
+                            essence of the mountainous and fertile lands where this precious bean is cultivated.
+
+							As Iguana Republic grew, so did its commitment to sustainability and fair trade, ensuring
+                            that every cup of coffee was not only delicious but also ethical and responsible. Over time, 
+							the brand has become a symbol of quality and national pride, elevating the
+                            prestige of Costa Rican coffee to new heights on the global stage.
+						</p>
 					</div>
-				</div>
-			</section>
-			<!-- End video-sec Area -->
 
-			<!-- Start gallery Area -->
-			<section>
-				<div class="carousel">
-					<div class="carousel-container">
-						<div class="carousel-slide">
-							<img src="finca.jpg" alt="Finca">
-						</div>
-						<div class="carousel-slide">
-							<img src="finca2.jpg" alt="Finca">
-						</div>
-						<div class="carousel-slide">
-							<img src="finca3.jpg" alt="Finca">
-						</div>
-						<div class="carousel-slide">
-							<img src="finca4.jpg" alt="Finca">
-						</div>
+					<img src="https://content.presspage.com/uploads/685/c1920_ejecafetero-2.jpg?58010" alt="" class="about__img">
+				</div>
+				<br><br>
+				<div class="about__container container grid">
+					<div class="about__data">
+						<h2 class="section__title">
+							Our mission
+						</h2>
+
+						<p class="about__description">
+							Our Misión and Values at Iguana Republic, we are committed to offering our customers not just
+                            any coffee, but "The Coffee" – the most delicious and authentic coffee experience.
+
+							We strive to select the highest quality coffee beans, sustainably grown by our dedicated
+                            suppliers in Costa Rica for the world.
+
+							We are dedicated to sharing and showcasing the culture and passion for Costa Rican coffee
+                            with the world, raising the standards of quality and service in the coffee industry, and
+                            creating memorable moments for our customers with every cup.
+						</p>
 					</div>
-					<button class="carousel-prev">&#10094;</button>
-					<button class="carousel-next">&#10095;</button>
+
+					<img src="https://perfectdailygrind.com/es/wp-content/uploads/sites/2/2021/02/finca-de-cafe%CC%81-grande-1.jpg" alt="" class="about__img">
 				</div>
-				<script src="script.js"></script>
+				<br><br>
+				<div class="about__container container grid">
+					<div class="about__data">
+						<h2 class="section__title">
+							Our Philosophy
+						</h2>
 
-				
+						<p class="about__description">
+							Iguana Republic is based on the belief that each cup of coffee is more than
+                            just a simple drink. It is a unique experience that reflects our dedication to excellence
+                            and our passion for Costa Rican coffee.
 
-			</section>
-			<!-- End gallery Area -->
+							We strive to offer exceptional customer service, focusing on the satisfaction and well-being
+                            of our customers in every interaction.
 
-			<!-- Start blog Area -->
-			<section class="blog-area section-gap" id="blog">
-				<div class="container">
-					<div class="row d-flex justify-content-center">
-						<div class="menu-content pb-60 col-lg-10">
-							<div class="title text-center">
-								<h1 class="mb-10">What kind of Coffee we serve for you</h1>
-								<p>Who are in extremely love with eco friendly system.</p>
+							We are committed to being leaders in the coffee industry, fostering innovation,
+                            sustainability, and equity in all our operations. Our work philosophy focuses on creating an
+                            authentic connection with our customers, providing memorable moments and a unique experience
+                            in every cup of "The Coffee".
+						</p>
+					</div>
+
+					<img src="https://cafeslua.com/img/i/cafe-finca_13929.webp" alt="" class="about__img">
+				</div>
+			</div>
+		</section>
+
+		<!-- Steps -->
+		<section class="steps" id="steps">
+			<div class="steps__bg section">
+				<h2 class="section__title">
+					Steps of manufacturing our products
+				</h2>
+
+				<div class="steps__container container grid">
+					<img src="/img/coffee-beans-bg.png" alt="steps bg" class="steps__bg-img">
+
+					<div class="steps__content">
+						<img src="/img/steps-curve-line.svg" alt="" class="steps__border">
+						<div class="steps__card">
+							<div class="steps__circle">
+								<div class="steps__subcircle">
+									01
+								</div>
+
+								<img src="/img/steps-green-coffee.png" class="steps__img" alt="steps image">
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6 col-md-6 single-blog">
-							<img class="img-fluid" src="img/b1.jpg" alt="">
-							<ul class="post-tags">
-								<li><a href="#">Travel</a></li>
-								<li><a href="#">Life Style</a></li>
-							</ul>
-							<a href="#">
-								<h4>Portable latest Fashion for young women</h4>
-							</a>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-								incididunt ut
-								labore et dolore.
-							</p>
-							<p class="post-date">
-								31st January, 2018
+
+							<p class="steps__description">
+								Harvest occurs annually when the coffee 
+								beans reach maturity and are collected 
+								for processing.
 							</p>
 						</div>
-						<div class="col-lg-6 col-md-6 single-blog">
-							<img class="img-fluid" src="img/b2.jpg" alt="">
-							<ul class="post-tags">
-								<li><a href="#">Travel</a></li>
-								<li><a href="#">Life Style</a></li>
-							</ul>
-							<a href="#">
-								<h4>Portable latest Fashion for young women</h4>
-							</a>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-								incididunt ut
-								labore et dolore.
+
+						<div class="steps__card steps__card-move">
+							<div class="steps__circle">
+								<div class="steps__subcircle">
+									02
+								</div>
+
+								<img src="/img/steps-coffee-beans.png" class="steps__img" alt="steps image">
+							</div>
+
+							<p class="steps__description">
+								The beans are dried using a wet or dry 
+								technique, depending on the taste we want 
+								to obtain.
 							</p>
-							<p class="post-date">
-								31st January, 2018
+						</div>
+
+						<div class="steps__card">
+							<div class="steps__circle">
+								<div class="steps__subcircle">
+									03
+								</div>
+
+								<img src="/img/steps-ground-coffee.png" class="steps__img" alt="steps image">
+							</div>
+
+							<p class="steps__description">
+								The coffee is roasted and acquires 
+								its flavor by processing the grain 
+								in ovens.
 							</p>
 						</div>
 					</div>
 				</div>
-			</section>
-			<!-- End blog Area -->
+			</div>
+		</section>
 
+		<!-- Testimonial -->
+		<section class="testimonial" id="testimonial">
+			<div class="testimonial__bg section">
+				<div class="testimonial__container container grid">
+					<div class="testimonial__data">
+						<h2 class="section__title">
+							L'nueve Coffee Farm
+						</h2>
 
-			<!-- start footer Area -->
-			<footer class="footer-area section-gap">
-				<div class="container">
+						<span class="testimonial__name">
+							Our farms are located over the mountains surrounding Costa Rica’s Central Valley,
+                        specifically in San Luis, Grecia, Alajuela. Since our plantations sit at 4,900 feet above
+                        sea level, our coffee obtains the benefits from a rich volcanic soil and an ideal all year
+                        round weather for coffee farming.
+
+                        The heart of our business is the family. Coffee brings us together. By producing the best
+                        high-grown beans from this region of our country, we also aspire to bring other together
+                        around a cup of our exquisite coffee. More than sharing a massively produced bean, we are
+                        sharing a family experience with our customers.
+
+                        In doing so, we are always reminded that every success our product has, is a direct result
+                        from the seeds planted by our parents: Isidro Oviedo and Luzmilda Barrantes.
+						</span>
+					</div>
+
+					<img src="/img/finca3.jpg" alt="" class="testimonial__img">
 				</div>
-			</footer>
-			<!-- End footer Area -->
-		</main>
+			</div>
+		</section>
+	</main>
 
-		<script src="/js/vendor/jquery-3.7.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"></script>
-		<script src="js/vendor/bootstrap.min.js"></script>
-		<script type="text/javascript"
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-		<script src="js/easing.min.js"></script>
-		<script src="js/hoverIntent.js"></script>
-		<script src="js/superfish.min.js"></script>
-		<script src="js/jquery.ajaxchimp.min.js"></script>
-		<script src="js/jquery.magnific-popup.min.js"></script>
-		<script src="js/owl.carousel.min.js"></script>
-		<script src="js/jquery.sticky.js"></script>
-		<script src="js/jquery.nice-select.min.js"></script>
-		<script src="js/parallax.min.js"></script>
-		<script src="js/waypoints.min.js"></script>
-		<script src="js/jquery.counterup.min.js"></script>
-		<script src="js/mail-script.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js" type="text/javascript"
-			integrity="sha512-7b1FfB2MGnB65aK6jrbS8k3REB+8bEE8UfP/TEwacejD0g02nLLI1VL4IPcKyiLk2lf7HJWaUYEUWc65aqaXQg=="
-			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<script src="js/main.js"></script>
-		<script type="module" src="/js/transition.js"></script>
-		<script src="js/products.js"></script>
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="footer__bg">
+			<img src="/img/coffee-beans-bg.png" alt="footer image" class="footer__bg-img">
+			<div class="footer__container container grid">
+				<div class="footer__data grid">
+					<div>
+						<a href="#" class="footer__logo">
+							<img src="/img/logo_alt.png" alt="logo image">
+						</a>
+						<span class="footer__copy">
+							&#169; Copyright Iguana Republic. All rights reserved
+						</span>
+					</div>
+				</div>
+
+				<div class="footer__content grid"></div>
+			</div>
+		</div>
+	</footer>
+
+	<a href="#" class="scrollup" id="scroll-up">
+		<i class="ri-arrow-up-line"></i>
+	</a>
+	<script src="/js/scrollreveal.min.js"></script>
+	<script src="/js/header.js"></script>
 </body>
-
 </html>

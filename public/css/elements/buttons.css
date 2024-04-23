@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600&display=swap");
+
 .button-normal {
   appearance: button;
   backface-visibility: hidden;
@@ -203,24 +205,25 @@
     height: 60px;
     border-radius: 8px;
     color: #fff;
-    background: #006995;
+    background: hsl(12, 32%, 22%);
     overflow: hidden;
     cursor: pointer;
     transition: .3s ease;
+    border-color: #d3ad7f;
   }
 
   .cart-button:active {
     transform: scale(.9);
   }
 
-  .cart-button .fa-shopping-cart {
+  .cart-button .fa-cart-shopping {
     position: absolute;
     top: 50%;
     left: -10%;
     transform: translate(-50%, -50%);
     z-index: 2;
     font-size: 2rem;
-    color: #fff;
+    color: #d3ad7f;
   }
 
   .cart-button .fa-box {
@@ -230,7 +233,7 @@
     transform: translate(-50%, -50%);
     z-index: 3;
     font-size: 1.2rem;
-    color: #fff;
+    color: #d3ad7f;
   }
 
   .cart-button .add-to-cart,
@@ -239,14 +242,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font: 700 16px "Open Sans";
+    font: 700 16px "Poppins";
   }
 
   .cart-button .added {
     opacity: 0;
   }
 
-  .cart-button.clicked .fa-shopping-cart {
+  .cart-button.clicked .fa-cart-shopping {
     animation: cart 1.5s ease-in-out forwards;
   }
 
