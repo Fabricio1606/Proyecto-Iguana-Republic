@@ -2,8 +2,7 @@
 
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("iguanarepublicdb", "root", "1234", {
-
+const sequelize = new Sequelize("iguanarepublicdb", "root", "$Fabricio160603", {
   host: "localhost",
   dialect: "mysql",
   port: 3306,
