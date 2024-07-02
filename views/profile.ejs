@@ -32,6 +32,8 @@
     <link rel="shortcut icon" href="views/img/fav.png">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="/css/newNav.css">
+	<link rel="stylesheet" href="/css/elements/input.css">
+	<link rel="stylesheet" href="/css/elements/buttons.css">
     <title>Iguana Republic</title>
 </head>
 
@@ -55,19 +57,23 @@
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" class="form-control mb-1" value="<%- profile.userClient %>" id="userClient">
+                                
+                                <div class="inputBox">
+                                    <input type="text" value="<%- profile.userClient %>" id="userClient">
+                                    <span>Username</span>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="<%- profile.nameClient %>" id="nameClient">
+                                
+                                <div class="inputBox">
+                                    <input type="text" value="<%- profile.nameClient %>" id="nameClient">
+                                    <span>Name</span>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="text" class="form-control mb-1" value="<%- profile.mailClient %>" id="mailClient">
+                                
+                                <div class="inputBox" style="margin-top: 30px;">
+                                    <input type="text" value="<%- profile.mailClient %>" id="mailClient">
+                                    <span>Email</span>
                                 </div>
-                                <div class="form-group">
+
+                                <div class="form-group" style="margin-top: 20px;">
                                     <label class="form-label">Country</label>
                                     <select class="custom-select" id="nationClient">
                                         <% for (var i=0; i < countries.length; i++) { %>
@@ -79,29 +85,32 @@
                                         <% } %>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="number" class="form-control" id="phoneClient" value="<%- profile.phoneClient %>">
+
+                                <div class="inputBox" style="margin-top: 30px;">
+                                    <input type="number" id="phoneClient" value="<%- profile.phoneClient %>">
+                                    <span>Phone</span>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" value="<%- profile.addressClient %>" id="addressClient" autocomplete="off">
+
+                                <div class="inputBox" style="margin-top: 30px;">
+                                    <input type="text" value="<%- profile.addressClient %>" id="addressClient" autocomplete="off">
+                                    <span>Address</span>
                                     <% if (profile.addressClient == "N/A") { %>
                                         <div class="alert alert-danger mt-3">
                                             You need an address to checkout your products
                                         </div>
                                     <% } %>
                                 </div>
+
                                 <div class="text-right mt-3">
-                                    <button type="button" id="updateUser" class="btn btn-primary">Save changes</button>&nbsp;
+                                    <button type="button" id="updateUser" class="submit"><span>Save changes</span><i></i></button>&nbsp;
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-change-password">
                             <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Current password</label>
-                                    <input type="password" id="passwordClient" class="form-control">
+                                <div class="inputBox" style="margin-top: 30px;">
+                                    <input type="password" id="passwordClient">
+                                    <span>Current password</span>
                                     <div id="alertOld" class="alert alert-danger mt-3" hidden>
                                         You need your actual password!
                                     </div>
@@ -109,13 +118,15 @@
                                         Your password is incorrect!
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">New password</label>
-                                    <input type="password" id="newPassword" class="form-control">
+
+                                <div class="inputBox" style="margin-top: 30px;">
+                                    <input type="password" id="newPassword">
+                                    <span>New password</span>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Repeat new password</label>
-                                    <input type="password" id="repeatPassword" class="form-control">
+
+                                <div class="inputBox" style="margin-top: 30px;">
+                                    <input type="password" id="repeatPassword">
+                                    <span>Repeat new password</span>
                                     <div id="alertNew" class="alert alert-danger mt-3" hidden>
                                         The passwords doesn't match!
                                     </div>
@@ -124,7 +135,7 @@
                                     </div>
                                 </div>
                                 <div class="text-right mt-3">
-                                    <button type="button" id="updatePassword" class="btn btn-primary" disabled>Save changes</button>&nbsp;
+                                    <button type="button" id="updatePassword" class="submit" disabled><span>Save changes</span><i></i></button>&nbsp;
                                 </div>
                             </div>
                         </div>

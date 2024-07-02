@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta charset="UTF-8" />
+    <title>Iguana Republic</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/newNav.css">
+    <link rel="stylesheet" href="/css/newIndex.css">
+  </head>
+
+  <body id="welcome">
+    <%- include('header', { opcion: 2 }); %>
+
+    <section class="home section" id="home" style="height: 100vh;">
+        <div class="home__container container grid">
+            <div class="home__data">
+                <h1 class="home__title">
+                    Thank you for your payment!
+                </h1>
+
+                <p class="home__description">
+                    If you want download your receipt, click in the next button:
+                </p>
+
+                <form action="/cart/download" method="post">
+                    <button type="submit" class="button">
+                        Download receipt
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+  </body>
+</html>

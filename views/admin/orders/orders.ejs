@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/elements/buttons.css">
     <link rel="stylesheet" href="/css/elements/options.css">
+    <link rel="stylesheet" href="/css/elements/datepicker.css">
     <link rel="stylesheet" href="/css/elements/modal.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
@@ -101,9 +102,9 @@
                     <h1 style="color: #00b13a;" >Orders</h1>
 					<form action="/dashboard/orders/download" method="post" style="display: flex;gap: 15px;">
 						<h4>From: </h4>
-						<input type="date" name="startDate" id="startDate" style="height: 30px;">
+						<input type="date" name="startDate" id="startDate" style="height: 45px;">
 						<h4>To: </h4>
-						<input type="date" name="endDate" id="endDate" style="height: 30px;">
+						<input type="date" name="endDate" id="endDate" style="height: 45px;">
 
 						<button class="submit" type="submit"><span>CREATE REPORT</span><i></i></button>
 					</form>
