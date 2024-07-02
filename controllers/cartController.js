@@ -8,6 +8,7 @@ const Product = require("../models/product.js");
 const Orders = require("../models/orders.js");
 var easyinvoice = require('easyinvoice');
 const fs = require("fs");
+const path = require("path");
 
 const cartController = {};
 
@@ -416,12 +417,45 @@ cartController.showBill = async (req, res) => {
       OrderIdOrder: order.dataValues.idOrder
     });
   
+    res.render("bill", { user: res.locals.user.userClient, admin: res.locals.user.adminUser })
+  } catch(ex) {
+    console.log(ex)
+    res.render("500")
+  }
+}
+
+cartController.downloadReceipt = async (req, res) => {
+  try{
+    res.locals.user = req.session.client;
+    const user = res.locals.user;
+
+    const cart = await Cart.findOne({
+      where: { 
+        ClientIdClient: user.idClient,
+        stateCart: 1
+      }
+    })
+  
+    const details = await CartDetail.findAll({
+      include: Product,
+      where: {
+        CartIdCart: cart.idCart
+      }
+    });
+      
+    const order = await Orders.findOne({
+      limit: 5,
+      order: [ ["idOrder", "DESC"] ],
+
+      where: { ClientIdClient: user.idClient }
+    });
+  
     let png = fs.readFileSync("./public/img/logo_alt.png");
     const img = Buffer.from(png).toString("base64");
-  
+
     var data = {
-      // apiKey: "l9rhAyDx0dONmJcw8B9BPepJwCRwcETmGruQax97dQYL7wuZ41xor8YE1YA31SPM", // Please register to receive a production apiKey: https://app.budgetinvoice.com/register
-      // mode: "development", // Production or development, defaults to production   
+      apiKey: "l9rhAyDx0dONmJcw8B9BPepJwCRwcETmGruQax97dQYL7wuZ41xor8YE1YA31SPM", // Please register to receive a production apiKey: https://app.budgetinvoice.com/register
+      mode: "development", // Production or development, defaults to production   
       images: {
           // The logo on top of your invoice
           logo: `${img}`,
@@ -452,7 +486,7 @@ cartController.showBill = async (req, res) => {
       },
       translate: {},
     };
-  
+
     details.forEach((product) => {
       data.products.push({
         quantity: product.quantity,
@@ -460,17 +494,16 @@ cartController.showBill = async (req, res) => {
         price: product.unitPrice
       });
     });
-  
+
     //Create your invoice! Easy!
     const result = await easyinvoice.createInvoice(data, function (result) {
         //The response will contain a base64 encoded PDF file
         // console.log('PDF base64 string: ', result.pdf);
     });
-  
+
     let name = `invoice${Date.now()}`
-  
+
     fs.writeFileSync(`./docs/${name}.pdf`, result.pdf, "base64");
-  
     res.download(`./docs/${name}.pdf`);
   } catch(ex) {
     console.log(ex)
