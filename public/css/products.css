@@ -63,10 +63,11 @@
 
 .products .box-container .box .image {
   height: 14rem;
+  align-content: center;
 }
 
 #prodImg {
-  max-width: 9rem;
+  max-width: 15rem;
 }
 
 .categories {
