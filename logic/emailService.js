@@ -4,6 +4,7 @@ const TempPassModel = require("../models/tempPassModel"); // Importa el modelo T
 class EmailService {
   constructor(senderEmail, tempPassModel) {
     // Configuración del servicio de correo
+    
     this.transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/elements/buttons.css">
     <link rel="stylesheet" href="/css/elements/input.css">
 </head>
-<body onload="checkCookie()">
+<body onload="formReset()">
     <section id="sidebar">
 		<div id="logo">
 			<a href="/"><img src="/img/logo_alt.png" class="logo" alt="" title="" width="250" height="100" /></a>
@@ -101,7 +101,7 @@
 
                     <div class="leftside">
                         <div class="inputBox">
-                            <input type="text" name="nomCate" id="nomCate" required>
+                            <input type="text" name="nomCate" id="nomCate" required autocomplete="off">
                             <span>Name</span>
                         </div>
 
@@ -113,6 +113,7 @@
     </section>
 	<script src="/js/dashboard.js"></script>
     <script src="/js/vendor/jquery-3.7.1.min.js"></script>
+	<script src="/js/reset.js"></script>
     <script src="/js/form/category.js"></script>
 </body>
 </html>

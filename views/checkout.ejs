@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/css/newIndex.css">
     <link rel="stylesheet" href="/css/newNav.css">
     <link rel="stylesheet" href="/css/checkout.css" />
-    <link rel="stylesheet" href="/css/main.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -59,7 +58,7 @@
                   Place order for $<%- cart.totalPriceCart %></button>
               </form>
 
-              <form action="/cart/bill" method="post">
+              <form action="/cart/bill" method="get">
                 <button id="place" class="btn" type="submit">
                   Make a bill</button>
               </form>

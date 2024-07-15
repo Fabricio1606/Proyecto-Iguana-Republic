@@ -3,7 +3,8 @@ const controller = require("../controllers/cartController");
 
 const router = Router();
 router.get("/", controller.showCart);
-router.post("/bill", controller.showBill);
+router.get("/bill", controller.showBill);
+router.post("/download", controller.downloadReceipt);
 router.get("/checkout", controller.checkout);
 router.get("/delete/:id", controller.deleteProductCart);
 
