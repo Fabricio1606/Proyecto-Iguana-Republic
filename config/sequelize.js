@@ -2,7 +2,8 @@
 
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("iguanarepublicdb", "root", "soraraper1", {
+const sequelize = new Sequelize("iguatxvr_iguanarepublicdb", "iguatxvr_root", "*TvBEr&)oAb!", {
+
   host: "localhost",
   dialect: "mysql",
   port: 3306,
