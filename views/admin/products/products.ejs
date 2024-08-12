@@ -16,15 +16,34 @@
 	<section id="modal">
 		<span class="overlay"></span>
 		<div class="modal-box">
-		<ion-icon name="alert-circle-outline"></ion-icon>
-		<h2>CAUTION</h2>
-		<h3>Are you sure about delete this record?</h3>
+			<ion-icon name="alert-circle-outline"></ion-icon>
+			<h2>CAUTION</h2>
+			<h3>Are you sure about delete this record?</h3>
 
-		<div class="buttons">
-			<button class="close-btn">CANCEL</button>
-			<a href="#" id="delete-modal"><button class="delete-btn">DELETE</button></a>
+			<div class="buttons">
+				<button class="close-btn">CANCEL</button>
+				<a href="#" id="delete-modal"><button class="delete-btn">DELETE</button></a>
 		</div>
-	</div>
+	</section>
+	<section id="modalImage">
+		<span class="overlay-image"></span>
+		<div class="modal-image">
+			<form action="/dashboard/products/images" method="post" enctype="multipart/form-data">
+				<label for="input-file" id="drop-area">
+					<input type="text" name="idImage" id="idImage" hidden>
+					<input type="file" accept="image/*" name="image" id="input-file" hidden>
+					<div id="img-view">
+						<img src="#" style="width: 50%;" id="changeImage">
+					</div>
+				</label>
+
+				<div class="buttons">
+					<button class="closeImage-btn" type="button">CANCEL</button>
+					<button class="update-btn" type="submit">UPDATE IMAGE</button>
+				</div>
+			</form>
+		</div>
+	</section>
 
     <section id="sidebar">
 		<div id="logo">
@@ -130,6 +149,7 @@
 										<div class="menu">
 											<ul>
 												<li style="--i:0.2s"><a href="/dashboard/products/modify/<%- products[i].idProd %>"><ion-icon name="create-outline"></ion-icon></a></li>
+												<li style="--i:0.3s"><a onclick="showModalImage('/img/products/<%- products[i].imgProd %>', '<%- products[i].idProd %>')" class="show-image"><ion-icon name="camera-outline"></ion-icon></a></li>
 												<li style="--i:0.3s"><a onclick="showModal('products/delete/<%- products[i].idProd %>')" class="show-modal"><ion-icon name="trash-outline"></ion-icon></a></li>
 											</ul>
 										</div>
@@ -142,7 +162,7 @@
             </div>
         </main>
     </section>
-
+	<script src="/js/dropdown.js"></script>
 	<script src="/js/dashboard.js"></script>
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

@@ -10,25 +10,23 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, cb) => {
-        console.log(file)
         cb(null, Date.now() + path.extname(file.originalname.replace()));
     }
 })
 const upload = multer({ storage: storage })
-const modify = multer({ storage: storage })
 
 router.get('/', controller.showDashboard);
 
 // CRUD PRODUCTS
 router.get('/products', controller.showProducts);
 router.post('/products/search', controller.searchProduct);
+router.post('/products/images', upload.single("image"), controller.modifyProductImage);
 
 router.get('/products/newproduct', controller.showFormProduct);
 router.post('/products/newproduct', upload.single("image"), controller.createProduct);
 
 router.get('/products/modify/:id', controller.showModifyProduct);
 router.post('/products/modify', controller.modifyProduct);
-router.post('/products/modify/:id', modify.single("imgProd"), controller.modifyProductImage);
 
 router.get('/products/delete/:id', controller.deleteProduct);
 

@@ -14,7 +14,7 @@ authController.showLogin = (req, res) => {
         res.render('login', { countries: countries }); // Renderiza la vista de inicio de sesión
     } catch(ex) {
         console.log(ex);
-        res.render("500")
+        res.render("500", { error: error })
     }
 };
 
@@ -48,9 +48,9 @@ authController.login = async (req, res) => {
         res.redirect('/'); // Redirige a la página de dashboard u otra ruta
     } catch (error) {
         console.error(error);
-        res.render("500");
+        res.render("500", { error: error });
     }
-};
+}; 
 
 authController.register = async (req, res) => {
     const { nameClient, mailClient, nationClient, phoneClient, addressClient, userClient, passClient } = req.body;
@@ -74,7 +74,7 @@ authController.register = async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.error(error);
-        res.render("500");
+        res.render("500", { error: error });
     }
 };
 
@@ -120,7 +120,7 @@ authController.logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error(err);
-            res.render("500");
+            res.render("500", { error: error });
         } else {
             res.locals.user = null;
             res.redirect('/');

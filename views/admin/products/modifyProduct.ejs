@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New product</title>
+    <title>Modify product</title>
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/css/dashboard.css">
@@ -82,7 +82,7 @@
 
             <div class="form" id="form">
 
-                <form action="/dashboard/products/modify" method="post" enctype="multipart/form-data">
+                <form action="/dashboard/products/modify" method="post">
 
                     <div class="leftside">
                         <div class="inputBox">
@@ -120,23 +120,13 @@
                                 <% } %>
                             </div>
                         </div>
-
-                        <label for="input-file" id="drop-area">
-                            <input type="file" accept="image/*" name="imgProd" id="input-file" hidden>
-                            <div id="img-view">
-                                <img src="/img/icon.png">
-                                <p>Drag and drop or click here<br>to upload image</p>
-                                <span>Upload any images from the desktop</span>
-                            </div>
-                        </label>
                     </div>
                 </form>
             </div>
         </main>
     </section>
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
 	<script src="/js/dashboard.js"></script>
 	<script src="/js/dropdown.js"></script>
-    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
-    <script src="/js/form/product.js"></script>
 </body>
 </html>

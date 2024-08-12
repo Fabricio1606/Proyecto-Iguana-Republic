@@ -100,6 +100,7 @@ adminController.modifyProduct = async (req, res) => {
     const { idProd, nameProd, priceProd, stockProd, shortDescProd, descProd, cateProd } = req.body;
 
     try{
+        console.log(nameProd);
         const category = await Category.findOne({
             where: { nomCate: cateProd }
         })
@@ -117,36 +118,25 @@ adminController.modifyProduct = async (req, res) => {
         });
     } catch(error) {
         console.error(error);
-        res.render("500");
+        res.render("500", { error: error });
     }
 
     res.redirect("/dashboard/products")
 }
 
 adminController.modifyProductImage = async (req, res) => {
-    const { idProd, nameProd, priceProd, stockProd, shortDescProd, descProd, cateProd } = req.body;
+    const { idImage } = req.body;
 
     try{
-        const category = await Category.findOne({
-            where: { nomCate: cateProd }
-        })
         const imgProd = req.file.filename;
-        const CategoryIdCate = category.idCate;
         const product = await Products.update({
-            idProd,
-            nameProd,
-            imgProd,
-            priceProd,
-            stockProd,
-            shortDescProd,
-            descProd,
-            CategoryIdCate
+            imgProd
         }, {
-            where: { idProd: idProd }
+            where: { idProd: idImage }
         });
     } catch(error) {
         console.error(error);
-        res.render("500");
+        res.render("500", { error: error });
     }
 
     res.redirect("/dashboard/products")

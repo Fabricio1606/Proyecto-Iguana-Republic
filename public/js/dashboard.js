@@ -54,84 +54,6 @@ if(searchButton != undefined) {
 	})
 }
 
-
-
-// const switchMode = document.getElementById('switch-mode');
-// const form = document.getElementById('form');
-
-// switchMode.addEventListener('change', function () {
-// 	if(this.checked) {
-// 		document.body.classList.add('dark');
-// 		setCookie("mode", "dark", 31);
-
-// 		if(form != null) {
-// 			form.classList.add("dark")
-// 		}
-// 	} else {
-// 		document.body.classList.remove('dark');
-// 		setCookie("mode", "day", 31);
-
-// 		if(form != null) {
-// 			form.classList.remove("dark")
-// 		}
-// 	}
-// })
-
-// function setCookie(cname, cvalue, exdays) {
-// 	const d = new Date();
-// 	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-// 	let expires = "expires="+ d.toUTCString();
-// 	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-// } 
-
-// function getCookie(cname) {
-// 	let name = cname + "=";
-// 	let decodedCookie = decodeURIComponent(document.cookie);
-// 	let ca = decodedCookie.split(';');
-// 	for(let i = 0; i <ca.length; i++) {
-// 	  let c = ca[i];
-// 	  while (c.charAt(0) == ' ') {
-// 		c = c.substring(1);
-// 	  }
-// 	  if (c.indexOf(name) == 0) {
-// 		return c.substring(name.length, c.length);
-// 	  }
-// 	}
-// 	return "";
-// }
-
-// function checkCookie() {
-// 	const switchMode = document.getElementById('switch-mode');
-// 	const form = document.getElementById('form');
-// 	let mode = getCookie("mode");
-	
-// 	if (mode == "") {
-// 		document.body.classList.remove('dark');
-// 		switchMode.checked = false;
-// 		setCookie("mode", "day", 31);
-
-// 		if(form != null) {
-// 			form.classList.remove("dark")
-// 		}
-// 	} else if(mode == "day"){
-// 		document.body.classList.remove('dark');
-// 		switchMode.checked = false;
-// 		setCookie("mode", "day", 31);
-
-// 		if(form != null) {
-// 			form.classList.remove("dark")
-// 		}
-// 	} else {
-// 		document.body.classList.add('dark');
-// 		setCookie("mode", "dark", 31);
-// 		switchMode.checked = true;
-
-// 		if(form != null) {
-// 			form.classList.add("dark")
-// 		}
-// 	}
-// }
-
 menuToggle.forEach(function(i) {
 	i.addEventListener("click", function() {
 		i.classList.toggle("active");
@@ -155,10 +77,47 @@ showBtn.forEach(function(i) {
 	})
 })
 
-closeBtn.addEventListener("click", () => {
-	section.classList.remove("active")
+if(closeBtn != null) {
+	closeBtn.addEventListener("click", () => {
+		section.classList.remove("active")
+	})
+}
+
+if(overlay != null) {
+	overlay.addEventListener("click", () => {
+		section.classList.remove("active")
+	})
+}
+
+// MODAL IMAGE SCRIPT
+const overlayImage = document.querySelector(".overlay-image");
+const sectionImage = document.getElementById("modalImage");
+const showBtnImage = document.querySelectorAll(".show-image");
+const closeBtnImage = document.querySelector(".closeImage-btn");
+
+function showModalImage(id, value) {
+	const updateRecord = document.getElementById("changeImage");
+	const prod = document.getElementById("idImage");
+	updateRecord.src = id;
+	prod.value = value;
+}
+
+showBtnImage.forEach(function(i) {
+	i.addEventListener("click", function() {
+		sectionImage.classList.add("active")
+	})
 })
 
-overlay.addEventListener("click", () => {
-	section.classList.remove("active")
-})
+if(closeBtnImage != null) {
+	closeBtnImage.addEventListener("click", () => {
+		sectionImage.classList.remove("active")
+		imageView.style.backgroundImage = ``;
+	})
+} 
+
+if(overlayImage != null) {
+	overlayImage.addEventListener("click", () => {
+		sectionImage.classList.remove("active")
+		imageView.style.backgroundImage = ``;
+	})
+}

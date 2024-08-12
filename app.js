@@ -84,6 +84,10 @@ const authAdmin = (req, res, next) => {
   }
   res.render("403");
 };
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+  res.render("500", { error: err });
+});
 
 // Las demás rutas y configuraciones permanecen sin cambios
 
@@ -112,9 +116,3 @@ sequelize
   .catch((err) => {
     console.error("Error al sincronizar con la base de datos:", err);
   });
-
-// Middleware para manejar errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.render("500");
-});
