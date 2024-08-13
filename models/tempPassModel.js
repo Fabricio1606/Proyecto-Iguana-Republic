@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 const Client = require('../models/client'); // Importa el modelo Client
-const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 const TempPassModel = sequelize.define('TempPass', {
     id: {
@@ -14,7 +14,7 @@ const TempPassModel = sequelize.define('TempPass', {
         allowNull: false
     },
     temp_password: {
-        type: DataTypes.STRING(10), // Limita la longitud de la contraseña temporal a 10 caracteres
+        type: DataTypes.STRING(100), // Aumenta la longitud para almacenar el hash
         allowNull: false
     },
     createdAt: {
@@ -39,29 +39,25 @@ TempPassModel.beforeUpdate(async (instance, options) => {
 });
 
 // Método para guardar un registro de contraseña temporal y actualizar el hash de contraseña del cliente
-TempPassModel.saveTempPassword = async function (user_id) {
+TempPassModel.saveTempPassword = async function (user_id, temp_password) {
     let tempPassRecord;
 
     try {
-        // Generar una cadena aleatoria de longitud fija (por ejemplo, 6 caracteres)
-        const temp_password = crypto.randomBytes(3).toString('hex'); // Genera 6 caracteres hexadecimales (3 bytes)
+        // Hashear la contraseña temporal antes de guardarla
+        const hashedTempPassword = bcrypt.hashSync(temp_password, 10);
 
-        // Crear un registro de contraseña temporal sin encriptar
+        // Crear un registro de contraseña temporal con la contraseña hasheada
         tempPassRecord = await TempPassModel.create({
             user_id: user_id,
-            temp_password: temp_password
+            temp_password: hashedTempPassword
         });
 
         // Actualizar el hash de contraseña del cliente en la tabla Client
         const client = await Client.findByPk(user_id);
         if (client) {
             // Actualizar el hash de contraseña del cliente
-            await client.update({ passClient_hash: temp_password });
-            console.log('Client password hash updated successfully:', temp_password);
-
-            // Sincronizar la base de datos después de la actualización
-            await sequelize.sync();
-            console.log('Database synchronized successfully after update');
+            await client.update({ passClient_hash: hashedTempPassword });
+            console.log('Client password hash updated successfully:', hashedTempPassword);
         } else {
             console.error('Client not found while trying to update password hash.');
         }
@@ -69,7 +65,6 @@ TempPassModel.saveTempPassword = async function (user_id) {
         // Devolver el registro de contraseña temporal
         return tempPassRecord;
     } catch (error) {
-        // Si hay un error en alguna de las operaciones, lanzar una excepción con el mensaje de error
         throw new Error('Error saving temporary password and updating client password hash in the database: ' + error.message);
     }
 };
