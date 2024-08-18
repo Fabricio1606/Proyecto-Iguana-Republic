@@ -1,80 +1,67 @@
 const bcrypt = require('bcryptjs');
 const Client = require('../models/client');
 const TokenModel = require('../models/tokenModel');
-const EmailService = require('../logic/emailService');
+const EmailService = require('../services/emailService');
 const TempPassModel = require('../models/tempPassModel');
 const { Country } = require("country-state-city");
 const emailService = new EmailService('reset.pass.iguanarepublic@gmail.com', TempPassModel);
+const UserService = require("../services/userService");
 
+const userService = new UserService();
 const authController = {};
 
-authController.showLogin = (req, res) => {
+function createSession(client, req, res) {
+    req.session.client = client;
+    req.session.id = client.idClient; 
+    res.locals.user = req.session.client;
+    res.locals.id = req.session.id;
+}
+
+authController.showLogin = (req, res, next) => {
     try {
         const countries = Country.getAllCountries();
-        res.render('login', { countries: countries }); // Renderiza la vista de inicio de sesión
+        res.render('login', { countries: countries });
     } catch(ex) {
-        console.log(ex);
-        res.render("500", { error: error })
+        next(ex);
     }
 };
 
 authController.showRegister = (req, res) => {
-    res.render('register'); // Renderiza la vista de registro
+    res.render('register');
 };
 
-// Método para mostrar el formulario de restablecimiento de contraseña
 authController.showResetPasswordForm = (req, res) => {
-    res.render('reset-password'); // Renderiza la vista reset-password.ejs
+    res.render('reset-password'); 
 };
 
 authController.showerrorLogin = (req, res) => {
-    res.render('errorLogin'); // Renderiza la vista errorLogin.ejs
+    res.render('errorLogin');
 };
 
-authController.login = async (req, res) => {
-    const { userClient, passClient } = req.body;
-
+authController.login = async (req, res, next) => {
     try {
-        const client = await Client.findOne({ where: { userClient } });
+        const { userClient, passClient } = req.body;
+        const client = await userService.getUserByUsername(userClient);
 
         if (!client || !bcrypt.compareSync(passClient, client.passClient_hash)) {
-            return res.render('errorLogin'); // Redirige a la vista de errorLogin.ejs
+            return res.redirect('errorLogin'); 
         }
-
-        req.session.client = client; // Almacena al cliente en la sesión
-        req.session.id = client.idClient; // Almacena al cliente en la sesión
-        res.locals.user = req.session.client;
-        res.locals.id = req.session.id;
-        res.redirect('/'); // Redirige a la página de dashboard u otra ruta
+        createSession(client, req, res);
+        res.redirect('/'); 
     } catch (error) {
-        console.error(error);
-        res.render("500", { error: error });
+        next(error);
     }
 }; 
 
-authController.register = async (req, res) => {
-    const { nameClient, mailClient, nationClient, phoneClient, addressClient, userClient, passClient } = req.body;
-
+authController.register = async (req, res, next) => {
     try {
-        const hashedPassword = bcrypt.hashSync(passClient, 10);
-        const newClient = await Client.create({
-            nameClient,
-            mailClient,
-            nationClient,
-            phoneClient,
-            addressClient,
-            userClient,
-            passClient_hash: hashedPassword,
-            adminUser: false,
-        });
+        const { nameClient, mailClient, nationClient, phoneClient, addressClient, userClient, passClient } = req.body;
+        const newClient = await userService.createUser(nameClient, mailClient, nationClient, phoneClient, addressClient, userClient, passClient);
 
-        req.session.client = newClient;
-        req.session.client = newClient;
-        res.locals.user = req.session.client;
+        createSession(newClient, req, res);
         res.redirect('/');
     } catch (error) {
-        console.error(error);
-        res.render("500", { error: error });
+        next(error);
     }
 };
 

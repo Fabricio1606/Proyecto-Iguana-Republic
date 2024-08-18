@@ -3,11 +3,11 @@ const mysql = require("mysql2");
 // Paso 3: Configurar los detalles de la conexión a MySQL
 const pool = mysql.createConnection({
   host: "localhost",
-  user: "iguatxvr_root",
+  user: "root",
 
-  password: "*TvBEr&)oAb!",
+  password: "soraraper1",
 
-  database: "iguatxvr_iguanarepublicdb",
+  database: "iguanarepublicdb",
   port: "3306",
 });
 

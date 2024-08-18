@@ -21,6 +21,10 @@ $(document).ready(function() {
             }, function(data) {
                 if(data.result == 1) {
                     location.reload();
+                } else if(data.result == 2) {
+                    
+                } else {
+
                 }
             })
         }
@@ -104,9 +108,6 @@ $(document).ready(function() {
         let newPassword = $("#newPassword").val();
         let repeatPassword = $("#repeatPassword").val();
         let oldPassword = $("#passwordClient").val();
-        console.log(newPassword);
-        console.log(repeatPassword);
-        console.log(oldPassword);
 
         if(newPassword == repeatPassword && oldPassword.length > 0) {
             return true;

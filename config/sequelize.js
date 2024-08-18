@@ -2,7 +2,7 @@
 
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("iguatxvr_iguanarepublicdb", "iguatxvr_root", "*TvBEr&)oAb!", {
+const sequelize = new Sequelize("iguanarepublicdb", "root", "soraraper1", {
 
   host: "localhost",
   dialect: "mysql",

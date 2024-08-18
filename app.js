@@ -84,10 +84,6 @@ const authAdmin = (req, res, next) => {
   }
   res.render("403");
 };
-// Middleware para manejar errores
-app.use((err, req, res, next) => {
-  res.render("500", { error: err });
-});
 
 // Las demás rutas y configuraciones permanecen sin cambios
 
@@ -101,8 +97,15 @@ app.use("/paypal", paymentRoute);
 const homeController = require("./routes/homeRoute");
 app.use("", homeController);
 
-app.use("*", (req, res) => {
+app.get("*", (req, res, next) => {
+  res.status(404);
   res.render("404");
+});
+
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+  res.status(500);
+  res.render("500", { error: err });
 });
 
 sequelize

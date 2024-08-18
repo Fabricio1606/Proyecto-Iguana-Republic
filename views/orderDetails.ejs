@@ -68,10 +68,10 @@
                                             <tbody>
                                                 <% for (var i = 0; i < products.length; i++) { %>
                                                     <tr>
-                                                        <td><%- products[i].Product.nameProd %></td>
+                                                        <td><%- products[i].nameProd %></td>
                                                         <td><%- products[i].unitPrice %></td>
                                                         <td><%- products[i].quantity %></td>
-                                                        <td><%- subtotal[0][i].total %></td>
+                                                        <td><%- products[i].Subtotal %></td>
                                                     </tr>
                                                 <% } %>
                                             </tbody>

@@ -6,12 +6,10 @@ const router = Router();
 
 const mainController = new MainController();
 router.get('/', mainController.getIndex.bind(mainController));
-router.get('/aboutUs', mainController.getaboutUs.bind(mainController));
 router.get('/profile', mainController.getProfile.bind(mainController));
 router.post('/profile/information', mainController.updateUser.bind(mainController));
 router.post('/profile/password', mainController.updatePassword.bind(mainController));
 router.get('/profile/orders/:id', mainController.getOrderDetail.bind(mainController));
-router.get('/fincas', mainController.getFincas.bind(mainController));
 router.use('/resetpass', resetpassRoute);
 
 router.get('/login', authController.showLogin);

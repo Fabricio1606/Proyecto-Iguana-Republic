@@ -2,6 +2,11 @@ const paypal = require("paypal-rest-sdk");
 const Orders = require("../models/orders");
 const Cart = require("../models/cart");
 
+const CartService = require("../services/cartService");
+const OrderService = require("../services/orderService");
+const cartService = new CartService();
+const orderService = new OrderService();
+
 const { PAYPAL_MODE, PAYPAL_CLIENT_KEY, PAYPAL_SECRET_KEY } = process.env;
 
 paypal.configure({
@@ -10,21 +15,23 @@ paypal.configure({
   client_secret: PAYPAL_SECRET_KEY,
 });
 
-const renderBuyPage = async (req, res) => {
+function getUser(req, res) {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+  return user;
+}
+
+const renderBuyPage = async (req, res, next) => {
   try {
     res.render("checkout");
   } catch (error) {
-    console.log(error.message);
+    next(error)
   }
 };
 
-const payProduct = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-  const cart = await Cart.findOne({
-    where: { ClientIdClient: user.idClient }
-  });
-  console.log(cart.totalPriceCart);
+const payProduct = async (req, res, next) => {
+  const user = getUser(req, res);
+  const cart = await cartService.getCartByClient(user.idClient);
 
   try {
     const create_payment_json = {
@@ -70,35 +77,18 @@ const payProduct = async (req, res) => {
       }
     });
   } catch (error) {
-    console.log(error.message);
-    res.render("500");
+    next(error);
   }
 };
 
-const successPage = async (req, res) => {
+const successPage = async (req, res, next) => {
   try {
-    res.locals.user = req.session.client;
-    const user = res.locals.user;
+    const user = getUser(req, res);
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
 
-    const cart = await Cart.findOne({
-      where: { 
-        ClientIdClient: user.idClient,
-        stateCart: 1
-      }
-    });
-    
-    const order = await Orders.create({
-      totalOrder: cart.totalPriceCart,
-      ClientIdClient: user.idClient,
-      CartIdCart: cart.idCart
-    });
-  
-    await Delivery.create({
-      commentDeli: comment,
-      OrderIdOrder: order.dataValues.idOrder
-    });
+    const cart = await cartService.getCartByClient(user.idClient);
+    await orderService.createOrder(cart.totalPriceCart, user.idClient, cart.idCart, "");
 
     const execute_payment_json = {
       payer_id: payerId,
@@ -125,8 +115,7 @@ const successPage = async (req, res) => {
       }
     );
   } catch (error) {
-    console.log(error.message);
-    res.render("500");
+    next(error)
   }
 };
 

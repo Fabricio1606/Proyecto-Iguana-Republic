@@ -86,24 +86,24 @@
 
                     <div class="leftside">
                         <div class="inputBox">
-                            <input type="text" name="nameProd" id="nameProd" required>
+                            <input type="text" name="name" id="name" required>
                             <span>Name</span>
                         </div>
                         <div class="inputBox">
-                            <input type="number" name="priceProd" id="priceProd" required>
+                            <input type="number" name="price" id="price" required>
                             <span>Price</span>
                         </div>
                         <div class="inputBox">
-                            <input type="number" name="stockProd" id="stockProd" required>
+                            <input type="number" name="stock" id="stock" required>
                             <span>Stock</span>
                         </div>
                         <div class="inputBox">
-                            <textarea maxlength="130" name="shortDescProd" id="shortProd" type="text" required></textarea>
+                            <textarea maxlength="130" name="short" id="short" type="text" required></textarea>
                             <span>Short description</span>
                         </div>
         
                         <div class="inputBox">
-                            <textarea class="description" name="descProd" id="descProd" type="text" required></textarea>
+                            <textarea class="description" name="desc" id="desc" type="text" required></textarea>
                             <span>Description</span>
                         </div>
 
@@ -112,7 +112,7 @@
     
                     <div class="rigthside">
                         <div class="inputBox" id="menu">
-                            <input type="text" class="menu" name="cateProd" id="cateProd" readonly placeholder="Select category">
+                            <input type="text" class="menu" name="cate" id="cate" readonly placeholder="Select category">
                             <div class="option">
                                 <% for (var i = 0; i < categories.length; i++) { %>
                                     <div onmouseover="show('<%- categories[i].nomCate %>')"><%- categories[i].nomCate %></div>
@@ -133,9 +133,8 @@
             </div>
         </main>
     </section>
+    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
 	<script src="/js/dashboard.js"></script>
 	<script src="/js/dropdown.js"></script>
-    <script src="/js/vendor/jquery-3.7.1.min.js"></script>
-    <script src="/js/form/product.js"></script>
 </body>
 </html>

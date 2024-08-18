@@ -9,41 +9,26 @@ const Orders = require("../models/orders.js");
 var easyinvoice = require('easyinvoice');
 const fs = require("fs");
 const path = require("path");
+const CartService = require("../services/cartService.js");
 
+const cartService = new CartService();
 const cartController = {};
 
-cartController.showCart = async (req, res) => {
+function getUser(req, res) {
   res.locals.user = req.session.client;
   const user = res.locals.user;
-  
+  return user;
+}
+
+cartController.showCart = async (req, res, next) => {
   try {
+    const user = getUser(req, res);
     if (user) {
-      var cart = await Cart.findOne({
-        where: {
-          ClientIdClient: user.idClient,
-          stateCart: 1
-        }
-      });
-    
-      if(cart == null) {
-        cart = await Cart.create({
-          stateCart: 1,
-          totalPriceCart: 0,
-          ClientIdClient: user.idClient,
-        });
-      }
-  
-      const details = await CartDetail.findAll({
-        include: Product,
-        where: {
-          CartIdCart: cart.idCart
-        }
-      });
-  
+      const cart = await cartService.showCart(user.idClient);
+      const details = await CartDetail.findAll({ include: Product, where: { CartIdCart: cart.idCart }});
       const records = await sequelize.query("SELECT quantity * unit_price as total FROM cartDetail WHERE cart_id_cart = :id",{
         replacements: { id: cart.idCart}
       });
-      
       res.render("cart", {
         user: res.locals.user.userClient,
         admin: res.locals.user.adminUser,
@@ -55,235 +40,49 @@ cartController.showCart = async (req, res) => {
       res.redirect("login");
     }
   } catch(ex) {
-    console.log(ex);
-    res.render("500");
+    next(ex)
   }
 };
 
-cartController.deleteProductCart = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-  const id = req.params.id;
-  
+cartController.deleteProductCart = async (req, res, next) => {  
   try {
+    const user = getUser(req, res);
     if (user) {
-      const cart = await Cart.findOne({
-        where: {
-          ClientIdClient: user.idClient,
-          stateCart: 1
-        }
-      });
-  
-      const productStock = await CartDetail.findOne({
-        where: {
-          idDetCart: id
-        }
-      });
-  
-      await Product.increment("stockProd", {
-        by: productStock.dataValues.quantity,
-        where: { idProd: productStock.dataValues.ProductIdProd }
-      });
-  
-      await productStock.destroy();
-  
-      var total = await CartDetail.findOne(
-        {
-          attributes: [
-            [
-              sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
-              "total",
-            ],
-          ],
-        },
-        {
-          where: {
-            CartIdCart: cart.idCart,
-          },
-        }
-      );
-  
-      if(total.dataValues.total == null) {
-        await Cart.update(
-          {
-            totalPriceCart: 0,
-          },
-          {
-            where: {
-              idCart: cart.idCart,
-            },
-          }
-        );
-      } else {
-        await Cart.update(
-          {
-            totalPriceCart: total.dataValues.total,
-          },
-          {
-            where: {
-              idCart: cart.idCart,
-            },
-          }
-        );
-      }
-  
+      const id = req.params.id;
+      await cartService.deleteProduct(id);
       res.redirect("/cart");
     } else {
       res.redirect("login");
     }
   } catch(ex) {
-    console.log(ex);
-    res.render("500")
+    next(ex)
   }
 }
 
 cartController.addToCart = async (req, res) => {
-  const { idProd, priceProd, quantityProd } = req.body;
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-
   try{
+    const { idProd, priceProd, quantityProd } = req.body;
+    const user = getUser(req, res);
     if (user) {
-      const cart = await Cart.findOne({
-        include: Client,
-        where: {
-          ClientIdClient: user.idClient,
-          stateCart: 1,
-        },
+      cartService.addToCart(idProd, priceProd, quantityProd, user.idClient);
+      res.json({
+        result: 1,
       });
-  
-      if (cart == null) {
-        await Cart.create({
-          stateCart: 1,
-          totalPriceCart: priceProd,
-          ClientIdClient: user.idClient,
-        });
-  
-        const newCart = await Cart.findOne({
-          include: Client,
-          where: {
-            ClientIdClient: user.idClient,
-            stateCart: 1,
-          },
-        });
-  
-        await CartDetail.create({
-          quantity: quantityProd,
-          unitPrice: priceProd,
-          CartIdCart: newCart.idCart,
-          ProductIdProd: idProd,
-        });
-        await Product.decrement("stockProd", {
-          by: quantityProd,
-          where: { idProd: idProd },
-        });
-  
-        var total = await CartDetail.findOne(
-          {
-            attributes: [
-              [
-                sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
-                "total",
-              ],
-            ],
-          },
-          {
-            where: {
-              CartIdCart: cart.idCart,
-            },
-          }
-        );
-  
-        await Cart.update(
-          {
-            totalPriceCart: total.dataValues.total,
-          },
-          {
-            where: {
-              idCart: cart.idCart,
-            },
-          }
-        );
-  
-        res.json({
-          result: 1,
-        });
-      } else {
-        const detail = await CartDetail.findOne({
-          where: {
-            CartIdCart: cart.idCart,
-            ProductIdProd: idProd,
-          },
-        });
-  
-        if (detail == null) {
-          await CartDetail.create({
-            quantity: quantityProd,
-            unitPrice: priceProd,
-            CartIdCart: cart.idCart,
-            ProductIdProd: idProd,
-          });
-          await Product.decrement("stockProd", {
-            by: quantityProd,
-            where: { idProd: idProd },
-          });
-        } else {
-          await detail.increment("quantity", {
-            by: quantityProd,
-            where: { CartIdCart: cart.idCart },
-          });
-          await Product.decrement("stockProd", {
-            by: quantityProd,
-            where: { idProd: idProd },
-          });
-        }
-  
-        var total = await CartDetail.findOne(
-          {
-            attributes: [
-              [
-                sequelize.fn("SUM", sequelize.literal("quantity * unit_price")),
-                "total",
-              ],
-            ],
-          },
-          {
-            where: {
-              CartIdCart: cart.idCart,
-            },
-          }
-        );
-  
-        await Cart.update(
-          {
-            totalPriceCart: total.dataValues.total,
-          },
-          {
-            where: {
-              idCart: cart.idCart,
-            },
-          }
-        );
-  
-        res.json({
-          result: 1,
-        });
-      }
     } else {
       res.json({
         result: 0,
       });
     }
   } catch(ex) {
-    console.log(ex);
-    res.render("500")
+    res.json({
+      result: 0,
+    });
   }
 };
 
 cartController.changeQuantity = async (req, res) => {
-  const { quantity, idProd, idCart } = req.body;
-
   try {
+    const { quantity, idProd, idCart } = req.body;
     await CartDetail.update({
       quantity: quantity
     }, {
@@ -337,11 +136,9 @@ cartController.changeQuantity = async (req, res) => {
   }
 }
 
-cartController.checkout = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-
+cartController.checkout = async (req, res, next) => {
   try {
+    const user = getUser(req, res);
     if(user) {
       if(user.addressClient != "N/A") {
         const cart = await Cart.findOne({
@@ -356,17 +153,14 @@ cartController.checkout = async (req, res) => {
       }
     }
   } catch(ex) {
-    console.log(ex);
-    res.render("500");
+    next(ex)
   }
 }
 
 cartController.makeOrder = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-  const { idCart, comment, total } = req.body;
-
   try{
+    const { idCart, comment, total } = req.body;
+    const user = getUser(req, res);
     const order = await Orders.create({
       totalOrder: total,
       ClientIdClient: user.idClient,
@@ -388,11 +182,9 @@ cartController.makeOrder = async (req, res) => {
   }
 }
 
-cartController.showBill = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-
+cartController.showBill = async (req, res, next) => {
   try{
+    const user = getUser(req, res);
     const cart = await Cart.findOne({
       where: { 
         ClientIdClient: user.idClient,
@@ -419,16 +211,13 @@ cartController.showBill = async (req, res) => {
   
     res.render("bill", { user: res.locals.user.userClient, admin: res.locals.user.adminUser })
   } catch(ex) {
-    console.log(ex)
-    res.render("500")
+    next(ex)
   }
 }
 
 cartController.downloadReceipt = async (req, res) => {
   try{
-    res.locals.user = req.session.client;
-    const user = res.locals.user;
-
+    const user = getUser(req, res);
     const cart = await Cart.findOne({
       where: { 
         ClientIdClient: user.idClient,

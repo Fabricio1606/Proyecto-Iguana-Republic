@@ -2,66 +2,53 @@ const productController = {};
 const Category = require("../models/category");
 const producto = require("../models/product")
 
-productController.showProduct = async (req, res) => {
-    res.locals.user = req.session.client;
-    const user = res.locals.user;
+const ProductService = require("../services/productService");
+const productService = new ProductService();
 
+function getUser(req, res) {
+  res.locals.user = req.session.client;
+  const user = res.locals.user;
+  return user;
+}
+
+productController.showProduct = async (req, res, next) => {
     try {
+      const user = getUser(req, res);
       const id = req.params.id;
-      const product = await producto.findByPk(id);
-      
-      if(user) {
-          // Renderizar la vista con los datos
-          res.render('product_detail', { user: res.locals.user.userClient, admin: res.locals.user.adminUser, product : product });
-        } else {
-          res.render("product_detail", { product : product })
-      }
+      const product = await productService.getProductById(id);
+
+      user ? res.render('product_detail', { user: user.userClient, admin: user.adminUser, product : product })
+           : res.render("product_detail", { product : product });
     } catch(ex) {
-      console.log(ex)
+      next(ex)
     }
 };
 
-productController.getAllProducts = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-
+productController.getAllProducts = async (req, res, next) => {
   try {
+    const user = getUser(req, res);
     const product = await producto.findAll();
     const category = await Category.findAll();
 
-    if(user) {
-      res.render("products", { user: res.locals.user.userClient, admin: res.locals.user.adminUser, products : product, categories : category });
-    } else {
-      res.render("products", { products : product, categories : category })
-    }
+    user ? res.render("products", { user: user.userClient, admin: user.adminUser, products : product, categories : category })
+         : res.render("products", { products : product, categories : category });
   } catch(ex) {
-    console.log(ex);
-    res.render("500");
+    next(ex);
   }
 };
 
-productController.getAllProductsByCategory = async (req, res) => {
-  res.locals.user = req.session.client;
-  const user = res.locals.user;
-
+productController.getAllProductsByCategory = async (req, res, next) => {
   try{
     const id = req.params.id;
+    const user = getUser(req, res);
 
     const category = await Category.findAll();
-    const product = await producto.findAll({
-      where: {
-        CategoryIdCate : id
-      }
-    });
-  
-    if(user) {
-      res.render("products", { user: res.locals.user.userClient, admin: res.locals.user.adminUser, products : product, categories : category });
-    } else {
-      res.render("products", { products : product, categories : category })
-    }
+    const product = await productService.getAllByCategory(id);
+
+    user ? res.render("products", { user: user.userClient, admin: user.adminUser, products : product, categories : category })
+         : res.render("products", { products : product, categories : category });
   } catch(ex) {
-    console.log(ex);
-    res.render("500");
+    next(ex);
   }
 }
 

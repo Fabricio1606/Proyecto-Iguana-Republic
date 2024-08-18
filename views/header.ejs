@@ -99,6 +99,103 @@
         </li>
       </ul>
     </nav>
+  <% } else if(opcion == 2){ %>
+    <nav class="nav container">
+      <a class="nav__logo" href="/">
+        <img src="/img/logo_alt.png" alt="">
+      </a>
+
+      <div class="nav__menu">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="/" class="nav__link">
+              <i class="ri-home-5-fill"></i>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="/" class="nav__link">
+              <i class="ri-award-fill"></i>
+              <span>About</span>
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="/" class="nav__link">
+              <i class="ri-message-3-fill"></i>
+              <span>Steps</span>
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="/products" class="nav__link">
+              <i class="ri-shopping-bag-4-fill"></i>
+              <span>Shop</span>
+            </a>
+          </li>
+
+          <% if (!user) { %>
+            <li class="nav__item">
+              <a href="/login" class="nav__link">
+                <i class="ri-login-box-fill"></i>
+                <span>Login</span>
+              </a>
+            </li>
+          <% } else { %>
+            <li class="nav__item burguer">
+              <a href="#" class="nav__link" id="account">
+                <i class="ri-menu-line"></i>
+                <span>Account</span>
+              </a>
+            </li>
+            
+            <% if (admin) { %>
+              <li class="nav__item dashboard">
+                <a href="/dashboard" class="nav__link">
+                  <span>Dashboard</span>
+                </a>
+              </li>
+            <% } %>
+
+            <li class="nav__item user">
+              <a href="/cart" class="nav__link" id="cart">
+                <i class="ri-shopping-cart-2-fill"></i>
+              </a>
+              <a href="/profile" class="nav__link  active-link" id="profile">
+                <i class="ri-user-fill"></i>
+              </a>
+              <a href="/logout" class="nav__link" id="logout">
+                <i class="ri-logout-box-fill"></i>
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+
+      <ul class="nav__list-movil" id="burguer">
+        <li class="nav__item">
+          <a href="/cart" class="nav__link">
+            <i class="ri-shopping-cart-2-fill"></i>
+            <span>Cart</span>
+          </a>
+        </li>
+
+        <li class="nav__item">
+          <a href="/profile" class="nav__link">
+            <i class="ri-user-fill"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+
+        <li class="nav__item">
+          <a href="/logout" class="nav__link">
+            <i class="ri-logout-box-fill"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   <% } else { %>
     <nav class="nav container">
       <a class="nav__logo" href="/">
