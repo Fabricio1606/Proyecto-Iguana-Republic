@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const Client = require('../models/client');
 const TokenModel = require('../models/tokenModel');
 const EmailService = require('../services/emailService');
@@ -17,6 +18,13 @@ function createSession(client, req, res) {
     res.locals.id = req.session.id;
 }
 
+function createSession(client, req, res) {
+    req.session.client = client;
+    req.session.id = client.idClient; 
+    res.locals.user = req.session.client;
+    res.locals.id = req.session.id;
+}
+
 authController.showLogin = (req, res, next) => {
     try {
         const countries = Country.getAllCountries();
@@ -26,6 +34,7 @@ authController.showLogin = (req, res, next) => {
     }
 };
 
+// Mostrar la página de registro
 authController.showRegister = (req, res) => {
     res.render('register');
 };
@@ -34,24 +43,44 @@ authController.showResetPasswordForm = (req, res) => {
     res.render('reset-password'); 
 };
 
+// Mostrar la página de error de inicio de sesión
 authController.showerrorLogin = (req, res) => {
     res.render('errorLogin');
 };
 
-authController.login = async (req, res, next) => {
-    try {
-        const { userClient, passClient } = req.body;
-        const client = await userService.getUserByUsername(userClient);
+// Manejar el inicio de sesión
+authController.login = async (req, res) => {
+    const { userClient, passClient } = req.body;
 
-        if (!client || !bcrypt.compareSync(passClient, client.passClient_hash)) {
+    try {
+        // Buscar al usuario en la base de datos
+        const client = await Client.findOne({ where: { userClient } });
+
+        if (!client) {
+            console.log("Usuario no encontrado");
             return res.redirect('errorLogin'); 
         }
+
+        console.log("Usuario encontrado:", client.userClient);
+        console.log("Contraseña ingresada:", passClient);
+        console.log("Hash en la base de datos:", client.passClient_hash);
+
+        // Verificar la contraseña encriptada usando bcrypt
+        const isPasswordMatch = await bcrypt.compare(passClient, client.passClient_hash);
+
+        console.log("¿Coincide la contraseña?:", isPasswordMatch);
+
+        if (!isPasswordMatch) {
+            console.log("Contraseña incorrecta");
+            return res.redirect('errorLogin'); 
+        }
+
         createSession(client, req, res);
-        res.redirect('/'); 
+        res.redirect('/');
     } catch (error) {
         next(error);
     }
-}; 
+};
 
 authController.register = async (req, res, next) => {
     try {
@@ -65,34 +94,34 @@ authController.register = async (req, res, next) => {
     }
 };
 
+// Manejar el restablecimiento de la contraseña
 authController.resetPassword = async (req, res) => {
     const { emailResetPass } = req.body;
 
     try {
-        // Generar un token único
-        const tokenModel = new TokenModel();
-        const resetToken = tokenModel.generateToken();
+        // Generar una única contraseña temporal de 8 caracteres
+        const tempPassword = crypto.randomBytes(4).toString('hex').slice(0, 8);
+        console.log('Contraseña temporal generada y enviada:', tempPassword);
 
         // Buscar al usuario en la base de datos
         const client = await Client.findOne({ where: { mailClient: emailResetPass } });
 
         if (!client) {
-            // Si el usuario no existe, enviar un mensaje de error
             req.flash('error_msg', 'Usuario no encontrado');
             return res.redirect('/resetpass');
         }
 
-        // Almacenar el token en el modelo del cliente
-        client.resetToken = resetToken;
-        await client.save();
+        // Enviar el correo electrónico con la contraseña temporal y guardarla en la base de datos
+        try {
+            await emailService.sendPasswordResetEmail(emailResetPass, client.idClient, tempPassword);
+            console.log('Email enviado con la contraseña temporal.');
+        } catch (emailError) {
+            console.error("Failed to send email:", emailError);
+            req.flash('error_msg', 'No se pudo enviar el correo electrónico.');
+            return res.redirect('/resetpass');
+        }
 
-        // Enviar el token por correo electrónico al usuario utilizando el servicio de correo electrónico
-        await emailService.sendPasswordResetEmail(emailResetPass, client.idClient, resetToken);
-
-        // Mostrar un mensaje flash de éxito
         req.flash('success_msg', 'Your temporary password has been sent.');
-
-        // Redirigir al usuario después de un breve tiempo
         setTimeout(() => {
             res.redirect('/login');
         }, 10000); // Redirigir después de 10 segundos
@@ -103,11 +132,13 @@ authController.resetPassword = async (req, res) => {
     }
 };
 
+
+// Manejar el cierre de sesión
 authController.logout = (req, res) => {
     req.session.destroy((err) => {
         if (err) {
             console.error(err);
-            res.render("500", { error: error });
+            res.render("500", { error: err });
         } else {
             res.locals.user = null;
             res.redirect('/');

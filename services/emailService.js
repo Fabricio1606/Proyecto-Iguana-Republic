@@ -4,7 +4,6 @@ const TempPassModel = require("../models/tempPassModel"); // Importa el modelo T
 class EmailService {
   constructor(senderEmail, tempPassModel) {
     // Configuración del servicio de correo
-    
     this.transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -25,13 +24,14 @@ class EmailService {
       from: this.senderEmail, // Utilizar el correo electrónico del remitente
       to: recipientEmail,
       subject: "Password Restablishment",
-      text: `Here your temporal password, ${temp_password}`,
+      text: `Here your temporal password: ${temp_password}`,
     };
 
     // Enviar el correo electrónico
     try {
       await this.transporter.sendMail(mailOptions);
       console.log("Email Sent");
+
       // Guardar la contraseña temporal en la base de datos usando el modelo TempPassModel
       await this.tempPassModel.saveTempPassword(user_id, temp_password);
     } catch (error) {

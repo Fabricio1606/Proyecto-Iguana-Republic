@@ -68,6 +68,8 @@
 
     "paypal-rest-sdk": "^1.8.1",
 
+    "proyecto-iguana-republic": "file:",
+
     "sequelize": "^6.36.0"
 
   },
