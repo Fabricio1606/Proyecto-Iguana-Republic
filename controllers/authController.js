@@ -18,13 +18,6 @@ function createSession(client, req, res) {
     res.locals.id = req.session.id;
 }
 
-function createSession(client, req, res) {
-    req.session.client = client;
-    req.session.id = client.idClient; 
-    res.locals.user = req.session.client;
-    res.locals.id = req.session.id;
-}
-
 authController.showLogin = (req, res, next) => {
     try {
         const countries = Country.getAllCountries();
@@ -49,7 +42,7 @@ authController.showerrorLogin = (req, res) => {
 };
 
 // Manejar el inicio de sesión
-authController.login = async (req, res) => {
+authController.login = async (req, res, next) => {
     const { userClient, passClient } = req.body;
 
     try {
@@ -134,11 +127,10 @@ authController.resetPassword = async (req, res) => {
 
 
 // Manejar el cierre de sesión
-authController.logout = (req, res) => {
+authController.logout = (req, res, next) => {
     req.session.destroy((err) => {
         if (err) {
-            console.error(err);
-            res.render("500", { error: err });
+            next(err)
         } else {
             res.locals.user = null;
             res.redirect('/');
