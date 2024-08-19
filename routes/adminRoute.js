@@ -6,7 +6,7 @@ const path = require("path");
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, require.main?.path + "/" + 'public/img/products')
+        cb(null, require.main?.path + "/home/iguatxvr/nodeapp/" + 'public/img/products')
     },
 
     filename: (req, file, cb) => {
