@@ -3,7 +3,9 @@ const producto = require("../models/product")
 
 class ProductService {
     async getProductById(id) {
-        return await producto.findByPk(id);
+        return await producto.findByPk(id, {
+            include: Category
+        });
     }
 
     async getAllByCategory(id) {
@@ -29,7 +31,7 @@ class ProductService {
     async modifyProduct(idProd, nameProd, priceProd, stockProd, shortDescProd, descProd, cateProd) {
         const category = await Category.findOne({ where: { nomCate: cateProd } })
         const CategoryIdCate = category.idCate;
-        await Products.update({
+        await producto.update({
             nameProd,
             priceProd,
             stockProd,
