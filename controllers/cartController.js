@@ -30,8 +30,8 @@ cartController.showCart = async (req, res, next) => {
         replacements: { id: cart.idCart}
       });
       res.render("cart", {
-        user: res.locals.user.userClient,
-        admin: res.locals.user.adminUser,
+        user: user.userClient,
+        admin: user.adminUser,
         products: details,
         cart: cart,
         subtotal: records
