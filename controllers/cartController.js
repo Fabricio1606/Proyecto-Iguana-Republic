@@ -12,10 +12,10 @@ const path = require("path");
 const CartService = require("../services/cartService.js");
 
 const cartService = new CartService();
-const cartController = {};
 
 class CartController {
-  getUser(req, res) {
+  constructor() {}
+  getUser = (req, res) => {
     res.locals.user = req.session.client;
     const user = res.locals.user;
     return user;
@@ -23,7 +23,8 @@ class CartController {
 
   async showCart(req, res, next) {
     try {
-      const user = this.getUser(req, res)
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       if (user) {
         const cart = await cartService.showCart(user.idClient);
         const details = await CartDetail.findAll({ include: Product, where: { CartIdCart: cart.idCart }});
@@ -41,7 +42,8 @@ class CartController {
 
   async deleteProduct(req, res, next) {
     try {
-      const user = this.getUser(req, res);
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       if (user) {
         const id = req.params.id;
         await cartService.deleteProduct(id);
@@ -56,8 +58,8 @@ class CartController {
 
   async addToCart(req, res) {
     try{
-      const { idProd, priceProd, quantityProd } = req.body;
-      const user = this.getUser(req, res);
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       if (user) {
         cartService.addToCart(idProd, priceProd, quantityProd, user.idClient);
         res.json({
@@ -133,7 +135,8 @@ class CartController {
 
   async checkout(req, res, next) {
     try {
-      const user = this.getUser(req, res);
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       if(user) {
         if(user.addressClient != "N/A") {
           const cart = await Cart.findOne({
@@ -155,7 +158,8 @@ class CartController {
   async makeOrder(req, res, next) {
     try{
       const { idCart, comment, total } = req.body;
-      const user = this.getUser(req, res);
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       const order = await Orders.create({
         totalOrder: total,
         ClientIdClient: user.idClient,
@@ -179,7 +183,8 @@ class CartController {
 
   async showBill(req, res, next) {
     try{
-      const user = this.getUser(req, res);
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       const cart = await Cart.findOne({
         where: { 
           ClientIdClient: user.idClient,
@@ -212,7 +217,8 @@ class CartController {
 
   async downloadReceipt(req, res, next) {
     try{
-      const user = this.getUser(req, res);
+      res.locals.user = req.session.client;
+      const user = res.locals.user;
       const cart = await Cart.findOne({
         where: { 
           ClientIdClient: user.idClient,
