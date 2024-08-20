@@ -23,7 +23,7 @@ class CartService {
             cart = await Cart.create({
               stateCart: 1,
               totalPriceCart: 0,
-              ClientIdClient: user.idClient,
+              ClientIdClient: idClient,
             });
         }
         return cart;
